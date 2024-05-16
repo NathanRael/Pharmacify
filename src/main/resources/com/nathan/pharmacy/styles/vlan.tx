@@ -1,0 +1,19 @@
+
+Switch>enable
+Switch#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#vlan 10
+Switch(config-vlan)#name Admin
+Switch(config-vlan)#vlan 20 
+Switch(config-vlan)#name Accounts
+Switch(config-vlan)#vlan 30
+Switch(config-vlan)#name Accounts
+VLAN #20 and #30 have an identical name: Accounts
+Switch(config-vlan)#vlan 30
+Switch(config-vlan)#name HR
+Switch(config-vlan)#vlan 40
+Switch(config-vlan)#name Voice
+Switch(config-vlan)#vlan 99
+Switch(config-vlan)#name Management
+Switch(config-vlan)#vlan 100
+Switch(config-vlan)#name Native
