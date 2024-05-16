@@ -6,21 +6,21 @@ public class ConnectionDb {
     private   Connection connection = null;
     private  Statement stat;
 
-    public ConnectionDb(){};
-
-    public   Connection connect() throws Exception {
+    public ConnectionDb() throws Exception {
         Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection(Config.URL, Config.USER, Config.PASSWORD);
         stat = connection.createStatement();
-        return connection;
+    };
+
+    public  ResultSet executeQuery(String query) throws Exception {
+        ResultSet res = stat.executeQuery(query);
+        return  res;
     }
 
-    public   ResultSet executeQuery(String query) throws SQLException {
-        return stat.executeQuery(query);
-    }
-
-    public void executeUpdateQuery(String query) throws SQLException{
-        stat.executeUpdate(query);
+    public int executeUpdateQuery(String query) throws SQLException{
+        int res = 0;
+        res = stat.executeUpdate(query);
+        return  res;
     }
 
     public void close() throws SQLException {

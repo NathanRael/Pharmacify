@@ -1,0 +1,18 @@
+/*Colors */
+.root{
+    -primary-100 : #18ad18;
+    -primary-80 : rgba(24, 173, 24,0.8);
+    -primary-60 : rgba(24, 173, 24,0.6);
+    -primary-40 : rgba(24, 173, 24,0.4);
+    -primary-10 : rgba(24, 173, 24,0.1);
+    -dark-100 : #1f1f1f;
+    -dark-80 : rgba(31, 31, 31, 0.8);
+    -dark-60 : rgba(31, 31, 31, 0.6);
+    -dark-40 : rgba(31, 31, 31, 0.4);
+    -dark-10 : rgba(31, 31, 31, 0.1);
+    -white-100 : #e2e2e2;
+    -white-80 : rgba(226, 226, 226, 0.8);
+    -white-60 : rgba(226, 226, 226, 0.6);
+    -white-40 : rgba(226, 226, 226, 0.4);
+    -white-10 : rgba(226, 226, 226, 0.1);
+}

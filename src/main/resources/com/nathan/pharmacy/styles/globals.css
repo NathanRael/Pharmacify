@@ -1,0 +1,104 @@
+/*Colors */
+.root {
+  -primary-100: #18ad18;
+  -primary-80: rgba(24, 173, 24, 0.8);
+  -primary-60: rgba(24, 173, 24, 0.6);
+  -primary-40: rgba(24, 173, 24, 0.4);
+  -primary-10: rgba(24, 173, 24, 0.1);
+  -dark-100: #1f1f1f;
+  -dark-80: rgba(31, 31, 31, 0.8);
+  -dark-60: rgba(31, 31, 31, 0.6);
+  -dark-40: rgba(31, 31, 31, 0.4);
+  -dark-10: rgba(31, 31, 31, 0.1);
+  -white-100: #e2e2e2;
+  -white-80: rgba(226, 226, 226, 0.8);
+  -white-60: rgba(226, 226, 226, 0.6);
+  -white-40: rgba(226, 226, 226, 0.4);
+  -white-10: rgba(226, 226, 226, 0.1);
+}
+
+/*Fonts*/
+.text-title-1 {
+  -fx-font-family: Segoe UI;
+  -fx-font-weight: bold;
+  -fx-font-size: 22px;
+}
+.text-title-2 {
+  -fx-font-family: Segoe UI;
+  -fx-font-weight: bold;
+  -fx-font-size: 20px;
+}
+
+.text-subtitle-1 {
+  -fx-font-family: Segoe UI;
+  -fx-font-weight: bold;
+  -fx-font-size: 18px;
+}
+
+.text-subtitle-2 {
+  -fx-font-family: Segoe UI;
+  -fx-font-weight: Regular;
+  -fx-font-size: 17px;
+}
+
+.text-lead {
+  -fx-font-family: Segoe UI;
+  -fx-font-weight: Regular;
+  -fx-font-size: 16px;
+}
+
+.text-base {
+  -fx-font-family: Segoe UI;
+  -fx-font-weight: Regular;
+  -fx-font-size: 14px;
+}
+
+.text-small {
+  -fx-font-family: Segoe UI;
+  -fx-font-weight: Regular;
+  -fx-font-size: 12px;
+}
+
+.font-bold {
+  -fx-font-family: Segoe UI;
+  -fx-font-weight: bold;
+}
+
+.font-regular {
+  -fx-font-family: Segoe UI;
+  -fx-font-weight: Regular;
+}
+
+
+/*controls*/
+.button {
+  -fx-padding: 12px 24px;
+  -fx-font-family: Segoe UI;
+  -fx-font-weight: bold;
+  -fx-font-size: 14px;
+  -fx-border-radius: 14px;
+  -fx-background-radius: 14px;
+  -fx-cursor: hand;
+  -fx-alignment: center;
+  -fx-background-color: -primary-100;
+}
+
+.button:hover {
+  -fx-background-color: -primary-80;
+}
+
+.input {
+  -fx-font-size: 14px;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
+  -fx-padding: 12px 24px;
+  -fx-alignment: center-left;
+
+  -fx-background-color: -white-10;
+  -fx-text-fill: -white-80;
+}
+
+.input:focused {
+  -fx-border-color: -dark-10 -dark-10 -primary-100 -dark-10;
+  -fx-border-width: 2px;
+}

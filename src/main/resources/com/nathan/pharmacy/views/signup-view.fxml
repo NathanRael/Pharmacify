@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="720.0" style="-fx-background-color: -dark-100;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.LoginController">
+<AnchorPane prefHeight="700.0" prefWidth="720.0" style="-fx-background-color: -dark-100;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.SignupController">
    <stylesheets>
       <URL value="@../styles/signup.css" />
       <URL value="@../styles/colors.css" />
@@ -69,6 +69,28 @@
                               </TextField>
                            </children>
                         </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0" prefHeight="235.0" prefWidth="340.0" spacing="8.0">
+                           <children>
+                              <Label fx:id="txtPhone" style="-fx-text-fill: -white-100;" text="Téléphone :" textFill="#e0e0e0">
+                                 <styleClass>
+                                    <String fx:value="default-font" />
+                                    <String fx:value="font-bold" />
+                                 </styleClass>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="inputPhone" promptText="Entrer votre numéro de téléphone">
+                                 <styleClass>
+                                    <String fx:value="bg-white-10" />
+                                    <String fx:value="input" />
+                                 </styleClass>
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor>
+                              </TextField>
+                           </children>
+                        </VBox>
                         <VBox layoutX="10.0" layoutY="106.0" prefHeight="235.0" prefWidth="340.0" spacing="8.0">
                            <children>
                               <Label fx:id="txtPassword" style="-fx-text-fill: -white-100;" text="Mot de passe :" textFill="#e0e0e0">
@@ -91,13 +113,35 @@
                               </PasswordField>
                            </children>
                         </VBox>
+                        <VBox layoutX="10.0" layoutY="198.0" prefHeight="235.0" prefWidth="340.0" spacing="8.0">
+                           <children>
+                              <Label fx:id="txtConfirm" style="-fx-text-fill: -white-100;" text="Confirmer :" textFill="#e0e0e0">
+                                 <styleClass>
+                                    <String fx:value="default-font" />
+                                    <String fx:value="font-bold" />
+                                 </styleClass>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <PasswordField fx:id="inputConfirm" promptText="Confirmer votre mot de passe">
+                                 <styleClass>
+                                    <String fx:value="input" />
+                                    <String fx:value="bg-white-10" />
+                                 </styleClass>
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor>
+                              </PasswordField>
+                           </children>
+                        </VBox>
                      </children>
                   </VBox>
                   <AnchorPane prefHeight="0.0" prefWidth="337.0">
                      <children>
                         <VBox layoutX="-6.099999904632568" layoutY="-3.0999999046325684" spacing="16.0">
                            <children>
-                              <Button fx:id="btnLogin" alignment="CENTER" contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#login" prefHeight="44.0" prefWidth="340.0" style="-fx-background-color: -primary-100; -fx-border-color: -primary-100;" text="Se connecter" textAlignment="CENTER" textFill="#e0e0e0">
+                              <Button fx:id="btnSignup" alignment="CENTER" contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#signup" prefHeight="44.0" prefWidth="340.0" style="-fx-background-color: -primary-100; -fx-border-color: -primary-100;" text="Créer un compte" textAlignment="CENTER" textFill="#e0e0e0">
                                  <font>
                                     <Font name="Segoe UI Bold" size="14.0" />
                                  </font>
@@ -105,7 +149,7 @@
                                     <Insets bottom="12.0" left="24.0" right="24.0" top="12.0" />
                                  </padding>
                               </Button>
-                              <Button fx:id="btnSignup" alignment="CENTER" contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchToSignup" prefHeight="44.0" prefWidth="340.0" style="-fx-background-color: transparent; -fx-border-color: -primary-100;" text="Créer un compte" textAlignment="CENTER" textFill="#e0e0e0">
+                              <Button fx:id="btnLogin" alignment="CENTER" contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#login" prefHeight="44.0" prefWidth="340.0" style="-fx-background-color: transparent; -fx-border-color: -primary-100;" text="Se connecter" textAlignment="CENTER" textFill="#e0e0e0">
                                  <font>
                                     <Font name="Segoe UI Bold" size="14.0" />
                                  </font>
