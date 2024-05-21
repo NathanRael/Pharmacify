@@ -5,16 +5,18 @@ import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
+import java.net.URL;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
-public class LoginController {
+public class LoginController implements Initializable {
 
+    private SceneChanger sceneChanger;
     @FXML
     private Button btnLogin;
 
@@ -28,10 +30,15 @@ public class LoginController {
     private PasswordField inputPassword;
 
     @FXML
+    private AnchorPane loginAnchorPane;
+
+
+    @FXML
     private Label txtName;
 
     @FXML
     private Label txtPassword;
+
 
     @FXML
     void login(ActionEvent event) throws Exception {
@@ -57,8 +64,6 @@ public class LoginController {
             }
         }
 
-//        System.out.println(currentUserInfoInDb);
-
         if (currentUserFound){
             if (password.equals(currentUserInfoInDb.get(2))){
                 //Switch scene
@@ -77,8 +82,15 @@ public class LoginController {
     }
 
     @FXML
-    void switchToSignup(ActionEvent event) {
+    void switchToSignup(ActionEvent event) throws IOException {
+        switchSceneTo("signup-view.fxml");
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
+    public void switchSceneTo(String sceneLocation) throws IOException {
+        SceneChanger.switchScene(loginAnchorPane, sceneLocation);
+    }
 }

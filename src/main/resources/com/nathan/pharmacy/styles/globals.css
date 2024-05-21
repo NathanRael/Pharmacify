@@ -69,9 +69,8 @@
   -fx-font-weight: Regular;
 }
 
-
 /*controls*/
-.button {
+.button-lg {
   -fx-padding: 12px 24px;
   -fx-font-family: Segoe UI;
   -fx-font-weight: bold;
@@ -83,8 +82,23 @@
   -fx-background-color: -primary-100;
 }
 
-.button:hover {
+.button-lg:hover {
   -fx-background-color: -primary-80;
+}
+
+.button-md {
+  -fx-font-weight: bold;
+  -fx-padding: 8px 16px;
+  -fx-font-family: Segoe UI;
+  -fx-font-weight: Regular;
+  -fx-font-size: 12px;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
+  -fx-cursor: hand;
+  -fx-alignment: center;
+  -fx-background-color: -primary-100;
+  -fx-text-fill: -white-100;
+  -fx-alignment: left;
 }
 
 .input {
@@ -101,4 +115,17 @@
 .input:focused {
   -fx-border-color: -dark-10 -dark-10 -primary-100 -dark-10;
   -fx-border-width: 2px;
+}
+
+.badge {
+  -fx-background-color: -primary-10;
+  -fx-background-radius: 8px;
+  -fx-border-radius: 8px;
+}
+
+.profile {
+  -fx-border-radius: 100%;
+  -fx-background-radius: 100%;
+  -fx-width : 48px;
+  -fx-heigth : 48px;
 }

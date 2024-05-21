@@ -9,6 +9,9 @@ import com.nathan.pharmacy.models.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+
+import java.io.IOException;
 
 public class SignupController {
     @FXML
@@ -30,6 +33,9 @@ public class SignupController {
     private TextField inputPhone;
 
     @FXML
+    private AnchorPane signupAnchorPane;
+
+    @FXML
     private Label txtConfirm;
 
     @FXML
@@ -40,11 +46,6 @@ public class SignupController {
 
     @FXML
     private Label txtPhone;
-
-    @FXML
-    void login(ActionEvent event) throws Exception {
-    }
-
 
     @FXML
     void signup(ActionEvent event) {
@@ -86,8 +87,18 @@ public class SignupController {
 
     }
 
+    @FXML
+    void switchToLogin(ActionEvent event) throws IOException {
+        switchSceneTo("login-view.fxml");
+    }
+
+
     public static boolean isPasswordConfirmed(String password, String confirm){
         return confirm.equals(password);
+    }
+
+    public void switchSceneTo(String sceneLocation) throws IOException {
+        SceneChanger.switchScene(signupAnchorPane, sceneLocation);
     }
 
 }

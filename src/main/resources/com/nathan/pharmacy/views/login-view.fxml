@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="720.0" style="-fx-background-color: -dark-100;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.LoginController">
+<AnchorPane fx:id="loginAnchorPane" prefHeight="700.0" prefWidth="720.0" style="-fx-background-color: -dark-100;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.LoginController">
    <stylesheets>
       <URL value="@../styles/signup.css" />
       <URL value="@../styles/colors.css" />
@@ -97,7 +97,7 @@
                      <children>
                         <VBox layoutX="-6.099999904632568" layoutY="-3.0999999046325684" spacing="16.0">
                            <children>
-                              <Button fx:id="btnLogin" alignment="CENTER" contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#login" prefHeight="44.0" prefWidth="340.0" style="-fx-background-color: -primary-100; -fx-border-color: -primary-100;" text="Se connecter" textAlignment="CENTER" textFill="#e0e0e0">
+                              <Button fx:id="btnLogin" alignment="CENTER" contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#login" prefHeight="44.0" prefWidth="340.0" style="-fx-background-color: -primary-100; -fx-border-color: -primary-100;" styleClass="button-lg" text="Se connecter" textAlignment="CENTER" textFill="#e0e0e0">
                                  <font>
                                     <Font name="Segoe UI Bold" size="14.0" />
                                  </font>
@@ -105,7 +105,7 @@
                                     <Insets bottom="12.0" left="24.0" right="24.0" top="12.0" />
                                  </padding>
                               </Button>
-                              <Button fx:id="btnSignup" alignment="CENTER" contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchToSignup" prefHeight="44.0" prefWidth="340.0" style="-fx-background-color: transparent; -fx-border-color: -primary-100;" text="Créer un compte" textAlignment="CENTER" textFill="#e0e0e0">
+                              <Button fx:id="btnSignup" alignment="CENTER" contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchToSignup" prefHeight="44.0" prefWidth="340.0" style="-fx-background-color: transparent; -fx-border-color: -primary-100;" styleClass="button-lg" text="Créer un compte" textAlignment="CENTER" textFill="#e0e0e0">
                                  <font>
                                     <Font name="Segoe UI Bold" size="14.0" />
                                  </font>

@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 
 public class UserController {
 
+    private final String[] tableRow = {"userId", "userName", "userPhone", "userPwd", "stockId", "userStatus"};
     private ConnectionDb connection;
     public UserController() throws Exception{
         connection =  new ConnectionDb();
@@ -26,5 +27,26 @@ public class UserController {
         return  res;
     }
 
+    public ResultSet selectAll() throws Exception{
+        ResultSet rs = null;
+        String query = "SELECT * FROM user";
+        rs = connection.executeQuery(query);
+        return rs;
 
+    }
+
+    public int getCount() throws Exception{
+        ResultSet rs = null;
+        String query = "SELECT count(*) as len FROM user";
+        rs = connection.executeQuery(query);
+        rs.next();
+        int len = rs.getInt("len");
+        return len;
+    }
+
+
+    public String[] getTableRows() {
+
+        return tableRow;
+    }
 }

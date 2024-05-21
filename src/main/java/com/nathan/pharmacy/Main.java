@@ -1,5 +1,6 @@
 package com.nathan.pharmacy;
 
+import com.nathan.pharmacy.controllers.SceneChanger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
