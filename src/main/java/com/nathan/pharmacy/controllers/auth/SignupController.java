@@ -1,19 +1,23 @@
-package com.nathan.pharmacy.controllers;
+package com.nathan.pharmacy.controllers.auth;
 
+import com.nathan.pharmacy.controllers.SceneChanger;
+import com.nathan.pharmacy.controllers.user.UserController;
 import com.nathan.pharmacy.controllers.form.classes.IsValidFields;
 import com.nathan.pharmacy.controllers.form.classes.ValidPassword;
 import com.nathan.pharmacy.controllers.form.classes.ValidPhone;
 import com.nathan.pharmacy.controllers.form.classes.ValidText;
-import com.nathan.pharmacy.controllers.form.interfaces.FieldsController;
 import com.nathan.pharmacy.models.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class SignupController {
+public class SignupController  implements Initializable {
     @FXML
     private Button btnLogin;
 
@@ -47,6 +51,11 @@ public class SignupController {
     @FXML
     private Label txtPhone;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
+
     @FXML
     void signup(ActionEvent event) {
         String name = inputName.getText();
@@ -68,6 +77,7 @@ public class SignupController {
                     uc.insert(user);
                     alert.setContentText("Inscription réussie");
                     alert.showAndWait();
+                    switchSceneTo("login");
 
                 }catch (Exception ex){
 
@@ -88,17 +98,17 @@ public class SignupController {
     }
 
     @FXML
-    void switchToLogin(ActionEvent event) throws IOException {
-        switchSceneTo("login-view.fxml");
+    void switchToLogin(ActionEvent event) {
+        switchSceneTo("login");
     }
-
 
     public static boolean isPasswordConfirmed(String password, String confirm){
         return confirm.equals(password);
     }
 
-    public void switchSceneTo(String sceneLocation) throws IOException {
-        SceneChanger.switchScene(signupAnchorPane, sceneLocation);
+    public void switchSceneTo(String sceneName) {
+        Stage currentStage = (Stage)btnLogin.getScene().getWindow();
+        SceneChanger.changeSceneTo(sceneName, currentStage);
     }
 
 }

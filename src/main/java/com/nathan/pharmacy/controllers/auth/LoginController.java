@@ -1,22 +1,20 @@
-package com.nathan.pharmacy.controllers;
+package com.nathan.pharmacy.controllers.auth;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
-import javafx.collections.ObservableList;
+import com.nathan.pharmacy.controllers.SceneChanger;
+import com.nathan.pharmacy.controllers.user.UserController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.util.*;
 
 public class LoginController implements Initializable {
 
-    private SceneChanger sceneChanger;
     @FXML
     private Button btnLogin;
 
@@ -39,7 +37,12 @@ public class LoginController implements Initializable {
     @FXML
     private Label txtPassword;
 
+//    private final Stage currentStage = (Stage)btnLogin.getScene().getWindow();
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
     @FXML
     void login(ActionEvent event) throws Exception {
         boolean currentUserFound = false;
@@ -50,7 +53,6 @@ public class LoginController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
 
-//        ObservableList<Object> users = FXCollections.observableArrayList();
 
         UserController uc = new UserController();
         ResultSet user;
@@ -66,9 +68,9 @@ public class LoginController implements Initializable {
 
         if (currentUserFound){
             if (password.equals(currentUserInfoInDb.get(2))){
-                //Switch scene
-                alert.setContentText("Connexion ...");
+                alert.setContentText("Redirection ...");
                 alert.showAndWait();
+                switchSceneTo("main");
             }else{
                 alert.setAlertType(Alert.AlertType.ERROR);
                 alert.setContentText("Mot de passe incorrect");
@@ -82,15 +84,13 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    void switchToSignup(ActionEvent event) throws IOException {
-        switchSceneTo("signup-view.fxml");
-    }
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
+    void switchToSignup(ActionEvent event) {
+       switchSceneTo("login");
     }
 
-    public void switchSceneTo(String sceneLocation) throws IOException {
-        SceneChanger.switchScene(loginAnchorPane, sceneLocation);
+    public void switchSceneTo(String sceneName) {
+        Stage currentStage = (Stage)btnLogin.getScene().getWindow();
+        SceneChanger.changeSceneTo(sceneName, currentStage);
     }
+
 }

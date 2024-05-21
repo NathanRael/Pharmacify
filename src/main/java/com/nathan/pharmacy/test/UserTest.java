@@ -1,6 +1,6 @@
 package com.nathan.pharmacy.test;
 
-import com.nathan.pharmacy.controllers.UserController;
+import com.nathan.pharmacy.controllers.user.UserController;
 import com.nathan.pharmacy.controllers.form.classes.IsValidFields;
 import com.nathan.pharmacy.controllers.form.classes.ValidPassword;
 import com.nathan.pharmacy.controllers.form.classes.ValidPhone;

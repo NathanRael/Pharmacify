@@ -1,5 +1,5 @@
 /*Colors */
-.root {
+/*.root {
   -primary-100: #18ad18;
   -primary-80: rgba(24, 173, 24, 0.8);
   -primary-60: rgba(24, 173, 24, 0.6);
@@ -15,7 +15,8 @@
   -white-60: rgba(226, 226, 226, 0.6);
   -white-40: rgba(226, 226, 226, 0.4);
   -white-10: rgba(226, 226, 226, 0.1);
-}
+}*/
+@import "colors.css";
 
 /*Fonts*/
 .text-title-1 {

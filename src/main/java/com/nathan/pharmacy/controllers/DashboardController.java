@@ -2,12 +2,20 @@ package com.nathan.pharmacy.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-public class DashboardController {
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
+public class DashboardController implements Initializable {
+
+    private SceneChanger sceneChanger;
     @FXML
     private FlowPane btnDashboard;
 
@@ -36,49 +44,22 @@ public class DashboardController {
     private Button btnNavUser;
 
     @FXML
+    private AnchorPane dashboardAnchorPane;
+
+    @FXML
     private VBox navbar;
 
     @FXML
     private VBox roleBadge;
 
-    @FXML
-    void logout(ActionEvent event) {
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
-
-    @FXML
-    void switchToDashboard(ActionEvent event) {
-
-    }
-
-    @FXML
-    void switchToHistory(ActionEvent event) {
-
-    }
-
-    @FXML
-    void switchToMedicine(ActionEvent event) {
-
-    }
-
-    @FXML
-    void switchToPatient(ActionEvent event) {
-
-    }
-
-    @FXML
-    void switchToPurchase(ActionEvent event) {
-
-    }
-
-    @FXML
-    void switchToSupplier(ActionEvent event) {
-
-    }
-
-    @FXML
-    void switchToUser(ActionEvent event) {
-
+    public void switchSceneTo(String sceneName) {
+        Stage currentStage = (Stage)navbar.getScene().getWindow();
+        SceneChanger.changeSceneTo(sceneName, currentStage);
     }
 
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-color: -dark-100;" stylesheets="@../styles/purchase.css" xmlns="http://javafx.com/javafx/1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Text layoutX="92.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" styleClass="text-title-1" text="Achat de médicament" AnchorPane.bottomAnchor="674.73828125" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="16.0" />
+    </children>
+</AnchorPane>

@@ -1,4 +1,4 @@
-package com.nathan.pharmacy.controllers;
+package com.nathan.pharmacy.controllers.user;
 
 
 import com.nathan.pharmacy.databases.ConnectionDb;
@@ -43,7 +43,6 @@ public class UserController {
         int len = rs.getInt("len");
         return len;
     }
-
 
     public String[] getTableRows() {
 

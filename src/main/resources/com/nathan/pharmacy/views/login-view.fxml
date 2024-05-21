@@ -13,14 +13,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="loginAnchorPane" prefHeight="700.0" prefWidth="720.0" style="-fx-background-color: -dark-100;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.LoginController">
+<AnchorPane fx:id="loginAnchorPane" prefHeight="700.0" prefWidth="720.0" style="-fx-background-color: -dark-100;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.auth.LoginController">
    <stylesheets>
       <URL value="@../styles/signup.css" />
       <URL value="@../styles/colors.css" />
       <URL value="@../styles/globals.css" />
    </stylesheets>
    <children>
-      <VBox alignment="CENTER" layoutX="190.0" layoutY="59.0" spacing="64.0" style="-fx-alignment: center;">
+      <VBox alignment="CENTER" layoutX="190.0" layoutY="142.0" spacing="64.0" style="-fx-alignment: center;" AnchorPane.bottomAnchor="157.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="190.0" AnchorPane.topAnchor="154.0">
          <children>
             <HBox spacing="8.0">
                <children>
@@ -42,7 +42,8 @@
                         <String fx:value="text-title-1" />
                      </styleClass>
                   </Label>
-               </children></HBox>
+               </children>
+            </HBox>
             <VBox fillWidth="false" spacing="40.0">
                <children>
                   <VBox prefHeight="0.0" prefWidth="340.0" spacing="24.0">

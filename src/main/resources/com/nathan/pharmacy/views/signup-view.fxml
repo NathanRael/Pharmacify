@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="signupAnchorPane" prefHeight="700.0" prefWidth="720.0" style="-fx-background-color: -dark-100;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.SignupController">
+<AnchorPane fx:id="signupAnchorPane" prefHeight="700.0" prefWidth="720.0" style="-fx-background-color: -dark-100;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.auth.SignupController">
    <stylesheets>
       <URL value="@../styles/signup.css" />
       <URL value="@../styles/colors.css" />
