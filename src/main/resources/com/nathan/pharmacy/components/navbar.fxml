@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="720.0" prefWidth="230.0" style="-fx-background-color: -dark-100;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.components.NavbarController">
+<AnchorPane prefHeight="720.0" prefWidth="230.0" style="-fx-background-color: -dark-100;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.components.NavbarController">
    <stylesheets>
       <URL value="@../styles/globals.css" />
       <URL value="@../styles/navbar.css" />
@@ -43,7 +43,7 @@
             </HBox>
             <VBox style="-fx-spacing: 16;">
                <children>
-                  <Button fx:id="btnNavDashboard" alignment="TOP_LEFT" graphicTextGap="8.0" mnemonicParsing="false" onAction="#switchToDashboard" prefHeight="26.0" prefWidth="223.0" style="-fx-text-fill: -white-100;" text="Tableau de bord">
+                  <Button fx:id="btnNavDashboard" graphicTextGap="8.0" mnemonicParsing="false" onAction="#switchToDashboard" prefHeight="26.0" prefWidth="223.0" style="-fx-text-fill: -white-100;" text="Tableau de bord">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -56,7 +56,7 @@
                         <String fx:value="nav-button" />
                      </styleClass>
                   </Button>
-                  <Button id="btnMedicine" fx:id="btnNavPurchase" alignment="TOP_LEFT" graphicTextGap="8.0" layoutX="10.0" layoutY="59.0" mnemonicParsing="false" onAction="#switchToPurchase" prefHeight="26.0" prefWidth="223.0" style="-fx-text-fill: -white-100;" text="Achat">
+                  <Button id="btnMedicine" fx:id="btnNavPurchase" graphicTextGap="8.0" layoutX="10.0" layoutY="59.0" mnemonicParsing="false" onAction="#switchToPurchase" prefHeight="26.0" prefWidth="223.0" style="-fx-text-fill: -white-100;" text="Achat">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -68,7 +68,7 @@
                         <String fx:value="nav-button" />
                      </styleClass>
                   </Button>
-                  <Button id="btnMedicine" fx:id="btnNavMedicine" alignment="TOP_LEFT" graphicTextGap="8.0" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#switchToMedicine" prefHeight="26.0" prefWidth="223.0" style="-fx-text-fill: -white-100;" text="Medicaments">
+                  <Button id="btnMedicine" fx:id="btnNavMedicine" graphicTextGap="8.0" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#switchToMedicine" prefHeight="26.0" prefWidth="223.0" style="-fx-text-fill: -white-100;" text="Medicaments">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -80,7 +80,7 @@
                         <String fx:value="nav-button" />
                      </styleClass>
                   </Button>
-                  <Button id="btnMedicine" fx:id="btnNavPatient" alignment="TOP_LEFT" graphicTextGap="8.0" layoutX="10.0" layoutY="59.0" mnemonicParsing="false" onAction="#switchToPatient" prefHeight="26.0" prefWidth="223.0" style="-fx-text-fill: -white-100; -fx-alignment: left;" text="Patients">
+                  <Button id="btnMedicine" fx:id="btnNavPatient" graphicTextGap="8.0" layoutX="10.0" layoutY="59.0" mnemonicParsing="false" onAction="#switchToPatient" prefHeight="26.0" prefWidth="223.0" style="-fx-text-fill: -white-100; -fx-alignment: left;" text="Patients">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -92,7 +92,7 @@
                         <String fx:value="nav-button" />
                      </styleClass>
                   </Button>
-                  <Button id="btnMedicine" fx:id="btnNavUser" alignment="TOP_LEFT" graphicTextGap="8.0" layoutX="10.0" layoutY="157.0" mnemonicParsing="false" onAction="#switchToUser" prefHeight="26.0" prefWidth="223.0" style="-fx-text-fill: -white-100; -fx-alignment: left;" text="Pharmaciens">
+                  <Button id="btnMedicine" fx:id="btnNavUser" graphicTextGap="8.0" layoutX="10.0" layoutY="157.0" mnemonicParsing="false" onAction="#switchToUser" prefHeight="26.0" prefWidth="223.0" style="-fx-text-fill: -white-100; -fx-alignment: left;" text="Pharmaciens">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -104,7 +104,7 @@
                         <String fx:value="nav-button" />
                      </styleClass>
                   </Button>
-                  <Button id="btnMedicine" fx:id="btnNavSupplier" alignment="TOP_LEFT" graphicTextGap="8.0" layoutX="10.0" layoutY="157.0" mnemonicParsing="false" onAction="#switchToSupplier" prefHeight="26.0" prefWidth="223.0" style="-fx-text-fill: -white-100; -fx-alignment: left;" text="Fournisseurs">
+                  <Button id="btnMedicine" fx:id="btnNavSupplier" graphicTextGap="8.0" layoutX="10.0" layoutY="157.0" mnemonicParsing="false" onAction="#switchToSupplier" prefHeight="26.0" prefWidth="223.0" style="-fx-text-fill: -white-100; -fx-alignment: left;" text="Fournisseurs">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -116,7 +116,7 @@
                         <String fx:value="nav-button" />
                      </styleClass>
                   </Button>
-                  <Button id="btnMedicine" fx:id="btnHistory" alignment="TOP_LEFT" graphicTextGap="8.0" layoutX="10.0" layoutY="108.0" mnemonicParsing="false" onAction="#switchToHistory" prefHeight="26.0" prefWidth="223.0" style="-fx-text-fill: -white-100; -fx-alignment: left;" text="Historiques">
+                  <Button id="btnMedicine" fx:id="btnHistory" graphicTextGap="8.0" layoutX="10.0" layoutY="108.0" mnemonicParsing="false" onAction="#switchToHistory" prefHeight="26.0" prefWidth="223.0" style="-fx-text-fill: -white-100; -fx-alignment: left;" text="Historiques">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

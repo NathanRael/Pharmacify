@@ -3,6 +3,8 @@ package com.nathan.pharmacy.controllers;
 import com.nathan.pharmacy.models.Model;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import java.net.URL;
@@ -12,15 +14,13 @@ public class MainController implements Initializable {
 
     @FXML
     private BorderPane mainParent;
-
+    @FXML
+    private AnchorPane navbar;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Model.getInstance().getViewFactory().getSelectedMenuItem().addListener((observableValue, oldVal, newVal) -> {
-            switch (newVal){
-                case "purchase" -> mainParent.setCenter(Model.getInstance().getViewFactory().getPurchaseView());
-                default -> mainParent.setCenter(Model.getInstance().getViewFactory().getDashboardView());
-            }
+            SceneChanger.updateSubScene(mainParent, newVal);
         } );
     }
 }

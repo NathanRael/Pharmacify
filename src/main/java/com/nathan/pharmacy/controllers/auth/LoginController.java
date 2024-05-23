@@ -85,7 +85,7 @@ public class LoginController implements Initializable {
 
     @FXML
     void switchToSignup(ActionEvent event) {
-       switchSceneTo("login");
+       switchSceneTo("signup");
     }
 
     public void switchSceneTo(String sceneName) {

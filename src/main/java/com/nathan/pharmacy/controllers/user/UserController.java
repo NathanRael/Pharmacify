@@ -5,6 +5,7 @@ import com.nathan.pharmacy.databases.ConnectionDb;
 import com.nathan.pharmacy.models.User;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class UserController {
 
@@ -22,9 +23,14 @@ public class UserController {
     }
 
     public ResultSet selectBy(String colName, String value) throws Exception{
-        String query = String.format("SELECT * FROM user WHERE userName = %s", colName, value.trim());
+        String query = String.format("SELECT * FROM user WHERE %s = %s", colName, value.trim());
         ResultSet res = connection.executeQuery(query);
         return  res;
+    }
+
+    public void Update(User user) throws SQLException {
+        String query = String.format("UPDATE user SET userName = %s,  userPhone = %s, stockId = %s, userStatus = %s WHERE userId = %s",user.getName(), user.getPhone(), user.getStockId(), user.getstatus(), user.getId());
+        connection.executeUpdateQuery(query);
     }
 
     public ResultSet selectAll() throws Exception{

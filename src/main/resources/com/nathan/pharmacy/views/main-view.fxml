@@ -2,11 +2,11 @@
 
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="mainParent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1260.0" style="-fx-background-color: -dark-100;" stylesheets="@../styles/colors.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" >
+<BorderPane  fx:id="mainParent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1260.0" style="-fx-background-color: -dark-100;" stylesheets="@../styles/colors.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <left>
-        <fx:include source="../components/navbar.fxml" BorderPane.alignment="TOP_LEFT" />
+        <fx:include fx:id="navbar" source="../components/navbar.fxml" BorderPane.alignment="TOP_LEFT" />
     </left>
     <center>
-        <fx:include source="dashboard-view.fxml" BorderPane.alignment="TOP_LEFT" />
+        <fx:include source="medicament-view.fxml" BorderPane.alignment="TOP_LEFT" />
     </center>
 </BorderPane>

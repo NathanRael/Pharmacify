@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-color: -dark-100;" stylesheets="@../styles/medicament.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.medicament.MedicamentController">
+   <children>
+      <VBox layoutX="16.0" layoutY="16.0" spacing="64.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="8.0">
+               <children>
+                  <FontAwesomeIconView fill="#18ad18" glyphName="CREDIT_CARD" selectionFill="#e2e2e2" size="24" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" styleClass="text-title-1" text="Médicaments" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="36.0" spacing="16.0" styleClass="search-container">
+               <children>
+                  <HBox>
+                     <children>
+                        <Button fx:id="btnSearch" mnemonicParsing="false" prefHeight="36.0" prefWidth="17.0" style="-fx-background-radius: 8 0 0 8;">
+                           <graphic>
+                              <FontAwesomeIconView fill="#e2e2e2" glyphName="SEARCH" size="16" />
+                           </graphic>
+                           <styleClass>
+                              <String fx:value="button-md" />
+                              <String fx:value="tex-base" />
+                           </styleClass>
+                        </Button>
+                        <TextField fx:id="inputSearch" prefHeight="36.0" prefWidth="620.0" promptText="Rechercher un medicament" style="-fx-background-radius: 0 8 8 0;" styleClass="input-md" />
+                     </children>
+                  </HBox>
+                  <ComboBox fx:id="selectFilterMedicament" prefHeight="36.0" prefWidth="150.0" promptText="Filtrage" style="-fx-padding: 4 16; fx-prompt-text-fill: #fff;" styleClass="input-md" />
+               </children>
+            </HBox>
+            <HBox alignment="BOTTOM_LEFT">
+               <children>
+                  <VBox spacing="8.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" text="Nom :">
+                           <styleClass>
+                              <String fx:value="text-base" />
+                              <String fx:value="font-700" />
+                           </styleClass>
+                        </Text>
+                        <TextField fx:id="inputMedName" promptText="Entrer le nom du medicament" style="-fx-background-radius: 8 0 0 8; -fx-border-radius: 8 0 0 8; -fx-border-color: -dark-100;" styleClass="input" />
+                     </children>
+                  </VBox>
+                  <VBox layoutX="10.0" layoutY="10.0" spacing="8.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" text="Prix :">
+                           <styleClass>
+                              <String fx:value="text-base" />
+                              <String fx:value="font-700" />
+                           </styleClass>
+                        </Text>
+                        <TextField fx:id="inputMedPrice" promptText="Entrer le nom du medicament" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-border-color: -dark-100;" styleClass="input" />
+                     </children>
+                  </VBox>
+                  <VBox layoutX="217.0" layoutY="10.0" spacing="8.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" text="Description :">
+                           <styleClass>
+                              <String fx:value="text-base" />
+                              <String fx:value="font-700" />
+                           </styleClass>
+                        </Text>
+                        <TextField fx:id="inputMedDesc" prefHeight="46.0" prefWidth="331.0" promptText="Entrer le nom du medicament" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-border-color: -dark-100;" styleClass="input" />
+                     </children>
+                  </VBox>
+                  <Button fx:id="btnAddMed" mnemonicParsing="false" style="-fx-text-fill: -white-100; -fx-background-radius: 0;" styleClass="button-lg" text="Ajouter" />
+                  <Button fx:id="btnEditMed" disable="true" layoutX="755.0" layoutY="40.0" mnemonicParsing="false" style="-fx-text-fill: -white-100; -fx-background-radius: 0 8 8 0; -fx-border-color: 0;" styleClass="button-lg" text="Modifier" />
+               </children>
+            </HBox>
+            <VBox spacing="4.0">
+               <children>
+                  <AnchorPane prefWidth="200.0" styleClass="table-header">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nom" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Prix" AnchorPane.leftAnchor="128.0" AnchorPane.topAnchor="0.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quantité Disponible" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="0.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description" AnchorPane.leftAnchor="554.0" AnchorPane.topAnchor="0.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Actions" AnchorPane.rightAnchor="128.0" AnchorPane.topAnchor="0.0" />
+                        <Text layoutX="173.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expiration" AnchorPane.leftAnchor="256.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+                  <ListView fx:id="tableMedList" prefHeight="311.0" prefWidth="972.0" style="-fx-background-color: -dark-100;" />
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets right="16.0" />
+         </padding>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+   </padding>
+</AnchorPane>

@@ -17,11 +17,11 @@
 }
 
 .medicament-cell {
-  -fx-padding:16px;
+  -fx-padding: 16px;
   -fx-spacing: 128px;
   -fx-border-color: -white-10;
   -fx-background-color: -primary-10;
-  -fx-alignment : center-left;
+  -fx-alignment: center-left;
 }
 
 .medicament-cell Label {

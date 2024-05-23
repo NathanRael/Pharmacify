@@ -21,7 +21,6 @@ public class UserTest {
     public static void update(){
 
     }
-
     public static void select() throws Exception {
         UserController uc = new UserController();
         String[] tableRows = uc.getTableRows();

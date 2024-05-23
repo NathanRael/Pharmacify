@@ -3,7 +3,7 @@ package com.nathan.pharmacy.models;
 import com.nathan.pharmacy.views.ViewFactory;
 //singleton design pattern
 public class Model {
-    private static Model model;
+    private static Model model = null;
     private final ViewFactory viewFactory;
 
     private Model(){

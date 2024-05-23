@@ -3,6 +3,7 @@ module com.nathan.pharmacy {
     requires javafx.fxml;
     requires java.sql;
     requires de.jensd.fx.glyphs.fontawesome;
+    requires de.jensd.fx.glyphs.commons;
 
     opens com.nathan.pharmacy to javafx.fxml;
     exports com.nathan.pharmacy;
@@ -13,4 +14,5 @@ module com.nathan.pharmacy {
     opens com.nathan.pharmacy.views to javafx.fxml;
     opens com.nathan.pharmacy.databases to java.sql;
     opens com.nathan.pharmacy.controllers.user to javafx.fxml;
+    opens com.nathan.pharmacy.controllers.dashboard to javafx.fxml;
 }

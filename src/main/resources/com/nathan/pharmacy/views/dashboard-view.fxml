@@ -1,10 +1,153 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-color: -dark-100;" stylesheets="@../styles/dashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Text layoutX="92.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" styleClass="text-title-1" text="Bienvenue, Nathan" AnchorPane.bottomAnchor="674.73828125" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="16.0" />
-   </children>
-</AnchorPane>
+<ScrollPane hbarPolicy="NEVER" hmax="0.0" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-color: transparent;" stylesheets="@../styles/dashboard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.dashboard.DashboardController">
+   <content>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1200.0" prefWidth="1020.0" style="-fx-background-color: -dark-100;">
+         <children>
+            <VBox layoutX="20.0" layoutY="6.0" prefWidth="1020.0" spacing="40.0" styleClass="dashboard-box" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <HBox>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" styleClass="text-title-1" text="Bienvenue, " />
+                        <Text layoutX="10.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -primary-100;" styleClass="text-title-1" text="Nathan" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="90.0" styleClass="dashboard-card-container">
+                     <children>
+                        <AnchorPane prefWidth="240.0" styleClass="dashboard-card">
+                           <children>
+                              <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pharmaciens" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0">
+                                 <styleClass>
+                                    <String fx:value="indication" />
+                                    <String fx:value="font-700" />
+                                 </styleClass>
+                              </Text>
+                              <Text layoutX="25.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="50" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="16.0">
+                                 <styleClass>
+                                    <String fx:value="number" />
+                                    <String fx:value="font-700" />
+                                 </styleClass>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="99.0" prefWidth="240.0" styleClass="dashboard-card">
+                           <children>
+                              <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clients" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0">
+                                 <styleClass>
+                                    <String fx:value="indication" />
+                                    <String fx:value="font-700" />
+                                 </styleClass>
+                              </Text>
+                              <Text layoutX="25.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="164" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="16.0">
+                                 <styleClass>
+                                    <String fx:value="number" />
+                                    <String fx:value="font-700" />
+                                 </styleClass>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="250.0" layoutY="10.0" prefWidth="240.0" styleClass="dashboard-card">
+                           <children>
+                              <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Médicaments" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0">
+                                 <styleClass>
+                                    <String fx:value="indication" />
+                                    <String fx:value="font-700" />
+                                 </styleClass>
+                              </Text>
+                              <Text layoutX="25.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="+1600" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="16.0">
+                                 <styleClass>
+                                    <String fx:value="number" />
+                                    <String fx:value="font-700" />
+                                 </styleClass>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+                  <VBox prefWidth="988.0" spacing="16.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="8.0">
+                           <children>
+                              <FontAwesomeIconView fill="#18ad18" glyphName="AREA_CHART" selectionFill="BLACK" size="24" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" styleClass="text-title-1" text="Statistiques" />
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <AnchorPane prefHeight="327.0" prefWidth="988.0">
+                           <children>
+                              <AnchorPane prefWidth="521.0" styleClass="stat-line-chart-container">
+                                 <children>
+                                    <AreaChart prefHeight="367.0" prefWidth="522.0" style="-fx-background-color: white-10;" titleSide="BOTTOM" AnchorPane.leftAnchor="-24.0" AnchorPane.topAnchor="24.0">
+                                       <xAxis>
+                                          <CategoryAxis label="Jours" side="BOTTOM" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis label="Revenues" side="LEFT" />
+                                       </yAxis>
+                                    </AreaChart>
+                                    <Text layoutX="50.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" text="Revenues journalier" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="8.0">
+                                       <styleClass>
+                                          <String fx:value="text-base" />
+                                          <String fx:value="font-700" />
+                                       </styleClass>
+                                    </Text>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="550.0" layoutY="14.0" prefHeight="394.0" prefWidth="200.0" styleClass="stat-pie-chart-container" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Label layoutX="131.0" layoutY="293.0" text="Metronidazole" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="131.0">
+                                       <styleClass>
+                                          <String fx:value="stat-product-label" />
+                                          <String fx:value="text-lead" />
+                                       </styleClass>
+                                    </Label>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" text="Medicament le plus vendu" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="12.0">
+                                       <styleClass>
+                                          <String fx:value="text-base" />
+                                          <String fx:value="font-700" />
+                                       </styleClass>
+                                    </Text>
+                                    <PieChart layoutX="66.0" layoutY="56.0" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: -primary-10; -fx-background-radius: 999;" AnchorPane.leftAnchor="66.0" AnchorPane.topAnchor="56.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+                  <VBox prefWidth="972.0" spacing="16.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="8.0">
+                           <children>
+                              <FontAwesomeIconView fill="#18ad18" glyphName="MONEY" selectionFill="BLACK" size="24" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" styleClass="text-title-1" text="Dernier ventes" />
+                           </children>
+                        </HBox>
+                        <ListView prefWidth="972.0" styleClass="last-purchase" />
+                     </children>
+                     <VBox.margin>
+                        <Insets right="16.0" />
+                     </VBox.margin>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </content>
+</ScrollPane>
