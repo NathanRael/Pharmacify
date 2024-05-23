@@ -4,11 +4,15 @@ import com.nathan.pharmacy.controllers.SceneChanger;
 import com.nathan.pharmacy.models.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class NavbarController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class NavbarController implements Initializable {
 
     @FXML
     private Button btnHistory;
@@ -47,11 +51,16 @@ public class NavbarController {
 
     @FXML
     void switchToDashboard(ActionEvent event) {
-        Model.getInstance().getViewFactory().getSelectedMenuItem().set("dashboard");
+        switchSubsceneTo("dashboard");
     }
     @FXML
     void switchToPurchase(ActionEvent event) {
-        Model.getInstance().getViewFactory().getSelectedMenuItem().set("purchase");
+        switchSubsceneTo("purchase");
+    }
+
+    @FXML
+    void switchToMedicine(ActionEvent event) {
+        switchSubsceneTo("medicament");
     }
 
     @FXML
@@ -59,10 +68,7 @@ public class NavbarController {
 
     }
 
-    @FXML
-    void switchToMedicine(ActionEvent event) {
 
-    }
 
     @FXML
     void switchToPatient(ActionEvent event) {
@@ -80,9 +86,17 @@ public class NavbarController {
 
     }
 
+    public void switchSubsceneTo(String sceneName){
+        Model.getInstance().getViewFactory().getSelectedMenuItem().set(sceneName);
+    }
+
     public void switchSceneTo(String sceneName) {
         Stage currentStage = (Stage)navbar.getScene().getWindow();
         SceneChanger.changeSceneTo(sceneName, currentStage);
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 }

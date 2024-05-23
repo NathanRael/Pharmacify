@@ -22,9 +22,10 @@ public class SceneChanger {
     }
 
     public static void updateSubScene(BorderPane mainParent, String newVal){
-
         switch (newVal){
+            case "dashboard" -> mainParent.setCenter(Model.getInstance().getViewFactory().getDashboardView());
             case "purchase" -> mainParent.setCenter(Model.getInstance().getViewFactory().getPurchaseView());
+            case "medicament" -> mainParent.setCenter(Model.getInstance().getViewFactory().getMedicamentView());
             default -> mainParent.setCenter(Model.getInstance().getViewFactory().getDashboardView());
         }
     }

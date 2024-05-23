@@ -52,7 +52,6 @@
                      </graphic>
                      <styleClass>
                         <String fx:value="button-md" />
-                        <String fx:value="nav-active" />
                         <String fx:value="nav-button" />
                      </styleClass>
                   </Button>

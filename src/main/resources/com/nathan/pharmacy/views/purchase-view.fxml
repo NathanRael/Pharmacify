@@ -4,18 +4,16 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-color: -dark-100;" stylesheets="@../styles/purchase.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-color: -dark-100;" stylesheets="@../styles/purchase.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.purchase.PurchaseController">
    <children>
-      <VBox layoutX="16.0" layoutY="16.0" spacing="32.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="16.0" layoutY="16.0" spacing="64.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox alignment="CENTER_LEFT" spacing="8.0">
                <children>
@@ -39,7 +37,7 @@
                         <TextField prefHeight="36.0" prefWidth="620.0" promptText="Rechercher un medicament" style="-fx-background-radius: 0 8 8 0;" styleClass="input-md" />
                      </children>
                   </HBox>
-                  <ComboBox prefHeight="13.0" prefWidth="150.0" promptText="Filtrage" style="-fx-padding: 4 16; fx-prompt-text-fill: #fff;" styleClass="input-md" />
+                  <ChoiceBox fx:id="selectMedFilter" prefHeight="36.0" prefWidth="150.0" style="-fx-padding: 4 8;" styleClass="input-md" />
                </children>
             </HBox>
             <HBox alignment="BOTTOM_LEFT">
@@ -103,18 +101,7 @@
                         <Text layoutX="173.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expiration" AnchorPane.leftAnchor="256.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane prefHeight="38.0" prefWidth="972.0" styleClass="medicament-cell">
-                     <children>
-                        <Label style="-fx-text-fill: -white-100;" text="Paracétamol" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="8.0" />
-                        <Label style="-fx-text-fill: -white-100;" text="200 Ar" AnchorPane.leftAnchor="128.0" AnchorPane.topAnchor="8.0" />
-                        <Label style="-fx-text-fill: -white-100;" text="12/10/24" AnchorPane.leftAnchor="256.0" AnchorPane.topAnchor="8.0" />
-                        <Label text="120" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="8.0" />
-                        <Button mnemonicParsing="false" style="-fx-background-color: -primary-10; -fx-text-fill: -primary-100;" styleClass="button-md" text="Selectionner" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <Label layoutX="23.0" layoutY="8.0" style="-fx-text-fill: -white-100;" text="id" visible="false" />
-                        <Label layoutX="283.0" layoutY="35.0" style="-fx-text-fill: -white-100;" text="Algéstique ..." AnchorPane.leftAnchor="554.0" AnchorPane.topAnchor="8.0" />
-                     </children>
-                  </AnchorPane>
-                  <ListView prefHeight="438.0" prefWidth="972.0" style="-fx-background-color: -dark-100;" />
+<!--                  <ListView fx:id="tabMedPurchase" prefHeight="411.0" prefWidth="972.0" style="-fx-background-color: -dark-100;" />-->
                </children>
             </VBox>
          </children>

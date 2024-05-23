@@ -1,6 +1,5 @@
 package com.nathan.pharmacy.views;
 
-import com.nathan.pharmacy.Main;
 import com.nathan.pharmacy.controllers.MainController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -18,6 +17,7 @@ public class ViewFactory {
     private final StringProperty selectedMenuItem;
     private AnchorPane dashboardView;
     private AnchorPane purchaseView;
+    private AnchorPane medicamentView;
 
 
     public ViewFactory(){
@@ -29,6 +29,7 @@ public class ViewFactory {
             try{
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("dashboard-view.fxml"));
                 dashboardView = fxmlLoader.load();
+
             }catch (IOException ex){
                 ex.printStackTrace();
             }
@@ -47,21 +48,32 @@ public class ViewFactory {
         }
         return purchaseView;
     }
+    public AnchorPane getMedicamentView(){
+        if (medicamentView == null){
+            try{
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("medicament-view.fxml"));
+                medicamentView = fxmlLoader.load();
+            }catch (IOException ex){
+                ex.printStackTrace();
+            }
+        }
+        return medicamentView;
+    }
 
     public void showLoginWindow(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login-view.fxml"));
-        createStage(fxmlLoader);
+        createStage(fxmlLoader, false);
     }
     public void showSignupWindow(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("signup-view.fxml"));
-        createStage(fxmlLoader);
+        createStage(fxmlLoader, false);
     }
 
     public void showMainWindow(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
         MainController mainController = new MainController();
         fxmlLoader.setController(mainController);
-        createStage(fxmlLoader);
+        createStage(fxmlLoader, true);
     }
 
     public void showNotFoundWindow(){
@@ -87,18 +99,21 @@ public class ViewFactory {
         stage.show();
     }
 
-    private void createStage(FXMLLoader fxmlLoader){
+    private void createStage(FXMLLoader fxmlLoader, boolean fullscreen){
         Scene scene = null;
         try{
             scene  = new Scene(fxmlLoader.load());
 
         }catch (IOException ex){
-            ex.printStackTrace();
+            System.out.println(ex);
         }
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("Pharmacify");
-        stage.setResizable(false);
+        if (fullscreen){
+            stage.setFullScreen(true);
+        }
+//        stage.setResizable(false);
         stage.show();
     }
 

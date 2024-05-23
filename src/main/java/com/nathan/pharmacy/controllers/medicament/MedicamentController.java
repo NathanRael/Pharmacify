@@ -2,10 +2,7 @@ package com.nathan.pharmacy.controllers.medicament;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,13 +31,13 @@ public class MedicamentController implements Initializable {
     private TextField inputSearch;
 
     @FXML
-    private ComboBox<String> selectFilterMedicament;
+    private ChoiceBox<String> selectMedFilter;
 
     @FXML
     private ListView<Object> tableMedList;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        selectMedFilter.getItems().addAll("Prix", "Date");
     }
 }
