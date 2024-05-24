@@ -1,9 +1,7 @@
 package com.nathan.pharmacy.controllers;
 
-import com.nathan.pharmacy.contstants.Scenes;
-import com.nathan.pharmacy.models.Model;
+import com.nathan.pharmacy.models.Singleton;
 
-import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -11,22 +9,22 @@ import javafx.stage.Stage;
 public class SceneChanger {
 
     public static void changeSceneTo(String sceneName, Stage currentStage){
-        Model.getInstance().getViewFactory().closeStage(currentStage);
+        Singleton.getInstance().getViewFactory().closeStage(currentStage);
 
         switch (sceneName){
-            case "login" -> Model.getInstance().getViewFactory().showLoginWindow();
-            case "signup" -> Model.getInstance().getViewFactory().showSignupWindow();
-            case "main" -> Model.getInstance().getViewFactory().showMainWindow();
-            default ->  Model.getInstance().getViewFactory().showNotFoundWindow();
+            case "login" -> Singleton.getInstance().getViewFactory().showLoginWindow();
+            case "signup" -> Singleton.getInstance().getViewFactory().showSignupWindow();
+            case "main" -> Singleton.getInstance().getViewFactory().showMainWindow();
+            default ->  Singleton.getInstance().getViewFactory().showNotFoundWindow();
         }
     }
 
     public static void updateSubScene(BorderPane mainParent, String newVal){
         switch (newVal){
-            case "dashboard" -> mainParent.setCenter(Model.getInstance().getViewFactory().getDashboardView());
-            case "purchase" -> mainParent.setCenter(Model.getInstance().getViewFactory().getPurchaseView());
-            case "medicament" -> mainParent.setCenter(Model.getInstance().getViewFactory().getMedicamentView());
-            default -> mainParent.setCenter(Model.getInstance().getViewFactory().getDashboardView());
+            case "dashboard" -> mainParent.setCenter(Singleton.getInstance().getViewFactory().getDashboardView());
+            case "purchase" -> mainParent.setCenter(Singleton.getInstance().getViewFactory().getPurchaseView());
+            case "medicament" -> mainParent.setCenter(Singleton.getInstance().getViewFactory().getMedicamentView());
+            default -> mainParent.setCenter(Singleton.getInstance().getViewFactory().getDashboardView());
         }
     }
 

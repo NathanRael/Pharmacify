@@ -1,6 +1,7 @@
 @import "colors.css";
 @import "globals.css";
 
+
 .table-header {
   -fx-background-color: -gray-100;
   -fx-border-color: -white-10;
@@ -29,3 +30,56 @@
   -fx-font-size: 14px;
   -fx-font-weight: 700;
 }
+
+//Tables
+
+.table-view{
+   -fx-background-color: transparent;
+}
+
+.table-view .column-header-background .filler{
+    -fx-background-color : transparent;
+}
+
+.table-view .corner{
+    -fx-background-color : transparent;
+}
+
+.table-view .column-header-background{
+    -fx-background-color : -white-10;
+    -fx-background-radius : 8px 8px 0 0;
+    -fx-border-radius : 8px 8px 0 0;
+/*    -fx-background-insets : 0 11px 0;
+    -fx-border-insets : 0 11px 0;*/
+    -fx-padding : 8px 0;
+    -fx-border-color : -white-10;
+}
+
+.table-view .column-header{
+    -fx-background-color : transparent;
+    -fx-text-background-color : -white-100;
+    -fx-text-alignment : LEFT;
+    -fx-font-size : 14px;
+}
+
+.table-view .table-cell {
+    -fx-border-color : transparent;
+    -fx-padding : 8px 4px;
+    -fx-text-background-color : -white-100;
+    -fx-font-size : 14px;
+}
+
+.table-row-cell: odd{
+   -fx-background-color : -white-10;
+}
+
+.table-row-cell: even{
+   -fx-background-color : transparent;
+}
+
+.table-row-cell:focused , .table-row-cell:hover {
+    -fx-background-color :-primary-10;
+    -fx-text-background-color : -white-100;
+    -fx-cursor : hand;
+}
+

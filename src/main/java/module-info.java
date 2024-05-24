@@ -6,6 +6,7 @@ module com.nathan.pharmacy {
     requires de.jensd.fx.glyphs.commons;
 
     opens com.nathan.pharmacy to javafx.fxml;
+    opens com.nathan.pharmacy.models to javafx.base;
     exports com.nathan.pharmacy;
     opens com.nathan.pharmacy.controllers to javafx.fxml;
     opens com.nathan.pharmacy.controllers.auth to javafx.fxml;

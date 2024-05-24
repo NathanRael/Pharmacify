@@ -1,27 +1,33 @@
 package com.nathan.pharmacy.models;
+
+import java.time.LocalDate;
+
 //Medicament(medId, medName, medDesc, medPrice, medQuantity, #stockId)
 public class Medicament {
     private int id;
     private String name;
     private String desc;
-    private String price;
-    private float quantity;
-    private int stokId;
+    private float price;
+    private int quantity;
+    private LocalDate expDate;
+    private int stockId;
 
-    public Medicament(int id, String name, String desc, String price, float quantity, int stokId) {
+    public Medicament(int id, String name, String desc, float price, int quantity, int stockId,  LocalDate expDate) {
         this.id = id;
         this.name = name;
         this.desc = desc;
         this.price = price;
         this.quantity = quantity;
-        this.stokId = stokId;
+        this.stockId = stockId;
+        this.expDate = expDate;
     }
-    public Medicament(String name, String desc, String price, float quantity, int stokId) {
+    public Medicament(String name, String desc, float price, int quantity, int stockId,  LocalDate expDate) {
         this.name = name;
         this.desc = desc;
         this.price = price;
         this.quantity = quantity;
-        this.stokId = stokId;
+        this.stockId = stockId;
+        this.expDate = expDate;
     }
 
     public int getId() {
@@ -48,11 +54,11 @@ public class Medicament {
         this.desc = desc;
     }
 
-    public String getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
@@ -60,15 +66,23 @@ public class Medicament {
         return quantity;
     }
 
-    public void setQuantity(float quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public int getStokId() {
-        return stokId;
+    public int getStockId() {
+        return stockId;
     }
 
-    public void setStokId(int stokId) {
-        this.stokId = stokId;
+    public void setStockId(int stockId) {
+        this.stockId = stockId;
+    }
+
+    public LocalDate getExpDate() {
+        return expDate;
+    }
+
+    public void setExpDate(LocalDate expDate) {
+        this.expDate = expDate;
     }
 }

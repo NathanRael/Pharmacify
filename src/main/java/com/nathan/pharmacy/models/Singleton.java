@@ -2,19 +2,19 @@ package com.nathan.pharmacy.models;
 
 import com.nathan.pharmacy.views.ViewFactory;
 //singleton design pattern
-public class Model {
-    private static Model model = null;
+public class Singleton {
+    private static Singleton singleton = null;
     private final ViewFactory viewFactory;
 
-    private Model(){
+    private Singleton(){
         this.viewFactory = new ViewFactory();
     }
 
-    public static synchronized Model getInstance(){
-        if (model == null){
-            model = new Model();
+    public static synchronized Singleton getInstance(){
+        if (singleton == null){
+            singleton = new Singleton();
         }
-        return model;
+        return singleton;
     }
 
     public ViewFactory getViewFactory(){

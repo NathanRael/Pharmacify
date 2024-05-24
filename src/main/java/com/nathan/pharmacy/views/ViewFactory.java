@@ -6,6 +6,7 @@ import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -15,7 +16,7 @@ import java.io.IOException;
 
 public class ViewFactory {
     private final StringProperty selectedMenuItem;
-    private AnchorPane dashboardView;
+    private ScrollPane dashboardView;
     private AnchorPane purchaseView;
     private AnchorPane medicamentView;
 
@@ -24,7 +25,7 @@ public class ViewFactory {
         this.selectedMenuItem = new SimpleStringProperty("");
     };
 
-    public AnchorPane getDashboardView(){
+    public ScrollPane getDashboardView(){
         if (dashboardView == null){
             try{
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("dashboard-view.fxml"));
@@ -73,7 +74,7 @@ public class ViewFactory {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
         MainController mainController = new MainController();
         fxmlLoader.setController(mainController);
-        createStage(fxmlLoader, true);
+        createStage(fxmlLoader, false);
     }
 
     public void showNotFoundWindow(){

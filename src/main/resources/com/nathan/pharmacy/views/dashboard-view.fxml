@@ -8,27 +8,28 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: -dark-100;" stylesheets="@../styles/dashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.dashboard.DashboardController">
-   <children>
-      <ScrollPane fx:id="scroll" hbarPolicy="NEVER" hmax="0.0" layoutX="10.0" layoutY="10.0" pannable="true" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-color: transparent;" stylesheets="@../styles/dashboard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1200.0" prefWidth="1020.0" style="-fx-background-color: -dark-100;">
+<ScrollPane fx:id="scroll" hbarPolicy="NEVER" hmax="0.0" pannable="true" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-color: transparent;" stylesheets="@../styles/dashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1200.0" prefWidth="1020.0" style="-fx-background-color: -dark-100;">
+         <children>
+            <VBox alignment="CENTER" layoutX="20.0" layoutY="6.0" prefWidth="1020.0" spacing="64.0" styleClass="dashboard-box" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <VBox layoutX="20.0" layoutY="6.0" prefWidth="1020.0" spacing="40.0" styleClass="dashboard-box" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox>
                      <children>
-                        <HBox>
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" styleClass="text-title-1" text="Bienvenue, " />
-                              <Text layoutX="10.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -primary-100;" styleClass="text-title-1" text="Nathan" />
-                           </children>
-                        </HBox>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" styleClass="text-title-1" text="Bienvenue, " />
+                        <Text layoutX="10.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -primary-100;" styleClass="text-title-1" text="Nathan" />
+                     </children>
+                  </HBox>
+                  <VBox alignment="CENTER" spacing="16.0">
+                     <children>
                         <HBox alignment="CENTER" prefHeight="90.0" styleClass="dashboard-card-container">
                            <children>
                               <AnchorPane prefWidth="240.0" styleClass="dashboard-card">
@@ -81,76 +82,78 @@
                               </AnchorPane>
                            </children>
                         </HBox>
-                        <VBox prefWidth="988.0" spacing="16.0">
+                        <Line endX="538.2929077148438" endY="-4.349242210388184" startX="-100.0" style="-fx-stroke: -white-10;" />
+                     </children>
+                  </VBox>
+                  <VBox prefWidth="988.0" spacing="16.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="8.0">
                            <children>
-                              <HBox alignment="CENTER_LEFT" spacing="8.0">
+                              <FontAwesomeIconView fill="#18ad18" glyphName="AREA_CHART" selectionFill="BLACK" size="24" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" styleClass="text-title-1" text="Statistiques" />
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <AnchorPane prefWidth="988.0">
+                           <children>
+                              <AnchorPane prefHeight="305.0" prefWidth="612.0" styleClass="stat-line-chart-container">
                                  <children>
-                                    <FontAwesomeIconView fill="#18ad18" glyphName="AREA_CHART" selectionFill="BLACK" size="24" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" styleClass="text-title-1" text="Statistiques" />
+                                    <AreaChart disable="true" layoutX="-18.0" layoutY="29.0" prefHeight="274.0" prefWidth="631.0" style="-fx-background-color: white-10;" titleSide="BOTTOM" AnchorPane.leftAnchor="-19.0" AnchorPane.topAnchor="28.0">
+                                       <xAxis>
+                                          <CategoryAxis label="Jours" side="BOTTOM" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis label="Revenues" side="LEFT" />
+                                       </yAxis>
+                                    </AreaChart>
+                                    <Text layoutX="50.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" text="Revenues journalier" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="8.0">
+                                       <styleClass>
+                                          <String fx:value="text-base" />
+                                          <String fx:value="font-700" />
+                                       </styleClass>
+                                    </Text>
                                  </children>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </HBox>
-                              <AnchorPane prefHeight="327.0" prefWidth="988.0">
+                              </AnchorPane>
+                              <AnchorPane layoutX="550.0" layoutY="14.0" prefHeight="394.0" prefWidth="200.0" styleClass="stat-pie-chart-container" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <AnchorPane prefWidth="521.0" styleClass="stat-line-chart-container">
-                                       <children>
-                                          <AreaChart disable="true" prefHeight="367.0" prefWidth="522.0" style="-fx-background-color: white-10;" titleSide="BOTTOM" AnchorPane.leftAnchor="-24.0" AnchorPane.topAnchor="24.0">
-                                             <xAxis>
-                                                <CategoryAxis label="Jours" side="BOTTOM" />
-                                             </xAxis>
-                                             <yAxis>
-                                                <NumberAxis label="Revenues" side="LEFT" />
-                                             </yAxis>
-                                          </AreaChart>
-                                          <Text layoutX="50.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" text="Revenues journalier" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="8.0">
-                                             <styleClass>
-                                                <String fx:value="text-base" />
-                                                <String fx:value="font-700" />
-                                             </styleClass>
-                                          </Text>
-                                       </children>
-                                    </AnchorPane>
-                                    <AnchorPane layoutX="550.0" layoutY="14.0" prefHeight="394.0" prefWidth="200.0" styleClass="stat-pie-chart-container" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="0.0">
-                                       <children>
-                                          <Label layoutX="131.0" layoutY="293.0" text="Metronidazole" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="131.0">
-                                             <styleClass>
-                                                <String fx:value="stat-product-label" />
-                                                <String fx:value="text-lead" />
-                                             </styleClass>
-                                          </Label>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" text="Medicament le plus vendu" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="12.0">
-                                             <styleClass>
-                                                <String fx:value="text-base" />
-                                                <String fx:value="font-700" />
-                                             </styleClass>
-                                          </Text>
-                                          <PieChart disable="true" layoutX="66.0" layoutY="56.0" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: -primary-10; -fx-background-radius: 999;" AnchorPane.leftAnchor="66.0" AnchorPane.topAnchor="56.0" />
-                                       </children>
-                                    </AnchorPane>
+                                    <Label layoutX="98.0" layoutY="272.0" text="Metronidazole" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="98.0">
+                                       <styleClass>
+                                          <String fx:value="stat-product-label" />
+                                          <String fx:value="text-base" />
+                                       </styleClass>
+                                    </Label>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" text="Medicament le plus vendu" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="12.0">
+                                       <styleClass>
+                                          <String fx:value="text-small" />
+                                          <String fx:value="font-700" />
+                                       </styleClass>
+                                    </Text>
+                                    <PieChart disable="true" layoutX="50.0" layoutY="44.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: -primary-10; -fx-background-radius: 100%;" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="44.0" />
                                  </children>
                               </AnchorPane>
                            </children>
-                        </VBox>
-                        <VBox prefWidth="972.0" spacing="16.0">
-                           <children>
-                              <HBox alignment="CENTER_LEFT" spacing="8.0">
-                                 <children>
-                                    <FontAwesomeIconView fill="#18ad18" glyphName="MONEY" selectionFill="BLACK" size="24" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" styleClass="text-title-1" text="Dernier ventes" />
-                                 </children>
-                              </HBox>
-                           </children>
-                           <VBox.margin>
-                              <Insets right="16.0" />
-                           </VBox.margin>
-                        </VBox>
+                        </AnchorPane>
                      </children>
                   </VBox>
+                  <VBox prefWidth="972.0" spacing="16.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="8.0">
+                           <children>
+                              <FontAwesomeIconView fill="#18ad18" glyphName="MONEY" selectionFill="BLACK" size="24" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" styleClass="text-title-1" text="Dernier ventes" />
+                           </children>
+                        </HBox>
+                        <ListView prefHeight="298.0" prefWidth="972.0" style="-fx-background-color: transparent;" />
+                     </children>
+                     <VBox.margin>
+                        <Insets right="16.0" />
+                     </VBox.margin>
+                  </VBox>
                </children>
-            </AnchorPane>
-         </content>
-      </ScrollPane>
-   </children>
-</AnchorPane>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </content>
+</ScrollPane>

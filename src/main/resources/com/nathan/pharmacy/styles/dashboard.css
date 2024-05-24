@@ -2,7 +2,7 @@
 @import "globals.css";
 
 .dashboard-box{
-    -fx-spacing : 40px;
+    -fx-spacing : 64px;
     -fx-padding : 16px;
 
 }
@@ -25,7 +25,7 @@
 }
 
 .dashboard-card .indication{
-    -fx-font-size : 16px;
+    -fx-font-size : 14px;
     -fx-fill: -white-80;
 }
 
@@ -50,23 +50,26 @@
     -fx-text-fill : -primary-100;
     -fx-background-color : -primary-10;
     -fx-border-radius : 8px;
-    -fx-background-radius : 8px;
+    -fx-background-radius : 8px 8px 0 0;
     -fx-padding : 4px 8px;
 }
 
 .stat-pie-chart-container{
-    -fx-pref-width : 380px;
-    -fx-pref-height : 394px;
+    -fx-pref-width : 300px;
+    -fx-pref-height : 300px;
     -fx-background-radius : 14px;
-    -fx-background-color : -gray-100;
+    -fx-border-radius : 14px;
+    -fx-border-color : -primary-10;
 
 }
 
 .stat-line-chart-container{
     -fx-pref-width : 524px;
-    -fx-pref-height : 394px;
+
     -fx-background-radius : 14px;
-    -fx-background-color : -gray-100;
+    -fx-background-radius : 14px;
+    -fx-border-radius : 14px;
+    -fx-border-color : -white-10;
 }
 
 .last-purchase{

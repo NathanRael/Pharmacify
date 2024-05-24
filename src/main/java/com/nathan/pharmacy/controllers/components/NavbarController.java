@@ -1,7 +1,7 @@
 package com.nathan.pharmacy.controllers.components;
 
 import com.nathan.pharmacy.controllers.SceneChanger;
-import com.nathan.pharmacy.models.Model;
+import com.nathan.pharmacy.models.Singleton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -87,7 +87,7 @@ public class NavbarController implements Initializable {
     }
 
     public void switchSubsceneTo(String sceneName){
-        Model.getInstance().getViewFactory().getSelectedMenuItem().set(sceneName);
+        Singleton.getInstance().getViewFactory().getSelectedMenuItem().set(sceneName);
     }
 
     public void switchSceneTo(String sceneName) {

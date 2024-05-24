@@ -5,6 +5,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -61,7 +63,7 @@
                               <String fx:value="font-700" />
                            </styleClass>
                         </Text>
-                        <TextField fx:id="inputMedPrice" promptText="Entrer le nom du medicament" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-border-color: -dark-100;" styleClass="input" />
+                        <TextField fx:id="inputMedPrice" prefHeight="46.0" prefWidth="125.0" promptText="Prix du medicament" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-border-color: -dark-100;" styleClass="input" />
                      </children>
                   </VBox>
                   <VBox layoutX="217.0" layoutY="10.0" spacing="8.0">
@@ -72,28 +74,49 @@
                               <String fx:value="font-700" />
                            </styleClass>
                         </Text>
-                        <TextField fx:id="inputMedDesc" prefHeight="46.0" prefWidth="331.0" promptText="Entrer le nom du medicament" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-border-color: -dark-100;" styleClass="input" />
+                        <TextField fx:id="inputMedDesc" prefHeight="46.0" prefWidth="233.0" promptText="Entrer le nom du medicament" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-border-color: -dark-100;" styleClass="input" />
                      </children>
                   </VBox>
-                  <Button fx:id="btnAddMed" mnemonicParsing="false" style="-fx-text-fill: -white-100; -fx-background-radius: 0;" styleClass="button-lg" text="Ajouter" />
-                  <Button fx:id="btnEditMed" disable="true" layoutX="755.0" layoutY="40.0" mnemonicParsing="false" style="-fx-text-fill: -white-100; -fx-background-radius: 0 8 8 0; -fx-border-color: 0;" styleClass="button-lg" text="Modifier" />
+                  <VBox layoutX="217.0" layoutY="10.0" spacing="8.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" text="Stock Id :">
+                           <styleClass>
+                              <String fx:value="text-base" />
+                              <String fx:value="font-700" />
+                           </styleClass>
+                        </Text>
+                        <ChoiceBox fx:id="selectStockId" prefHeight="43.0" prefWidth="95.0" style="-fx-background-radius: 0;" styleClass="input-md" />
+                     </children>
+                  </VBox>
+                  <HBox alignment="BOTTOM_LEFT">
+                     <children>
+                        <Button fx:id="btnAddMed" mnemonicParsing="false" style="-fx-text-fill: -white-100; -fx-background-radius: 0;" styleClass="button-lg" text="Ajouter" />
+                        <Button fx:id="btnEditMed" disable="true" mnemonicParsing="false" style="-fx-text-fill: -white-100; -fx-background-radius: 0;" styleClass="button-lg" text="Modifier" />
+                        <Button fx:id="btnDeleteMed" disable="true" mnemonicParsing="false" style="-fx-text-fill: -white-100; -fx-background-color: -danger-100; -fx-background-radius: 0 8 8 0; -fx-border-color: 0;" styleClass="button-lg" text="Supprimer" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="2.0" />
+                     </padding>
+                  </HBox>
                </children>
             </HBox>
-            <VBox spacing="4.0">
-               <children>
-                  <AnchorPane prefWidth="200.0" styleClass="table-header">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nom" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Prix" AnchorPane.leftAnchor="128.0" AnchorPane.topAnchor="0.0" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quantité Disponible" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="0.0" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description" AnchorPane.leftAnchor="554.0" AnchorPane.topAnchor="0.0" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Actions" AnchorPane.rightAnchor="128.0" AnchorPane.topAnchor="0.0" />
-                        <Text layoutX="173.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expiration" AnchorPane.leftAnchor="256.0" AnchorPane.topAnchor="0.0" />
-                     </children>
-                  </AnchorPane>
-<!--                  <ListView fx:id="tableMedList" prefHeight="311.0" prefWidth="972.0" style="-fx-background-color: -dark-100;" />-->
-               </children>
-            </VBox>
+            <TableView fx:id="tableMedicament" prefHeight="353.0" prefWidth="972.0">
+              <columns>
+                  <TableColumn fx:id="colId" minWidth="62.0" prefWidth="62.0" resizable="false" text="Id" />
+                  <TableColumn fx:id="colStockId" minWidth="62.0" prefWidth="70.0" resizable="false" text="stockId" />
+                <TableColumn fx:id="colName" minWidth="128.0" prefWidth="175.0" resizable="false" text="Nom" />
+                  <TableColumn fx:id="colPrice" minWidth="99.0" prefWidth="138.0" resizable="false" text="Prix" />
+                  <TableColumn fx:id="colExpireDate" minWidth="73.0" prefWidth="170.0" resizable="false" text="Expiration" />
+                  <TableColumn fx:id="colQuantity" minWidth="53.0" prefWidth="151.0" resizable="false" text="Quantité Disponible" />
+                  <TableColumn fx:id="colDesc" minWidth="46.0" prefWidth="424.0" resizable="false" text="Description" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
          </children>
          <padding>
             <Insets right="16.0" />
