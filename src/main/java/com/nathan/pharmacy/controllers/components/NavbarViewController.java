@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class NavbarController implements Initializable {
+public class NavbarViewController implements Initializable {
 
     @FXML
     private Button btnHistory;

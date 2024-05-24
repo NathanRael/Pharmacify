@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-color: -dark-100;" stylesheets="@../styles/medicament.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.medicament.MedicamentController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-color: -dark-100;" stylesheets="@../styles/medicament.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.medicament.MedicamentViewController">
    <children>
       <VBox layoutX="16.0" layoutY="16.0" spacing="64.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -39,7 +39,7 @@
                         <TextField fx:id="inputSearch" prefHeight="36.0" prefWidth="620.0" promptText="Rechercher un medicament" style="-fx-background-radius: 0 8 8 0;" styleClass="input-md" />
                      </children>
                   </HBox>
-                  <ChoiceBox fx:id="selectMedFilter" prefHeight="36.0" prefWidth="150.0" style="-fx-padding: 4 8;" styleClass="input-md" />
+                  <ChoiceBox fx:id="selectMedFilter" prefHeight="36.0" prefWidth="150.0" />
                </children>
             </HBox>
             <HBox alignment="BOTTOM_LEFT">
@@ -85,7 +85,7 @@
                               <String fx:value="font-700" />
                            </styleClass>
                         </Text>
-                        <ChoiceBox fx:id="selectStockId" prefHeight="43.0" prefWidth="95.0" style="-fx-background-radius: 0;" styleClass="input-md" />
+                        <ChoiceBox fx:id="selectStockId" prefHeight="43.0" prefWidth="95.0" style="-fx-background-radius: 0;" />
                      </children>
                   </VBox>
                   <HBox alignment="BOTTOM_LEFT">

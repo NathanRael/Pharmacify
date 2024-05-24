@@ -1,10 +1,10 @@
 package com.nathan.pharmacy.test;
 
-import com.nathan.pharmacy.controllers.user.UserController;
-import com.nathan.pharmacy.controllers.form.classes.IsValidFields;
-import com.nathan.pharmacy.controllers.form.classes.ValidPassword;
-import com.nathan.pharmacy.controllers.form.classes.ValidPhone;
-import com.nathan.pharmacy.controllers.form.classes.ValidText;
+import com.nathan.pharmacy.controllers.user.UserModelController;
+import com.nathan.pharmacy.controllers.form.IsValidFields;
+import com.nathan.pharmacy.controllers.form.ValidPassword;
+import com.nathan.pharmacy.controllers.form.ValidPhone;
+import com.nathan.pharmacy.controllers.form.ValidText;
 import com.nathan.pharmacy.models.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,7 +22,7 @@ public class UserTest {
 
     }
     public static void select() throws Exception {
-        UserController uc = new UserController();
+        UserModelController uc = new UserModelController();
         String[] tableRows = uc.getTableRows();
         int len = uc.getCount();
         ResultSet rs = uc.selectAll();
@@ -54,7 +54,7 @@ public class UserTest {
         if (allFieldValidated){
             try{
                 User user = new User(name,phone, password);
-                UserController uc = new UserController();
+                UserModelController uc = new UserModelController();
 
                 uc.insert(user);
                 System.out.println("Inscription réussie");

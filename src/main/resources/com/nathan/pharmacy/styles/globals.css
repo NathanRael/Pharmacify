@@ -52,7 +52,7 @@
   -fx-font-weight: 400;
 }
 
-/*controls*/
+/*button*/
 .button-lg {
   -fx-padding: 12px 24px;
   -fx-font-family: Segoe UI;
@@ -78,12 +78,14 @@
   -fx-border-radius: 8px;
   -fx-background-radius: 8px;
   -fx-cursor: hand;
-  -fx-alignment: center;
+  -fx-alignment: CENTER;
   -fx-background-color: -primary-100;
   -fx-text-fill: -white-100;
   -fx-alignment: center-left;
 }
 
+
+/*Input **/
 .input {
   -fx-font-size: 14px;
   -fx-border-radius: 8px;
@@ -115,6 +117,33 @@
   -fx-background-color: -primary-10;
 }
 
+
+/*Choice box**/
+
+.choice-box {
+  -fx-background-color: -white-10;
+  -fx-cursor : hand;
+  -fx-background-radius : 8px;
+}
+.choice-box > .label {
+    -fx-text-fill: -white-100;
+    -fx-font-size : 13px;
+}
+
+.choice-box .context-menu {
+    -fx-background-color: -white-10;
+    -fx-min-width : 128px;
+
+}
+
+.choice-box .menu-item:focused { -fx-background-color: -primary-10; }
+
+.choice-box .menu-item > .label { -fx-text-fill: -white-100; }
+
+.choice-box .menu-item:focused > .label { -fx-text-fill: -white-100; }
+
+
+/*Other**/
 .search-container {
   -fx-pref-width: 974px;
 }

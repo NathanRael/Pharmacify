@@ -1,7 +1,7 @@
 package com.nathan.pharmacy.controllers.auth;
 
 import com.nathan.pharmacy.controllers.SceneChanger;
-import com.nathan.pharmacy.controllers.user.UserController;
+import com.nathan.pharmacy.controllers.user.UserModelController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -54,7 +54,7 @@ public class LoginController implements Initializable {
         alert.setTitle("Information");
 
 
-        UserController uc = new UserController();
+        UserModelController uc = new UserModelController();
         ResultSet user;
         user = uc.selectBy("userName", name);
 

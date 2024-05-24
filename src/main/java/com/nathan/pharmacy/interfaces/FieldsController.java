@@ -1,4 +1,4 @@
-package com.nathan.pharmacy.controllers.form.interfaces;
+package com.nathan.pharmacy.interfaces;
 
 
 public interface FieldsController  {

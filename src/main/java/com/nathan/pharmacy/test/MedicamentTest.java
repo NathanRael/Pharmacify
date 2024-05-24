@@ -1,13 +1,11 @@
 package com.nathan.pharmacy.test;
 
 import com.nathan.pharmacy.interfaces.ModelInterface;
-import com.nathan.pharmacy.models.User;
+import com.nathan.pharmacy.models.Medicament;
 
 import java.sql.ResultSet;
 
-public class testViewController implements ModelInterface<User> {
-
-
+public class MedicamentTest implements ModelInterface<Medicament> {
     @Override
     public ResultSet selectAll() throws Exception {
         return null;
@@ -19,7 +17,7 @@ public class testViewController implements ModelInterface<User> {
     }
 
     @Override
-    public void update(User obj) throws Exception {
+    public void update(Medicament obj) throws Exception {
 
     }
 
@@ -35,7 +33,7 @@ public class testViewController implements ModelInterface<User> {
 
 
     @Override
-    public void insert(User obj) throws Exception {
+    public void insert(Medicament obj) throws Exception {
 
     }
 
@@ -43,4 +41,6 @@ public class testViewController implements ModelInterface<User> {
     public void deleteBy(String colName, String value) throws Exception {
 
     }
+
+
 }

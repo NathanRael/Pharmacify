@@ -17,10 +17,8 @@ public class ConnectionDb {
         return  res;
     }
 
-    public int executeUpdateQuery(String query) throws SQLException{
-        int res = 0;
-        res = stat.executeUpdate(query);
-        return  res;
+    public void executeUpdateQuery(String query) throws SQLException{
+        stat.executeUpdate(query);
     }
 
     public void close() throws SQLException {

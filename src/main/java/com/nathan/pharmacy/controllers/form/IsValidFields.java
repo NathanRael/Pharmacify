@@ -1,6 +1,6 @@
-package com.nathan.pharmacy.controllers.form.classes;
+package com.nathan.pharmacy.controllers.form;
 
-import com.nathan.pharmacy.controllers.form.interfaces.FieldsController;
+import com.nathan.pharmacy.interfaces.FieldsController;
 
 public class IsValidFields {
     public IsValidFields(){};

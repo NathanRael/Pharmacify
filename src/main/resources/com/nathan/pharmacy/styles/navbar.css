@@ -6,6 +6,7 @@
 
 .nav-button{
     -fx-background-color: transparent;
+    -fx-padding : 12px 16px;
 }
 
 .nav-button:hover {

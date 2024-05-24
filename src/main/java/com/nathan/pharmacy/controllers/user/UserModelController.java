@@ -1,34 +1,43 @@
 package com.nathan.pharmacy.controllers.user;
 
 
+import com.nathan.pharmacy.interfaces.ModelInterface;
 import com.nathan.pharmacy.databases.ConnectionDb;
 import com.nathan.pharmacy.models.User;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
-public class UserController {
+public class UserModelController implements ModelInterface<User> {
 
     private final String[] tableRow = {"userId", "userName", "userPhone", "userPwd", "stockId", "userStatus"};
-    private ConnectionDb connection;
-    public UserController() throws Exception{
+    private final ConnectionDb connection;
+    public UserModelController() throws Exception{
         connection =  new ConnectionDb();
     };
 
+    @Override
     public void insert(User user) throws Exception{
         String query = String.format("INSERT INTO user(userName, userPhone, userPwd ) VALUES ('%s', '%s', '%s' )"
                 , user.getName(), user.getPhone(), user.getPwd());
 
         connection.executeUpdateQuery(query);
     }
+    @Override
+    public void deleteBy(String colName, String value) throws Exception {
+        String query = String.format("DELETE * FROM user WHERE %s = %s ", colName, value);
+        connection.executeUpdateQuery(query);
+    }
 
+
+    @Override
     public ResultSet selectBy(String colName, String value) throws Exception{
         String query = String.format("SELECT * FROM user WHERE %s = %s", colName, value.trim());
         ResultSet res = connection.executeQuery(query);
         return  res;
     }
 
-    public void Update(User user) throws SQLException {
+    @Override
+    public void update(User user) throws Exception {
         String query = String.format("UPDATE user SET userName = %s,  userPhone = %s, stockId = %s, userStatus = %s WHERE userId = %s",user.getName(), user.getPhone(), user.getStockId(), user.getstatus(), user.getId());
         connection.executeUpdateQuery(query);
     }
@@ -38,7 +47,6 @@ public class UserController {
         String query = "SELECT * FROM user";
         rs = connection.executeQuery(query);
         return rs;
-
     }
 
     public int getCount() throws Exception{
@@ -48,6 +56,11 @@ public class UserController {
         rs.next();
         int len = rs.getInt("len");
         return len;
+    }
+
+    @Override
+    public void delete(int id) throws Exception {
+
     }
 
     public String[] getTableRows() {

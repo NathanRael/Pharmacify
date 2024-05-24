@@ -18,5 +18,6 @@ module com.nathan.pharmacy {
     opens com.nathan.pharmacy.views to javafx.fxml;
     opens com.nathan.pharmacy.test to javafx.fxml;
     opens com.nathan.pharmacy.databases to java.sql;
+    opens com.nathan.pharmacy.interfaces to javafx.fxml;
 
 }
