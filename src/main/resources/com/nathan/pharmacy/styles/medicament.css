@@ -1,5 +1,6 @@
 @import "colors.css";
 @import "globals.css";
+@import "table.css";
 
 
 .table-header {
@@ -31,6 +32,7 @@
   -fx-font-weight: 700;
 }
 
+/*
 //Tables
 
 .table-view{
@@ -49,8 +51,10 @@
     -fx-background-color : -white-10;
     -fx-background-radius : 8px 8px 0 0;
     -fx-border-radius : 8px 8px 0 0;
+*/
 /*    -fx-background-insets : 0 11px 0;
-    -fx-border-insets : 0 11px 0;*/
+    -fx-border-insets : 0 11px 0;*//*
+
     -fx-padding : 8px 0;
     -fx-border-color : -white-10;
 }
@@ -82,4 +86,5 @@
     -fx-text-background-color : -white-100;
     -fx-cursor : hand;
 }
+*/
 

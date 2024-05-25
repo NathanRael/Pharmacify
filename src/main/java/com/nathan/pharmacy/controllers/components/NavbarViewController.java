@@ -39,6 +39,9 @@ public class NavbarViewController implements Initializable {
     private Button btnNavUser;
 
     @FXML
+    private Button btnNavPrescription;
+
+    @FXML
     private VBox navbar;
 
     @FXML
@@ -68,13 +71,15 @@ public class NavbarViewController implements Initializable {
 
     }
 
+    @FXML
+    void switchToPrescription(ActionEvent event){
 
+    }
 
     @FXML
     void switchToPatient(ActionEvent event) {
 
     }
-
 
     @FXML
     void switchToSupplier(ActionEvent event) {

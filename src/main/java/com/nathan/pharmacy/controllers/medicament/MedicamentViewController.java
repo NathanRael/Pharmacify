@@ -1,22 +1,32 @@
 package com.nathan.pharmacy.controllers.medicament;
 
+import com.nathan.pharmacy.controllers.stock.StockModelController;
 import com.nathan.pharmacy.controllers.form.IsValidFields;
 import com.nathan.pharmacy.controllers.form.ValidLongText;
 import com.nathan.pharmacy.controllers.form.ValidNumber;
 import com.nathan.pharmacy.controllers.form.ValidText;
+import com.nathan.pharmacy.controllers.stock.StockViewController;
 import com.nathan.pharmacy.models.Medicament;
+import com.nathan.pharmacy.models.Stock;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.Date;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MedicamentViewController implements Initializable {
@@ -77,13 +87,21 @@ public class MedicamentViewController implements Initializable {
 
     private int currSelectedId;
 
+    private List<Stock> stockInfo = new ArrayList<>();
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        setStockInfo(stockInfo);
+
         btnAddMed.setOnAction(event -> addMedicament());
         btnDeleteMed.setOnAction(event -> deleteRecord(currSelectedId));
         btnEditMed.setOnAction(event -> updateRecord(currSelectedId));
+
         selectMedFilter.getItems().addAll("Prix", "Date");
+        initSelectStock();
 
         try {
             loadTableContent();
@@ -98,6 +116,13 @@ public class MedicamentViewController implements Initializable {
         } catch (Exception ex) {
            ex.printStackTrace();
         }
+    }
+
+    public void initSelectStock(){
+        for (Stock stock : stockInfo){
+            selectStockId.getItems().add(Integer.toString(stock.getId()));
+        }
+        selectStockId.getSelectionModel().select(0);
     }
 
     public void setFieldsValue(int row, Medicament currentSelection){
@@ -135,7 +160,7 @@ public class MedicamentViewController implements Initializable {
             float medPrice =  Float.parseFloat(inputMedPrice.getText());
             int stockId = Integer.parseInt(selectStockId.getSelectionModel().getSelectedItem());
             MedicamentModelController mc = new MedicamentModelController();
-            mc.updateBy("id", id, "medName", medName, "medDesc", medDesc, "medPrice", medPrice, "stockId", stockId);
+            mc.updateBy( "stockId", stockId ,"medName", medName, "medDesc", medDesc, "medPrice", medPrice, "medId", id);
             loadTableContent();
         }catch (Exception ex){
             ex.printStackTrace();
@@ -176,7 +201,6 @@ public class MedicamentViewController implements Initializable {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-
     }
 
     public void addMedicament(){
@@ -185,7 +209,7 @@ public class MedicamentViewController implements Initializable {
         float medPrice = Float.parseFloat(inputMedPrice.getText());
         int medQuantity =  0;
         int stockId = 1;
-        Date medExpDate = new Date(2024-12-10);
+        Date medExpDate = new Date(0);
 
         boolean allFieldValidated = IsValidFields.isValidFields(new ValidText(medName), new ValidLongText(medDesc), new ValidNumber<>(medPrice));
 
@@ -207,11 +231,20 @@ public class MedicamentViewController implements Initializable {
         }
     }
 
+    public void setStockInfo(List<Stock> stockInfo){
+        StockViewController.setStockInfo(stockInfo);
+    }
+
+
+
     public void clearAllField(){
         inputMedDesc.clear();
         inputMedName.clear();
         inputMedPrice.clear();
         selectStockId.setValue("1");
+    }
 
+    public void handleKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ESCAPE) clearAllField();
     }
 }

@@ -38,11 +38,14 @@ public class MedicamentModelController implements  ModelInterface<Medicament>{
         StringBuilder query = new StringBuilder("UPDATE medicament SET ");
         for (int i = 0, j = i+1; i < rows.length; i +=2,j+=2){
             if (i == rows.length-2){
-                query.append("WHERE ").append(rows[i]).append(" = ").append(rows[j]).append(";");
-            }else{
-                query.append(rows[i]).append(" = ").append(rows[j]).append(", ");
-
+                query.append(" WHERE ").append(rows[i]).append(" = ").append(rows[j]);
+                break;
             }
+            query.append(rows[i]).append(" = ").append("'").append(rows[j]).append("'");
+            if (i < rows.length - 4){
+                query.append(",");
+            }
+
         }
         connection.executeUpdateQuery(String.valueOf(query));
     }

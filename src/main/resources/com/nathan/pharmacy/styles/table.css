@@ -26,17 +26,26 @@
     -fx-background-color : transparent;
     -fx-text-background-color : -white-100;
     -fx-font-size : 14px;
+    -fx-padding : 8px;
+}
+
+
+
+.table-view .column-header .label{
+    -fx-alignment : center-left;
 }
 
 .table-view .table-cell {
     -fx-border-color : transparent;
     -fx-padding : 8px 4px;
     -fx-text-background-color : -white-100;
+    -fx-font-size : 14px;
 }
 
-.table-row-cell:hover {
-    -fx-background-color : -primary-10;
-    -fx-text-background-color : -white-100;
+
+.table-view .placeholder .label{
+    -fx-text-fill : -danger-100;
+    -fx-padding : 14px;
 }
 
 .table-row-cell: odd{
@@ -45,4 +54,18 @@
 
 .table-row-cell: even{
    -fx-background-color : transparent;
+}
+
+.table-row-cell:focused , .table-row-cell:hover {
+    -fx-background-color :-primary-10;
+    -fx-text-background-color : -white-100;
+    -fx-cursor : hand;
+}
+
+.table-row-cell:empty{
+   -fx-background-color : transparent;
+}
+
+.table-row-cell:empty:hover{
+    -fx-cursor : DEFAULT;
 }

@@ -110,7 +110,7 @@
 
 .input:focused {
   -fx-border-color: -dark-10 -dark-10 -primary-100 -dark-10;
-  -fx-border-width: 2px;
+  -fx-border-width: 1px;
 }
 
 .date-picker .arrow-button {

@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-color: -dark-100;" stylesheets="@../styles/medicament.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.medicament.MedicamentViewController">
+<AnchorPane onKeyPressed="#handleKeyPressed" minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-color: -dark-100;" stylesheets="@../styles/medicament.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.medicament.MedicamentViewController">
    <children>
       <VBox layoutX="16.0" layoutY="16.0" spacing="64.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -27,7 +27,7 @@
                <children>
                   <HBox>
                      <children>
-                        <Button fx:id="btnSearch" mnemonicParsing="false" prefHeight="36.0" prefWidth="17.0" style="-fx-background-radius: 8 0 0 8;">
+                        <Button  fx:id="btnSearch" mnemonicParsing="false" prefHeight="36.0" prefWidth="17.0" style="-fx-background-radius: 8 0 0 8;">
                            <graphic>
                               <FontAwesomeIconView fill="#e2e2e2" glyphName="SEARCH" size="16" />
                            </graphic>

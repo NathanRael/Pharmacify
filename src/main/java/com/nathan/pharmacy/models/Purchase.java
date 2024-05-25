@@ -1,13 +1,45 @@
 package com.nathan.pharmacy.models;
 
-import java.util.Date;
+import java.sql.Date;
 
-/*Purchase( purchaseId, #precId( can be null), #medId,purchaseDate, #patientId,medDesc(can be null) )*/
+//Purchase( purchaseId, #medId,purchaseDate, #patientId)
 public class Purchase {
     private int id;
-    private String medDesc;
     private Date date;
     private int medId;
-    private  int prescId;
-    private int patientId;
+
+
+    public Purchase(int id, Date date, int medId) {
+        this.id = id;
+        this.date = date;
+        this.medId = medId;
+    }
+    public Purchase(Date date, int medId) {
+        this.date = date;
+        this.medId = medId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public int getMedId() {
+        return medId;
+    }
+
+    public void setMedId(int medId) {
+        this.medId = medId;
+    }
 }
