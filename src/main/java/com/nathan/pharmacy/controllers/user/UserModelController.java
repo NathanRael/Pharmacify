@@ -42,21 +42,21 @@ public class UserModelController implements ModelInterface<User> {
 
     @Override
     public void deleteBy(String colName, String value) throws Exception {
-        String query = String.format("DELETE * FROM user WHERE %s = %s ", colName, value);
+        String query = String.format("DELETE * FROM user WHERE %s = '%s' ", colName, value);
         connection.executeUpdateQuery(query);
     }
 
 
     @Override
     public ResultSet selectBy(String colName, String value) throws Exception{
-        String query = String.format("SELECT * FROM user WHERE %s = %s", colName, value.trim());
+        String query = String.format("SELECT * FROM user WHERE %s = '%s'", colName, value.trim());
         ResultSet res = connection.executeQuery(query);
         return  res;
     }
 
     @Override
     public void update(User user) throws Exception {
-        String query = String.format("UPDATE user SET userName = %s,  userPhone = %s, stockId = %s, userStatus = %s WHERE userId = %s",user.getName(), user.getPhone(), user.getStockId(), user.getstatus(), user.getId());
+        String query = String.format("UPDATE user SET userName = '%s',  userPhone = '%s', stockId = '%s', userStatus = '%s' WHERE userId = '%s'",user.getName(), user.getPhone(), user.getStockId(), user.getstatus(), user.getId());
         connection.executeUpdateQuery(query);
     }
 

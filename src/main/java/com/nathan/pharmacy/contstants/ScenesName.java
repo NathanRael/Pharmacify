@@ -1,6 +1,6 @@
 package com.nathan.pharmacy.contstants;
 
-public enum Scenes {
+public enum ScenesName {
     LOGIN,
     SIGNUP,
     MAIN

@@ -1,8 +1,9 @@
 package com.nathan.pharmacy.contstants;
 
-public enum SubScene {
+public enum SubScenesName {
     DASHBOARD,
     PURCHASE,
-
+    MEDICAMENT,
+    SUPPLIER,
 
 }

@@ -1,6 +1,8 @@
 package com.nathan.pharmacy.controllers;
 
 import com.nathan.pharmacy.controllers.purchase.PurchaseViewController;
+import com.nathan.pharmacy.contstants.ScenesName;
+import com.nathan.pharmacy.contstants.SubScenesName;
 import com.nathan.pharmacy.models.Singleton;
 
 import javafx.scene.layout.BorderPane;
@@ -12,27 +14,30 @@ public class SceneChanger {
 
     public SceneChanger(){};
 
-    public static void changeSceneTo(String sceneName, Stage currentStage){
+    public static void changeSceneTo(ScenesName scenesName, Stage currentStage){
         Singleton.getInstance().getViewFactory().closeStage(currentStage);
 
-        switch (sceneName){
-            case "login" -> Singleton.getInstance().getViewFactory().showLoginWindow();
-            case "signup" -> Singleton.getInstance().getViewFactory().showSignupWindow();
-            case "main" -> Singleton.getInstance().getViewFactory().showMainWindow();
+        switch (scenesName){
+            case LOGIN -> Singleton.getInstance().getViewFactory().showLoginWindow();
+            case SIGNUP -> Singleton.getInstance().getViewFactory().showSignupWindow();
+            case MAIN-> Singleton.getInstance().getViewFactory().showMainWindow();
             default ->  Singleton.getInstance().getViewFactory().showNotFoundWindow();
         }
     }
 
-    public  void updateSubScene(BorderPane mainParent, String newVal){
+    public  void updateSubScene(BorderPane mainParent, SubScenesName newVal){
         switch (newVal){
-            case "dashboard" ->{
+            case DASHBOARD ->{
                 mainParent.setCenter(Singleton.getInstance().getViewFactory().getDashboardView());
             }
-            case "purchase" -> {
+            case PURCHASE -> {
                 mainParent.setCenter(Singleton.getInstance().getViewFactory().getPurchaseView());
             }
-            case "medicament" -> {
+            case MEDICAMENT -> {
                 mainParent.setCenter(Singleton.getInstance().getViewFactory().getMedicamentView());
+            }
+            case SUPPLIER -> {
+                mainParent.setCenter(Singleton.getInstance().getViewFactory().getSupplierView());
             }
             default -> {
                 Singleton.getInstance().getViewFactory().showNotFoundWindow();

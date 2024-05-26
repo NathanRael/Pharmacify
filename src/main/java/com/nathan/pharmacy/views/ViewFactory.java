@@ -19,6 +19,7 @@ public class ViewFactory {
     private ScrollPane dashboardView;
     private AnchorPane purchaseView;
     private AnchorPane medicamentView;
+    private AnchorPane supplierView;
 
 
     public ViewFactory(){
@@ -34,6 +35,17 @@ public class ViewFactory {
             ex.printStackTrace();
         }
         return dashboardView;
+    }
+
+    public AnchorPane getSupplierView(){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("supplier-view.fxml"));
+            supplierView = fxmlLoader.load();
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return supplierView;
     }
 
     public AnchorPane getPurchaseView(){

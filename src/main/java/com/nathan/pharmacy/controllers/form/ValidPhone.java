@@ -8,14 +8,14 @@ public class ValidPhone implements FieldValidator {
 
     @Override
     public boolean isValidField(TextField textField) {
-        boolean containNumber = false;
         String text = textField.getText();
+        if (text.isEmpty() || text.trim().length() != 10) return false;
         for (String phoneIndication : phoneIndications ){
             if (text.substring(0,3).equals(phoneIndication)){
-                containNumber = true;
-                break;
+                return true;
             }
         }
-        return text.length() == 10 && containNumber;
+        return false;
+
     }
 }

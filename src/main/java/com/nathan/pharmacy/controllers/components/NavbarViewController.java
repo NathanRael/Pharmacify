@@ -1,6 +1,8 @@
 package com.nathan.pharmacy.controllers.components;
 
 import com.nathan.pharmacy.controllers.SceneChanger;
+import com.nathan.pharmacy.contstants.ScenesName;
+import com.nathan.pharmacy.contstants.SubScenesName;
 import com.nathan.pharmacy.models.Singleton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,23 +54,26 @@ public class NavbarViewController implements Initializable {
 
     @FXML
     void logout(ActionEvent event) {
-        switchSceneTo("login");
+        switchSceneTo(ScenesName.LOGIN);
     }
 
     @FXML
     void switchToDashboard(ActionEvent event) {
-        switchSubsceneTo("dashboard");
+        switchSubsceneTo(SubScenesName.DASHBOARD);
     }
     @FXML
     void switchToPurchase(ActionEvent event) {
-        switchSubsceneTo("purchase");
+        switchSubsceneTo(SubScenesName.PURCHASE);
     }
 
     @FXML
     void switchToMedicine(ActionEvent event) {
-        switchSubsceneTo("medicament");
+        switchSubsceneTo(SubScenesName.MEDICAMENT);
     }
-
+    @FXML
+    void switchToSupplier(ActionEvent event) {
+        switchSubsceneTo(SubScenesName.SUPPLIER);
+    }
     @FXML
     void switchToHistory(ActionEvent event) {
 
@@ -89,21 +94,17 @@ public class NavbarViewController implements Initializable {
 
     }
 
-    @FXML
-    void switchToSupplier(ActionEvent event) {
-
-    }
 
     @FXML
     void switchToUser(ActionEvent event) {
 
     }
 
-    public void switchSubsceneTo(String sceneName){
-        Singleton.getInstance().getViewFactory().getSelectedMenuItem().set(sceneName);
+    public void switchSubsceneTo(SubScenesName subScenesName){
+        Singleton.getInstance().getViewFactory().getSelectedMenuItem().set(String.valueOf(subScenesName));
     }
 
-    public void switchSceneTo(String sceneName) {
+    public void switchSceneTo(ScenesName sceneName) {
         Stage currentStage = (Stage)navbar.getScene().getWindow();
         SceneChanger.changeSceneTo(sceneName, currentStage);
     }

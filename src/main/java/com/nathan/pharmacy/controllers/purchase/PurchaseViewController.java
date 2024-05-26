@@ -76,7 +76,6 @@ public class PurchaseViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println(LocalDate.now());
         btnPurchase.setOnAction(event -> purchaseMedicament());
         selectMedFilter.getItems().addAll("Prix", "Expiration", "Test");
         initTableView();
@@ -228,7 +227,6 @@ public class PurchaseViewController implements Initializable {
         inputPatientId.clear();
         inputMedQuantity.setText("0");
         inputMedName.clear();
-
     }
 
 }

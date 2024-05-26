@@ -2,6 +2,7 @@ package com.nathan.pharmacy.controllers.auth;
 
 import com.nathan.pharmacy.controllers.SceneChanger;
 import com.nathan.pharmacy.controllers.user.UserModelController;
+import com.nathan.pharmacy.contstants.ScenesName;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -57,7 +58,6 @@ public class LoginController implements Initializable {
         UserModelController uc = new UserModelController();
         ResultSet user;
         user = uc.selectBy("userName", name);
-
         while (user.next()){
             if (user.getString("userName").equalsIgnoreCase(name)){
                 Collections.addAll(currentUserInfoInDb, user.getString("userId"), user.getString("userName"), user.getString("userPwd"));
@@ -70,7 +70,7 @@ public class LoginController implements Initializable {
             if (password.equals(currentUserInfoInDb.get(2))){
                 alert.setContentText("Redirection ...");
                 alert.showAndWait();
-                switchSceneTo("main");
+                switchSceneTo(ScenesName.MAIN);
             }else{
                 alert.setAlertType(Alert.AlertType.ERROR);
                 alert.setContentText("Mot de passe incorrect");
@@ -85,12 +85,12 @@ public class LoginController implements Initializable {
 
     @FXML
     void switchToSignup(ActionEvent event) {
-       switchSceneTo("signup");
+       switchSceneTo(ScenesName.SIGNUP);
     }
 
-    public void switchSceneTo(String sceneName) {
+    public void switchSceneTo(ScenesName scenesName) {
         Stage currentStage = (Stage)btnLogin.getScene().getWindow();
-        SceneChanger.changeSceneTo(sceneName, currentStage);
+        SceneChanger.changeSceneTo(scenesName, currentStage);
     }
 
 }

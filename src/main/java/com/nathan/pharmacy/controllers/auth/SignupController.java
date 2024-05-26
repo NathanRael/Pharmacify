@@ -5,6 +5,7 @@ import com.nathan.pharmacy.controllers.user.UserModelController;
 import com.nathan.pharmacy.controllers.form.ValidPassword;
 import com.nathan.pharmacy.controllers.form.ValidPhone;
 import com.nathan.pharmacy.controllers.form.ValidText;
+import com.nathan.pharmacy.contstants.ScenesName;
 import com.nathan.pharmacy.interfaces.FieldValidator;
 import com.nathan.pharmacy.models.User;
 import com.nathan.pharmacy.utils.ValidationUtil;
@@ -78,7 +79,7 @@ public class SignupController  implements Initializable {
                     uc.insert(user);
                     alert.setContentText("Inscription réussie");
                     alert.showAndWait();
-                    switchSceneTo("login");
+                    switchSceneTo(ScenesName.LOGIN);
 
                 }catch (Exception ex){
 
@@ -100,16 +101,16 @@ public class SignupController  implements Initializable {
 
     @FXML
     void switchToLogin(ActionEvent event) {
-        switchSceneTo("login");
+        switchSceneTo(ScenesName.LOGIN);
     }
 
     public static boolean isPasswordConfirmed(String password, String confirm){
         return confirm.equals(password);
     }
 
-    public void switchSceneTo(String sceneName) {
+    public void switchSceneTo(ScenesName scenesName) {
         Stage currentStage = (Stage)btnLogin.getScene().getWindow();
-        SceneChanger.changeSceneTo(sceneName, currentStage);
+        SceneChanger.changeSceneTo(scenesName, currentStage);
     }
 
     public boolean validText(TextField textField, FieldValidator fieldValidator){

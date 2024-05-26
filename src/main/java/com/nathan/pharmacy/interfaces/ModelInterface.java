@@ -6,7 +6,6 @@ import com.nathan.pharmacy.models.Medicament;
 import java.sql.ResultSet;
 
 public interface ModelInterface<E> {
-
     public ResultSet selectAll() throws Exception;
     public ResultSet selectBy(String colName, String value) throws Exception;
     public void update(E obj) throws Exception;
