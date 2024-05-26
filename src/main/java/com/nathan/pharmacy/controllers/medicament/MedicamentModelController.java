@@ -3,6 +3,7 @@ package com.nathan.pharmacy.controllers.medicament;
 import com.nathan.pharmacy.interfaces.ModelInterface;
 import com.nathan.pharmacy.databases.ConnectionDb;
 import com.nathan.pharmacy.models.Medicament;
+import javafx.fxml.FXML;
 
 import java.sql.ResultSet;
 
@@ -34,6 +35,7 @@ public class MedicamentModelController implements  ModelInterface<Medicament>{
         connection.executeUpdateQuery(query);
     }
 
+    @Override
     public void updateBy(Object ...rows) throws Exception{
         StringBuilder query = new StringBuilder("UPDATE medicament SET ");
         for (int i = 0, j = i+1; i < rows.length; i +=2,j+=2){

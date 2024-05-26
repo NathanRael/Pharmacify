@@ -40,6 +40,11 @@ public class testViewController implements ModelInterface<User> {
     }
 
     @Override
+    public void updateBy(Object... rows) throws Exception {
+
+    }
+
+    @Override
     public void deleteBy(String colName, String value) throws Exception {
 
     }

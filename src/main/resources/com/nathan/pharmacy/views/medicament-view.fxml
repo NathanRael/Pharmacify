@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane onKeyPressed="#handleKeyPressed" minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-color: -dark-100;" stylesheets="@../styles/medicament.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.medicament.MedicamentViewController">
+<AnchorPane minHeight="0.0" minWidth="0.0" onKeyPressed="#handleKeyPressed" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-color: -dark-100;" stylesheets="@../styles/medicament.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.medicament.MedicamentViewController">
    <children>
       <VBox layoutX="16.0" layoutY="16.0" spacing="64.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -27,7 +27,7 @@
                <children>
                   <HBox>
                      <children>
-                        <Button  fx:id="btnSearch" mnemonicParsing="false" prefHeight="36.0" prefWidth="17.0" style="-fx-background-radius: 8 0 0 8;">
+                        <Button fx:id="btnSearch" mnemonicParsing="false" prefHeight="36.0" prefWidth="17.0" style="-fx-background-radius: 8 0 0 8;">
                            <graphic>
                               <FontAwesomeIconView fill="#e2e2e2" glyphName="SEARCH" size="16" />
                            </graphic>
@@ -106,7 +106,7 @@
             <TableView fx:id="tableMedicament" prefHeight="353.0" prefWidth="972.0">
               <columns>
                   <TableColumn fx:id="colId" minWidth="62.0" prefWidth="62.0" resizable="false" text="Id" />
-                  <TableColumn fx:id="colStockId" minWidth="62.0" prefWidth="70.0" resizable="false" text="stockId" />
+                  <TableColumn fx:id="colStockId" minWidth="62.0" prefWidth="70.0" resizable="false" text="Id stock" />
                 <TableColumn fx:id="colName" minWidth="128.0" prefWidth="175.0" resizable="false" text="Nom" />
                   <TableColumn fx:id="colPrice" minWidth="99.0" prefWidth="138.0" resizable="false" text="Prix" />
                   <TableColumn fx:id="colExpireDate" minWidth="73.0" prefWidth="170.0" resizable="false" text="Expiration" />

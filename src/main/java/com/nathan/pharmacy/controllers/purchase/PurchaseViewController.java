@@ -3,7 +3,10 @@ package com.nathan.pharmacy.controllers.purchase;
 
 import com.nathan.pharmacy.controllers.form.ValidNumber;
 import com.nathan.pharmacy.controllers.medicament.MedicamentModelController;
+import com.nathan.pharmacy.controllers.patient.PatientModelController;
+import com.nathan.pharmacy.contstants.AcceptedNumber;
 import com.nathan.pharmacy.models.Medicament;
+import com.nathan.pharmacy.models.Purchase;
 import com.nathan.pharmacy.utils.ValidationUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -64,11 +67,12 @@ public class PurchaseViewController implements Initializable {
     @FXML
     private TableView<Medicament> tableMedicament;
 
-    private List<Medicament> currSelectedMedRow = new ArrayList<>();
+    private final List<Medicament> currSelectedMedRow = new ArrayList<>();
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        btnPurchase.setOnAction(event -> purchaseMedicament());
         selectMedFilter.getItems().addAll("Prix", "Expiration", "Test");
         initTableView();
         try {
@@ -82,6 +86,21 @@ public class PurchaseViewController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void handleQuantityKeyTyped(KeyEvent event){
+        setInputTotalPrice();
+        updateButtonState();
+    }
+    @FXML void handleInputPatientKeyTyped(KeyEvent event){
+        if (ValidationUtil.validTextField(inputPatientId, new ValidNumber<>(AcceptedNumber.INTEGER))){
+            setInputPatientName(Integer.parseInt(inputPatientId.getText()));
+        }else{
+            inputPatientName.setText("-1");
+        }
+        updateButtonState();
+    }
+
     public void initTableView(){
         try{
             colId.setCellValueFactory(new PropertyValueFactory<Medicament, Integer>("id"));
@@ -118,17 +137,34 @@ public class PurchaseViewController implements Initializable {
 
 
     public void purchaseMedicament(){
+        int patientId = Integer.parseInt(inputPatientId.getText());
+        String quantity = inputMedQuantity.getText();
+        int medId = currSelectedMedRow.getFirst().getId();
+        Float totalPrice = Float.parseFloat(inputTotalPrice.getText());
+        String[] currDate = LocalDate.now().toString().split("-");
 
+        int year = Integer.parseInt(currDate[0]);
+        int month = Integer.parseInt(currDate[1]);
+        int day = Integer.parseInt(currDate[2]);
+
+        try{
+            PurchaseModelController pc = new PurchaseModelController();
+            Purchase purchase = new Purchase( new Date(month, year, day),medId, patientId, totalPrice);
+            pc.insert(purchase);
+            System.out.println("Medicament purchased");
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
     private void setFieldsValue(Medicament currentSelection){
         String medName = currentSelection.getName();
         inputMedName.setText(medName);
         setInputTotalPrice();
+
     }
 
     private void setInputTotalPrice(){
-
-        if (ValidationUtil.validTextField(inputMedQuantity, new ValidNumber())){
+        if (ValidationUtil.validTextField(inputMedQuantity, new ValidNumber<>(AcceptedNumber.INTEGER))){
             String medQuantity = inputMedQuantity.getText();
             int quantity =  Integer.parseInt(medQuantity);
             int priceUnit = (int)currSelectedMedRow.getFirst().getPrice();
@@ -138,11 +174,17 @@ public class PurchaseViewController implements Initializable {
             inputTotalPrice.setText("0");
         }
 
-
     }
-    @FXML
-    public void handleQuantityKeyTyped(KeyEvent event){
-        setInputTotalPrice();
+
+    private void setInputPatientName(int id){
+        try{
+            PatientModelController mc = new PatientModelController();
+            ResultSet rs = mc.selectBy("patientId", Integer.toString(id));
+            if (rs.next())
+                inputPatientName.setText(rs.getString("patientFName"));
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     public void updateCurrSelectedMedRow(Medicament selectedRow) {
@@ -158,7 +200,6 @@ public class PurchaseViewController implements Initializable {
     }
 
     public void handleMedRowSelected(Medicament newSelection){
-//        btnPurchase.setDisable(false);
         inputPatientId.setDisable(false);
         inputMedQuantity.setDisable(false);
         updateCurrSelectedMedRow(newSelection);
@@ -167,7 +208,8 @@ public class PurchaseViewController implements Initializable {
     }
 
     public void updateButtonState() {
-
+        boolean AllFieldValid = ValidationUtil.validTextField(inputPatientId, new ValidNumber<>(AcceptedNumber.INTEGER)) && ValidationUtil.validTextField(inputMedQuantity, new ValidNumber<>(AcceptedNumber.INTEGER));
+        btnPurchase.setDisable(!AllFieldValid);
     }
 
 }

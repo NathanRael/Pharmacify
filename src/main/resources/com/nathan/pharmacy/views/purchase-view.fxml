@@ -52,7 +52,7 @@
                               <String fx:value="font-700" />
                            </styleClass>
                         </Text>
-                        <TextField fx:id="inputPatientId" disable="true" promptText="Identifiant du patient" style="-fx-background-radius: 8 0 0 8; -fx-border-radius: 8 0 0 8; -fx-border-color: -dark-100;" styleClass="input" />
+                        <TextField fx:id="inputPatientId" disable="true" onKeyTyped="#handleInputPatientKeyTyped" promptText="Identifiant du patient" style="-fx-background-radius: 8 0 0 8; -fx-border-radius: 8 0 0 8; -fx-border-color: -dark-100;" styleClass="input" />
                      </children>
                   </VBox>
                   <VBox layoutX="217.0" layoutY="10.0" spacing="8.0">

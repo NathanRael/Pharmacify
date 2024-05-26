@@ -38,6 +38,11 @@ public class MedicamentTest implements ModelInterface<Medicament> {
     }
 
     @Override
+    public void updateBy(Object... rows) throws Exception {
+
+    }
+
+    @Override
     public void deleteBy(String colName, String value) throws Exception {
 
     }

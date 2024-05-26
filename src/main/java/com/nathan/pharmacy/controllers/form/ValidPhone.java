@@ -1,9 +1,9 @@
 package com.nathan.pharmacy.controllers.form;
 
-import com.nathan.pharmacy.interfaces.Validator;
+import com.nathan.pharmacy.interfaces.FieldValidator;
 import javafx.scene.control.TextField;
 
-public class ValidPhone implements Validator {
+public class ValidPhone implements FieldValidator {
     private final String[] phoneIndications = {"032", "033", "034", "038"};
 
     @Override

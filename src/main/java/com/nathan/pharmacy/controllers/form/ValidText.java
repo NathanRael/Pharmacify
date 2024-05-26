@@ -1,9 +1,9 @@
 package com.nathan.pharmacy.controllers.form;
 
-import com.nathan.pharmacy.interfaces.Validator;
+import com.nathan.pharmacy.interfaces.FieldValidator;
 import javafx.scene.control.TextField;
 
-public class ValidText implements Validator {
+public class ValidText implements FieldValidator {
 
     @Override
     public boolean isValidField(TextField textField) {

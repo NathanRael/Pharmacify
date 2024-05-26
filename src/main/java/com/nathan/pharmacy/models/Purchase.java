@@ -7,16 +7,22 @@ public class Purchase {
     private int id;
     private Date date;
     private int medId;
+    private int patientId;
+    private  float totalPrice;
 
 
-    public Purchase(int id, Date date, int medId) {
+    public Purchase(int id, Date date, int medId, int patientId, float totalPrice) {
         this.id = id;
         this.date = date;
         this.medId = medId;
+        this.patientId = patientId;
+        this.totalPrice = totalPrice;
     }
-    public Purchase(Date date, int medId) {
+    public Purchase(Date date, int medId, int patientId, float totalPrice) {
         this.date = date;
         this.medId = medId;
+        this.patientId = patientId;
+        this.totalPrice = totalPrice;
     }
 
     public int getId() {
@@ -41,5 +47,21 @@ public class Purchase {
 
     public void setMedId(int medId) {
         this.medId = medId;
+    }
+
+    public int getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(int patientId) {
+        this.patientId = patientId;
+    }
+
+    public float getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(float totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

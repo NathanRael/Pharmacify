@@ -13,6 +13,7 @@ public interface ModelInterface<E> {
     public int getCount() throws Exception;
     public void delete(int id) throws Exception;
     public void insert(E obj) throws Exception;
+    public void updateBy(Object ...rows) throws Exception;
     public void deleteBy(String colName, String value) throws Exception;
 
 }

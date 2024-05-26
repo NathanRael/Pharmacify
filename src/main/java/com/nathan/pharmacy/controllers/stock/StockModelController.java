@@ -52,6 +52,11 @@ public class StockModelController implements ModelInterface<Stock> {
     }
 
     @Override
+    public void updateBy(Object... rows) throws Exception {
+
+    }
+
+    @Override
     public void deleteBy(String colName, String value) throws Exception {
         String query = String.format("DELETE * FROM stock WHERE %s = %s", colName, value);
         connection.executeUpdateQuery(query);
