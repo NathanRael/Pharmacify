@@ -31,7 +31,7 @@ public class MedicamentModelController implements  ModelInterface<Medicament>{
 
     @Override
     public void update(Medicament medicament) throws Exception {
-        String query = String.format("UPDATE medicament SET medName = %s, medDesc = %s, medPrice = %f, medQuantity = %s, stockId = %s, medExpDate = %s WHERE medId = %s", medicament.getName(), medicament.getDesc(), medicament.getPrice(), medicament.getQuantity(), medicament.getStockId() ,medicament.getExpDate(), medicament.getId());
+        String query = String.format("UPDATE medicament SET medName = %s, medDesc = %s, medPrice = %f, medQuantity = %s, stockId = %s, medExpDate = %s WHERE medId = %s", medicament.getName(), medicament.getDesc(), medicament.getPrice(), medicament.getQuantity(), medicament.getStockId() ,medicament.getExpDate().toString(), medicament.getId());
         connection.executeUpdateQuery(query);
     }
 
@@ -70,7 +70,7 @@ public class MedicamentModelController implements  ModelInterface<Medicament>{
 
     @Override
     public void insert(Medicament medicament) throws Exception {
-        String query = String.format("INSERT INTO medicament(medName, medDesc, medPrice, medQuantity, stockId, medExpDate) VALUES ('%s','%s','%s', '%s', '%s', '%s')", medicament.getName(), medicament.getDesc(), medicament.getPrice(), medicament.getQuantity(), medicament.getStockId(), medicament.getExpDate());
+        String query = String.format("INSERT INTO medicament(medName, medDesc, medPrice, medQuantity, stockId, medExpDate) VALUES ('%s','%s','%s', '%s', '%s', '%s')", medicament.getName(), medicament.getDesc(), medicament.getPrice(), medicament.getQuantity(), medicament.getStockId(), medicament.getExpDate().toString());
         connection.executeUpdateQuery(query);
     }
 

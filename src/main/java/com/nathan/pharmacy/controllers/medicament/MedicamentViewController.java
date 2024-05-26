@@ -5,6 +5,8 @@ import com.nathan.pharmacy.controllers.form.ValidLongText;
 import com.nathan.pharmacy.controllers.form.ValidNumber;
 import com.nathan.pharmacy.controllers.form.ValidText;
 import com.nathan.pharmacy.controllers.stock.StockViewController;
+import com.nathan.pharmacy.contstants.AcceptedNumber;
+import com.nathan.pharmacy.interfaces.FieldValidator;
 import com.nathan.pharmacy.models.Medicament;
 import com.nathan.pharmacy.models.Singleton;
 import com.nathan.pharmacy.models.Stock;
@@ -144,10 +146,9 @@ public class MedicamentViewController implements Initializable {
         float medPrice = Float.parseFloat(inputMedPrice.getText());
         int medQuantity =  0;
         int stockId = 1;
-        Date medExpDate = new Date(0);
+        LocalDate medExpDate = LocalDate.now();
 
-//        boolean allFieldValidated = IsValidFields.isValidFields(new ValidText(medName), new ValidLongText(medDesc), new ValidNumber<>(medPrice));
-            boolean allFieldValidated = true;
+        boolean allFieldValidated = validText(inputMedName, new ValidText()) && validText(inputMedDesc, new ValidLongText()) && validText(inputMedPrice, new ValidNumber<>(AcceptedNumber.FLOAT));
 
         Medicament medicament = new Medicament(medName, medDesc, medPrice, medQuantity, stockId, medExpDate);
         MedicamentModelController mc = null;
@@ -158,7 +159,6 @@ public class MedicamentViewController implements Initializable {
                 mc.insert(medicament);
                 loadTableContent();
                 clearAllField();
-                setMedTableObserver("added");
                 System.out.println("Medicament added");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -207,14 +207,12 @@ public class MedicamentViewController implements Initializable {
             float medPrice =  rs.getFloat("medPrice");
             int medQuantity = rs.getInt("medQuantity");
             int stockId =  rs.getInt("stockId");
-            Date medExpDate = (Date) rs.getObject("medExpDate");
+            LocalDate medExpDate = rs.getDate("medExpDate").toLocalDate();
             medicaments.add(new Medicament(medId, medName, medDesc,medPrice, medQuantity,stockId, medExpDate));
         }
 
         tableMedicament.setItems(medicaments);
     }
-
-
 
     public void initTableView(){
         try{
@@ -246,6 +244,9 @@ public class MedicamentViewController implements Initializable {
         Singleton.getInstance().getTableObserver().getMedTableChangedProperty().set(indication);
     }
 
+    public boolean validText(TextField textField, FieldValidator fieldValidator){
+        return ValidationUtil.validTextField(textField, fieldValidator);
+    }
 
     @FXML
     void handleKeyPressed(KeyEvent event) {

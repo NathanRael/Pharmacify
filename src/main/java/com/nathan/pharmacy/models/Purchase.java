@@ -1,24 +1,25 @@
 package com.nathan.pharmacy.models;
 
-import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Date;
 
 //Purchase( purchaseId, #medId,purchaseDate, #patientId)
 public class Purchase {
     private int id;
-    private Date date;
+    private LocalDate date;
     private int medId;
     private int patientId;
     private  float totalPrice;
 
 
-    public Purchase(int id, Date date, int medId, int patientId, float totalPrice) {
+    public Purchase(int id, LocalDate date, int medId, int patientId, float totalPrice) {
         this.id = id;
         this.date = date;
         this.medId = medId;
         this.patientId = patientId;
         this.totalPrice = totalPrice;
     }
-    public Purchase(Date date, int medId, int patientId, float totalPrice) {
+    public Purchase(LocalDate date, int medId, int patientId, float totalPrice) {
         this.date = date;
         this.medId = medId;
         this.patientId = patientId;
@@ -33,11 +34,11 @@ public class Purchase {
         this.id = id;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

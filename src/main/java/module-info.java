@@ -14,6 +14,7 @@ module com.nathan.pharmacy {
     opens com.nathan.pharmacy.controllers.dashboard to javafx.fxml;
     opens com.nathan.pharmacy.controllers.medicament to javafx.fxml;
     opens com.nathan.pharmacy.controllers.purchase to javafx.fxml;
+    opens com.nathan.pharmacy.controllers.supplier to javafx.fxml;
     opens com.nathan.pharmacy.controllers.user to javafx.fxml;
     opens com.nathan.pharmacy.controllers.stock to javafx.fxml;
     opens com.nathan.pharmacy.views to javafx.fxml;

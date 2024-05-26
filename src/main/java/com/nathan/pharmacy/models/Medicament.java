@@ -1,6 +1,5 @@
 package com.nathan.pharmacy.models;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 //Medicament(medId, medName, medDesc, medPrice, medQuantity, #stockId)
@@ -10,10 +9,10 @@ public class Medicament {
     private String desc;
     private float price;
     private int quantity;
-    private Date expDate;
+    private LocalDate expDate;
     private int stockId;
 
-    public Medicament(int id, String name, String desc, float price, int quantity, int stockId,  Date expDate) {
+    public Medicament(int id, String name, String desc, float price, int quantity, int stockId,  LocalDate expDate) {
         this.id = id;
         this.name = name;
         this.desc = desc;
@@ -30,7 +29,7 @@ public class Medicament {
         this.price = price;
         this.stockId = stockId;
     }
-    public Medicament(String name, String desc, float price, int quantity, int stockId,  Date expDate) {
+    public Medicament(String name, String desc, float price, int quantity, int stockId,  LocalDate expDate) {
         this.name = name;
         this.desc = desc;
         this.price = price;
@@ -87,11 +86,11 @@ public class Medicament {
         this.stockId = stockId;
     }
 
-    public Date getExpDate() {
+    public LocalDate getExpDate() {
         return expDate;
     }
 
-    public void setExpDate(Date expDate) {
+    public void setExpDate(LocalDate expDate) {
         this.expDate = expDate;
     }
 }

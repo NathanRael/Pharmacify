@@ -33,6 +33,9 @@ public class NavbarViewController implements Initializable {
     private Button btnNavPurchase;
 
     @FXML
+    private Button btnNavDelivery;
+
+    @FXML
     private Button btnNavSupplier;
 
     @FXML
@@ -73,6 +76,11 @@ public class NavbarViewController implements Initializable {
 
     @FXML
     void switchToPrescription(ActionEvent event){
+
+    }
+
+    @FXML
+    void switchToDelivery(ActionEvent event){
 
     }
 

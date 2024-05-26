@@ -43,7 +43,7 @@ public class PurchaseModelController implements ModelInterface<Purchase> {
 
     @Override
     public void insert(Purchase purchase) throws Exception {
-        String query = String.format("INSERT INTO purchase(purchaseDate, medId, patientId, totalPrice) VALUES ('%s','%s','%s', '%s')", purchase.getDate(), purchase.getMedId(), purchase.getPatientId(), purchase.getTotalPrice());
+        String query = String.format("INSERT INTO purchase(purchaseDate, medId, patientId, totalPrice) VALUES ('%s','%s','%s', '%s')", purchase.getDate().toString(), purchase.getMedId(), purchase.getPatientId(), purchase.getTotalPrice());
         connection.executeUpdateQuery(query);
     }
 

@@ -1,7 +1,9 @@
 package com.nathan.pharmacy.controllers.purchase;
 
 
+import com.nathan.pharmacy.controllers.form.ValidName;
 import com.nathan.pharmacy.controllers.form.ValidNumber;
+import com.nathan.pharmacy.controllers.form.ValidText;
 import com.nathan.pharmacy.controllers.medicament.MedicamentModelController;
 import com.nathan.pharmacy.controllers.patient.PatientModelController;
 import com.nathan.pharmacy.contstants.AcceptedNumber;
@@ -14,9 +16,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
+import java.security.Key;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.time.LocalDate;
@@ -72,6 +76,7 @@ public class PurchaseViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println(LocalDate.now());
         btnPurchase.setOnAction(event -> purchaseMedicament());
         selectMedFilter.getItems().addAll("Prix", "Expiration", "Test");
         initTableView();
@@ -90,6 +95,7 @@ public class PurchaseViewController implements Initializable {
     @FXML
     public void handleQuantityKeyTyped(KeyEvent event){
         setInputTotalPrice();
+        setInputMedQuantity();
         updateButtonState();
     }
     @FXML void handleInputPatientKeyTyped(KeyEvent event){
@@ -101,6 +107,9 @@ public class PurchaseViewController implements Initializable {
         updateButtonState();
     }
 
+    @FXML void handleKeyPressed(KeyEvent event){
+        if (event.getCode() == KeyCode.ESCAPE) clearAllField();
+    }
     public void initTableView(){
         try{
             colId.setCellValueFactory(new PropertyValueFactory<Medicament, Integer>("id"));
@@ -109,7 +118,6 @@ public class PurchaseViewController implements Initializable {
             colDesc.setCellValueFactory(new PropertyValueFactory<Medicament, String>("desc"));
             colQuantity.setCellValueFactory(new PropertyValueFactory<Medicament, Integer>("quantity"));
             colExpireDate.setCellValueFactory(new PropertyValueFactory<Medicament, LocalDate>("expDate"));
-
         }catch (Exception ex){
             ex.printStackTrace();
         }
@@ -128,7 +136,7 @@ public class PurchaseViewController implements Initializable {
             float medPrice =  rs.getFloat("medPrice");
             int medQuantity = rs.getInt("medQuantity");
             int stockId =  rs.getInt("stockId");
-            Date medExpDate = (Date) rs.getObject("medExpDate");
+            LocalDate medExpDate = rs.getDate("medExpDate").toLocalDate();
             medicament.add(new Medicament(medId, medName, medDesc,medPrice, medQuantity,stockId, medExpDate));
         }
 
@@ -137,19 +145,14 @@ public class PurchaseViewController implements Initializable {
 
 
     public void purchaseMedicament(){
-        int patientId = Integer.parseInt(inputPatientId.getText());
-        String quantity = inputMedQuantity.getText();
+        LocalDate purchaseDate = LocalDate.now();
         int medId = currSelectedMedRow.getFirst().getId();
-        Float totalPrice = Float.parseFloat(inputTotalPrice.getText());
-        String[] currDate = LocalDate.now().toString().split("-");
-
-        int year = Integer.parseInt(currDate[0]);
-        int month = Integer.parseInt(currDate[1]);
-        int day = Integer.parseInt(currDate[2]);
+        int patientId = Integer.parseInt(inputPatientId.getText());
+        float totalPrice = Float.parseFloat(inputTotalPrice.getText());
 
         try{
             PurchaseModelController pc = new PurchaseModelController();
-            Purchase purchase = new Purchase( new Date(month, year, day),medId, patientId, totalPrice);
+            Purchase purchase = new Purchase( purchaseDate,medId, patientId, totalPrice);
             pc.insert(purchase);
             System.out.println("Medicament purchased");
         }catch (Exception ex){
@@ -160,7 +163,13 @@ public class PurchaseViewController implements Initializable {
         String medName = currentSelection.getName();
         inputMedName.setText(medName);
         setInputTotalPrice();
+        setInputMedQuantity();
 
+    }
+
+    private void setInputMedQuantity(){
+        if (inputMedQuantity.getText().isEmpty())
+            inputMedQuantity.setText("0");
     }
 
     private void setInputTotalPrice(){
@@ -194,7 +203,7 @@ public class PurchaseViewController implements Initializable {
         float medPrice =  selectedRow.getPrice();
         int medQuantity = (int)selectedRow.getQuantity();
         int stockId =  selectedRow.getStockId();
-        Date medExpDate = selectedRow.getExpDate();
+        LocalDate medExpDate = selectedRow.getExpDate();
         currSelectedMedRow.clear();
         currSelectedMedRow.add(new Medicament(medId, medName, medDesc,medPrice, medQuantity,stockId, medExpDate));
     }
@@ -208,8 +217,18 @@ public class PurchaseViewController implements Initializable {
     }
 
     public void updateButtonState() {
-        boolean AllFieldValid = ValidationUtil.validTextField(inputPatientId, new ValidNumber<>(AcceptedNumber.INTEGER)) && ValidationUtil.validTextField(inputMedQuantity, new ValidNumber<>(AcceptedNumber.INTEGER));
-        btnPurchase.setDisable(!AllFieldValid);
+        boolean canPurchase = currSelectedMedRow.getFirst().getQuantity() > Integer.parseInt(inputMedQuantity.getText());
+        boolean AllFieldValid = ValidationUtil.validTextField(inputPatientId, new ValidNumber<>(AcceptedNumber.INTEGER)) && ValidationUtil.validTextField(inputMedQuantity, new ValidNumber<>(AcceptedNumber.INTEGER)) && ValidationUtil.validTextField(inputPatientName, new ValidName()) && ValidationUtil.validTextField(inputMedName, new ValidText()) && ValidationUtil.validTextField(inputTotalPrice, new ValidNumber<>(AcceptedNumber.FLOAT));
+        btnPurchase.setDisable(!AllFieldValid || !canPurchase);
+    }
+
+    public void clearAllField(){
+        inputPatientName.clear();
+        inputTotalPrice.clear();
+        inputPatientId.clear();
+        inputMedQuantity.setText("0");
+        inputMedName.clear();
+
     }
 
 }

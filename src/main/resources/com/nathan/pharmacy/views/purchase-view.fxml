@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-color: -dark-100;" stylesheets="@../styles/purchase.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.purchase.PurchaseViewController">
+<AnchorPane minHeight="0.0" minWidth="0.0" onKeyPressed="#handleKeyPressed" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-color: -dark-100;" stylesheets="@../styles/purchase.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.purchase.PurchaseViewController">
    <children>
       <VBox layoutX="16.0" layoutY="16.0" spacing="64.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
