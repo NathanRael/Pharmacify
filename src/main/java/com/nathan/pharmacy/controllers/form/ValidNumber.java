@@ -1,15 +1,20 @@
 package com.nathan.pharmacy.controllers.form;
 
-import com.nathan.pharmacy.interfaces.FieldsController;
+import com.nathan.pharmacy.interfaces.Validator;
+import javafx.scene.control.TextField;
 
-public class ValidNumber<N extends Number> implements FieldsController {
-
-    private final N number;
-    public ValidNumber(N number){
-        this.number = number;
-    }
+public class ValidNumber implements Validator {
     @Override
-    public boolean isValidField() {
-        return number.intValue() > 0 || number.floatValue() > 0 || number.longValue() > 0 || number.doubleValue() > 0;
+    public boolean isValidField(TextField textField) {
+        String text = textField.getText();
+        if (text.isEmpty()) {
+            return false;
+        }
+        try {
+            int number = Integer.parseInt(text);
+            return number > 0;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }

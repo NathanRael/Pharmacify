@@ -1,15 +1,12 @@
 package com.nathan.pharmacy.controllers.form;
 
-import com.nathan.pharmacy.interfaces.FieldsController;
+import com.nathan.pharmacy.interfaces.Validator;
+import javafx.scene.control.TextField;
 
-public class ValidLongText implements FieldsController {
-    private final String longText;
-    public ValidLongText(String longText){
-        this.longText = longText;
-    }
+public class ValidLongText implements Validator {
     @Override
-    public boolean isValidField() {
-        int len = longText.trim().length();
-        return len >= 5 && len <= 120;
+    public boolean isValidField(TextField textField) {
+        String text = textField.getText();
+        return text != null && text.trim().length() >= 5;
     }
 }

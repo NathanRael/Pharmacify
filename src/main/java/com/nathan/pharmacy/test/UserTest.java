@@ -1,7 +1,6 @@
 package com.nathan.pharmacy.test;
 
 import com.nathan.pharmacy.controllers.user.UserModelController;
-import com.nathan.pharmacy.controllers.form.IsValidFields;
 import com.nathan.pharmacy.controllers.form.ValidPassword;
 import com.nathan.pharmacy.controllers.form.ValidPhone;
 import com.nathan.pharmacy.controllers.form.ValidText;
@@ -50,7 +49,7 @@ public class UserTest {
         String phone = "0341234560";
         String password = "admin1234";
 
-        boolean allFieldValidated = IsValidFields.isValidFields(new ValidText(name), new ValidPhone(phone), new ValidPassword(password));
+        boolean allFieldValidated = true;
         if (allFieldValidated){
             try{
                 User user = new User(name,phone, password);

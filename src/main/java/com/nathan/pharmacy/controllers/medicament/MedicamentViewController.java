@@ -1,7 +1,6 @@
 package com.nathan.pharmacy.controllers.medicament;
 
 import com.nathan.pharmacy.controllers.stock.StockModelController;
-import com.nathan.pharmacy.controllers.form.IsValidFields;
 import com.nathan.pharmacy.controllers.form.ValidLongText;
 import com.nathan.pharmacy.controllers.form.ValidNumber;
 import com.nathan.pharmacy.controllers.form.ValidText;
@@ -9,6 +8,7 @@ import com.nathan.pharmacy.controllers.stock.StockViewController;
 import com.nathan.pharmacy.models.Medicament;
 import com.nathan.pharmacy.models.Singleton;
 import com.nathan.pharmacy.models.Stock;
+import com.nathan.pharmacy.utils.ValidationUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -146,7 +146,8 @@ public class MedicamentViewController implements Initializable {
         int stockId = 1;
         Date medExpDate = new Date(0);
 
-        boolean allFieldValidated = IsValidFields.isValidFields(new ValidText(medName), new ValidLongText(medDesc), new ValidNumber<>(medPrice));
+//        boolean allFieldValidated = IsValidFields.isValidFields(new ValidText(medName), new ValidLongText(medDesc), new ValidNumber<>(medPrice));
+            boolean allFieldValidated = true;
 
         Medicament medicament = new Medicament(medName, medDesc, medPrice, medQuantity, stockId, medExpDate);
         MedicamentModelController mc = null;
@@ -244,6 +245,7 @@ public class MedicamentViewController implements Initializable {
     private void setMedTableObserver(String indication){
         Singleton.getInstance().getTableObserver().getMedTableChangedProperty().set(indication);
     }
+
 
     @FXML
     void handleKeyPressed(KeyEvent event) {

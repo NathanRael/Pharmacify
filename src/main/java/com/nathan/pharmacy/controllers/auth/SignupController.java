@@ -1,12 +1,14 @@
 package com.nathan.pharmacy.controllers.auth;
 
 import com.nathan.pharmacy.controllers.SceneChanger;
+import com.nathan.pharmacy.controllers.form.ValidNumber;
 import com.nathan.pharmacy.controllers.user.UserModelController;
-import com.nathan.pharmacy.controllers.form.IsValidFields;
 import com.nathan.pharmacy.controllers.form.ValidPassword;
 import com.nathan.pharmacy.controllers.form.ValidPhone;
 import com.nathan.pharmacy.controllers.form.ValidText;
+import com.nathan.pharmacy.interfaces.Validator;
 import com.nathan.pharmacy.models.User;
+import com.nathan.pharmacy.utils.ValidationUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -63,7 +65,8 @@ public class SignupController  implements Initializable {
         String password = inputPassword.getText();
         String confirm = inputConfirm.getText();
 
-        boolean allFieldValidated = IsValidFields.isValidFields(new ValidText(name), new ValidPhone(phone), new ValidPassword(password));
+        boolean allFieldValidated = validText(inputName, new ValidNumber()) && validText(inputPhone, new ValidPhone()) && validText(inputPassword, new ValidPassword());
+//        boolean allFieldValidated = IsValidFields.isValidFields(new ValidText(name), new ValidPhone(phone), new ValidPassword(password));
 
         var alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
@@ -109,6 +112,10 @@ public class SignupController  implements Initializable {
     public void switchSceneTo(String sceneName) {
         Stage currentStage = (Stage)btnLogin.getScene().getWindow();
         SceneChanger.changeSceneTo(sceneName, currentStage);
+    }
+
+    public boolean validText(TextField textField, Validator validator){
+        return ValidationUtil.validTextField(textField, validator);
     }
 
 }

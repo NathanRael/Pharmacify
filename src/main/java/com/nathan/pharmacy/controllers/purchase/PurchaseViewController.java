@@ -1,11 +1,10 @@
 package com.nathan.pharmacy.controllers.purchase;
 
-import com.nathan.pharmacy.controllers.form.IsValidFields;
+
 import com.nathan.pharmacy.controllers.form.ValidNumber;
 import com.nathan.pharmacy.controllers.medicament.MedicamentModelController;
 import com.nathan.pharmacy.models.Medicament;
-import com.nathan.pharmacy.models.Purchase;
-import com.nathan.pharmacy.models.Singleton;
+import com.nathan.pharmacy.utils.ValidationUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -128,15 +127,17 @@ public class PurchaseViewController implements Initializable {
     }
 
     private void setInputTotalPrice(){
-        String medQuantity = inputMedQuantity.getText();
-        if (!medQuantity.isEmpty()){
-            if (IsValidFields.isValidFields(new ValidNumber<>(Integer.parseInt(medQuantity)))){
-                int quantity =  Integer.parseInt(medQuantity);
-                int priceUnit = (int)currSelectedMedRow.getFirst().getPrice();
-                int totalPrice = quantity * priceUnit;
-                inputTotalPrice.setText(Integer.toString(totalPrice));
-            }
+
+        if (ValidationUtil.validTextField(inputMedQuantity, new ValidNumber())){
+            String medQuantity = inputMedQuantity.getText();
+            int quantity =  Integer.parseInt(medQuantity);
+            int priceUnit = (int)currSelectedMedRow.getFirst().getPrice();
+            int totalPrice = quantity * priceUnit;
+            inputTotalPrice.setText(Integer.toString(totalPrice));
+        }else{
+            inputTotalPrice.setText("0");
         }
+
 
     }
     @FXML
@@ -165,15 +166,8 @@ public class PurchaseViewController implements Initializable {
         updateButtonState();
     }
 
-    public void updateButtonState(){
-        boolean btnPurchaseDisabled = true;
-        String patientId = inputPatientId.getText();
-        if (!patientId.isEmpty() ){
-            if (IsValidFields.isValidFields(new ValidNumber<>(Integer.parseInt(patientId)))){
-                btnPurchaseDisabled = false;
-            }
-        }
-        btnPurchase.setDisable(btnPurchaseDisabled);
+    public void updateButtonState() {
+
     }
 
 }

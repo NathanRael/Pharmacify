@@ -1,16 +1,13 @@
 package com.nathan.pharmacy.controllers.form;
 
-import com.nathan.pharmacy.interfaces.FieldsController;
+import com.nathan.pharmacy.interfaces.Validator;
+import javafx.scene.control.TextField;
 
-public class ValidPassword implements FieldsController {
-    private final String field;
-
-    public ValidPassword(String field) {
-        this.field = field;
-    }
+public class ValidPassword  implements Validator {
 
     @Override
-    public boolean isValidField() {
-        return field.length() >= 8;
+    public boolean isValidField(TextField textField) {
+        String password = textField.getText();
+        return password != null && password.trim().length() >= 8;
     }
 }

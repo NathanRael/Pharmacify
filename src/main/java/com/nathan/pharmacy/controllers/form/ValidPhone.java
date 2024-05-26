@@ -1,25 +1,21 @@
 package com.nathan.pharmacy.controllers.form;
 
-import com.nathan.pharmacy.interfaces.FieldsController;
+import com.nathan.pharmacy.interfaces.Validator;
+import javafx.scene.control.TextField;
 
-public class ValidPhone implements FieldsController {
+public class ValidPhone implements Validator {
     private final String[] phoneIndications = {"032", "033", "034", "038"};
-    private final String field;
-
-    public ValidPhone(String field) {
-        this.field = field;
-    }
 
     @Override
-    public boolean isValidField() {
+    public boolean isValidField(TextField textField) {
         boolean containNumber = false;
+        String text = textField.getText();
         for (String phoneIndication : phoneIndications ){
-            if (field.substring(0,3).equals(phoneIndication)){
+            if (text.substring(0,3).equals(phoneIndication)){
                 containNumber = true;
                 break;
             }
         }
-
-        return field.length() == 10 && containNumber;
+        return text.length() == 10 && containNumber;
     }
 }
