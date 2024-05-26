@@ -26,37 +26,31 @@ public class ViewFactory {
     };
 
     public ScrollPane getDashboardView(){
-        if (dashboardView == null){
-            try{
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("dashboard-view.fxml"));
-                dashboardView = fxmlLoader.load();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("dashboard-view.fxml"));
+            dashboardView = fxmlLoader.load();
 
-            }catch (IOException ex){
-                ex.printStackTrace();
-            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
         return dashboardView;
     }
 
     public AnchorPane getPurchaseView(){
-        if (purchaseView == null){
-            try{
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("purchase-view.fxml"));
-                purchaseView = fxmlLoader.load();
-            }catch (IOException ex){
-                ex.printStackTrace();
-            }
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("purchase-view.fxml"));
+            purchaseView = fxmlLoader.load();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
         return purchaseView;
     }
     public AnchorPane getMedicamentView(){
-        if (medicamentView == null){
-            try{
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("medicament-view.fxml"));
-                medicamentView = fxmlLoader.load();
-            }catch (IOException ex){
-                ex.printStackTrace();
-            }
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("medicament-view.fxml"));
+            medicamentView = fxmlLoader.load();
+        }catch (IOException ex){
+            ex.printStackTrace();
         }
         return medicamentView;
     }
@@ -125,5 +119,7 @@ public class ViewFactory {
     public StringProperty getSelectedMenuItem() {
         return selectedMenuItem;
     }
+
+
 
 }

@@ -1,5 +1,7 @@
 package com.nathan.pharmacy.controllers;
 
+import com.nathan.pharmacy.controllers.medicament.MedicamentViewController;
+import com.nathan.pharmacy.controllers.purchase.PurchaseViewController;
 import com.nathan.pharmacy.models.Singleton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,10 +15,14 @@ public class MainController implements Initializable {
     @FXML
     private BorderPane mainParent;
 
+    private final SceneChanger sceneChanger = new SceneChanger();
+
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Singleton.getInstance().getViewFactory().getSelectedMenuItem().addListener((observableValue, oldVal, newVal) -> {
-            SceneChanger.updateSubScene(mainParent, newVal);
+            sceneChanger.updateSubScene(mainParent, newVal);
         } );
     }
 }

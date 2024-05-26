@@ -1,5 +1,6 @@
 package com.nathan.pharmacy.controllers;
 
+import com.nathan.pharmacy.controllers.purchase.PurchaseViewController;
 import com.nathan.pharmacy.models.Singleton;
 
 import javafx.scene.layout.BorderPane;
@@ -7,6 +8,9 @@ import javafx.stage.Stage;
 
 
 public class SceneChanger {
+    private PurchaseViewController purchaseViewController;
+
+    public SceneChanger(){};
 
     public static void changeSceneTo(String sceneName, Stage currentStage){
         Singleton.getInstance().getViewFactory().closeStage(currentStage);
@@ -19,12 +23,20 @@ public class SceneChanger {
         }
     }
 
-    public static void updateSubScene(BorderPane mainParent, String newVal){
+    public  void updateSubScene(BorderPane mainParent, String newVal){
         switch (newVal){
-            case "dashboard" -> mainParent.setCenter(Singleton.getInstance().getViewFactory().getDashboardView());
-            case "purchase" -> mainParent.setCenter(Singleton.getInstance().getViewFactory().getPurchaseView());
-            case "medicament" -> mainParent.setCenter(Singleton.getInstance().getViewFactory().getMedicamentView());
-            default -> mainParent.setCenter(Singleton.getInstance().getViewFactory().getDashboardView());
+            case "dashboard" ->{
+                mainParent.setCenter(Singleton.getInstance().getViewFactory().getDashboardView());
+            }
+            case "purchase" -> {
+                mainParent.setCenter(Singleton.getInstance().getViewFactory().getPurchaseView());
+            }
+            case "medicament" -> {
+                mainParent.setCenter(Singleton.getInstance().getViewFactory().getMedicamentView());
+            }
+            default -> {
+                Singleton.getInstance().getViewFactory().showNotFoundWindow();
+            }
         }
     }
 

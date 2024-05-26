@@ -1,18 +1,16 @@
 package com.nathan.pharmacy.controllers.form;
 
 import com.nathan.pharmacy.interfaces.FieldsController;
+import javafx.scene.control.TextField;
 
 public class IsValidFields {
     public IsValidFields(){};
     public static boolean isValidFields(FieldsController...fieldsController){
-        boolean isAllFieldValid = false;
-        for (FieldsController field : fieldsController){
-            if (!field.isValidField()){
-                isAllFieldValid = false;
-                break;
+        for (FieldsController field : fieldsController) {
+            if (!field.isValidField()) {
+                return false;
             }
-            isAllFieldValid = true;
         }
-        return isAllFieldValid;
+        return true;
     }
 }

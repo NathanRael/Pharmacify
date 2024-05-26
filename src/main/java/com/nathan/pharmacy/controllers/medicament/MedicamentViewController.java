@@ -7,11 +7,10 @@ import com.nathan.pharmacy.controllers.form.ValidNumber;
 import com.nathan.pharmacy.controllers.form.ValidText;
 import com.nathan.pharmacy.controllers.stock.StockViewController;
 import com.nathan.pharmacy.models.Medicament;
+import com.nathan.pharmacy.models.Singleton;
 import com.nathan.pharmacy.models.Stock;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -19,7 +18,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.Date;
@@ -93,16 +91,15 @@ public class MedicamentViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         setStockInfo(stockInfo);
 
         btnAddMed.setOnAction(event -> addMedicament());
-        btnDeleteMed.setOnAction(event -> deleteRecord(currSelectedId));
-        btnEditMed.setOnAction(event -> updateRecord(currSelectedId));
+        btnDeleteMed.setOnAction(event -> deleteMedicament(currSelectedId));
+        btnEditMed.setOnAction(event -> updateMedicament(currSelectedId));
 
         selectMedFilter.getItems().addAll("Prix", "Date");
         initSelectStock();
-
+        initTableView();
         try {
             loadTableContent();
             //Listen for selection changes
@@ -125,7 +122,7 @@ public class MedicamentViewController implements Initializable {
         selectStockId.getSelectionModel().select(0);
     }
 
-    public void setFieldsValue(int row, Medicament currentSelection){
+    private void setFieldsValue(int row, Medicament currentSelection){
         btnDeleteMed.setDisable(false);
         btnEditMed.setDisable(false);
 
@@ -141,8 +138,36 @@ public class MedicamentViewController implements Initializable {
         selectStockId.setValue(Integer.toString(stockId));
 
     }
+    private void addMedicament(){
+        String medName = inputMedName.getText();
+        String medDesc = inputMedDesc.getText();
+        float medPrice = Float.parseFloat(inputMedPrice.getText());
+        int medQuantity =  0;
+        int stockId = 1;
+        Date medExpDate = new Date(0);
 
-    public void deleteRecord(int id){
+        boolean allFieldValidated = IsValidFields.isValidFields(new ValidText(medName), new ValidLongText(medDesc), new ValidNumber<>(medPrice));
+
+        Medicament medicament = new Medicament(medName, medDesc, medPrice, medQuantity, stockId, medExpDate);
+        MedicamentModelController mc = null;
+
+        if (allFieldValidated){
+            try {
+                mc = new MedicamentModelController();
+                mc.insert(medicament);
+                loadTableContent();
+                clearAllField();
+                setMedTableObserver("added");
+                System.out.println("Medicament added");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else{
+            System.out.println("Invalid field");
+        }
+    }
+
+    public void deleteMedicament(int id){
         try {
             MedicamentModelController mc = new MedicamentModelController();
             mc.delete(id);
@@ -153,7 +178,7 @@ public class MedicamentViewController implements Initializable {
         }
     }
 
-    public void updateRecord(int id){
+    private void updateMedicament(int id){
         try{
             String medName = inputMedName.getText();
             String medDesc = inputMedDesc.getText();
@@ -162,13 +187,13 @@ public class MedicamentViewController implements Initializable {
             MedicamentModelController mc = new MedicamentModelController();
             mc.updateBy( "stockId", stockId ,"medName", medName, "medDesc", medDesc, "medPrice", medPrice, "medId", id);
             loadTableContent();
+
         }catch (Exception ex){
             ex.printStackTrace();
         }
     }
 
-    public void loadTableContent() throws Exception {
-        initTableView();
+    private  void loadTableContent() throws Exception {
         ObservableList<Medicament> medicaments = FXCollections.observableArrayList();
         MedicamentModelController mc = new MedicamentModelController();
 
@@ -188,6 +213,8 @@ public class MedicamentViewController implements Initializable {
         tableMedicament.setItems(medicaments);
     }
 
+
+
     public void initTableView(){
         try{
             colId.setCellValueFactory(new PropertyValueFactory<Medicament, Integer>("id"));
@@ -202,49 +229,24 @@ public class MedicamentViewController implements Initializable {
             ex.printStackTrace();
         }
     }
-
-    public void addMedicament(){
-        String medName = inputMedName.getText();
-        String medDesc = inputMedDesc.getText();
-        float medPrice = Float.parseFloat(inputMedPrice.getText());
-        int medQuantity =  0;
-        int stockId = 1;
-        Date medExpDate = new Date(0);
-
-        boolean allFieldValidated = IsValidFields.isValidFields(new ValidText(medName), new ValidLongText(medDesc), new ValidNumber<>(medPrice));
-
-        Medicament medicament = new Medicament(medName, medDesc, medPrice, medQuantity, stockId, medExpDate);
-        MedicamentModelController mc = null;
-
-        if (allFieldValidated){
-            try {
-                mc = new MedicamentModelController();
-                mc.insert(medicament);
-                loadTableContent();
-                clearAllField();
-                System.out.println("Medicament added");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }else{
-            System.out.println("Invalid field");
-        }
-    }
-
+    
     public void setStockInfo(List<Stock> stockInfo){
         StockViewController.setStockInfo(stockInfo);
     }
 
-
-
-    public void clearAllField(){
+    private void clearAllField(){
         inputMedDesc.clear();
         inputMedName.clear();
         inputMedPrice.clear();
         selectStockId.setValue("1");
     }
 
-    public void handleKeyPressed(KeyEvent event) {
+    private void setMedTableObserver(String indication){
+        Singleton.getInstance().getTableObserver().getMedTableChangedProperty().set(indication);
+    }
+
+    @FXML
+    void handleKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ESCAPE) clearAllField();
     }
 }
