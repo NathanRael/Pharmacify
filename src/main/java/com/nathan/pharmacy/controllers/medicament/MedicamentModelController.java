@@ -6,6 +6,7 @@ import com.nathan.pharmacy.models.Medicament;
 import javafx.fxml.FXML;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class MedicamentModelController implements  ModelInterface<Medicament>{
     public String[] tableRow = {""};
@@ -24,9 +25,14 @@ public class MedicamentModelController implements  ModelInterface<Medicament>{
 
     @Override
     public ResultSet selectBy(String colName, String value) throws Exception{
-        String query = String.format("SELECT * FROM medicament WHERE %s = %s", colName, value);
+        String query = String.format("SELECT * FROM medicament WHERE %s = '%s'", colName, value);
         ResultSet rs = connection.executeQuery(query);
         return  rs;
+    }
+
+    public void updateQuantity(int medQuantity, int medId) throws SQLException {
+        String query = String.format("UPDATE medicament SET medQuantity = '%s' WHERE medId = '%s'", medQuantity, medId);
+        connection.executeUpdateQuery(query);
     }
 
     @Override

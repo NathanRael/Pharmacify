@@ -1,7 +1,5 @@
 package com.nathan.pharmacy.controllers;
 
-import com.nathan.pharmacy.controllers.medicament.MedicamentViewController;
-import com.nathan.pharmacy.controllers.purchase.PurchaseViewController;
 import com.nathan.pharmacy.contstants.SubScenesName;
 import com.nathan.pharmacy.models.Singleton;
 import javafx.fxml.FXML;

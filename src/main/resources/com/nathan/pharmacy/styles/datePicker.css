@@ -1,0 +1,114 @@
+@import "colors.css";
+
+/*Date picker*/
+/*
+.calendar-grid {
+    -fx-background-color : -white-10;
+}
+
+.combo-box-popup > .list-view > .placeholder > .label{
+    -fx-text-fill : -white-100;
+}
+
+.calendar-header{
+    -fx-background-color : -primary-10;
+    -fx-base : -white-10;
+    -fx-text-fill : -white-100;
+}
+
+.date-picker{
+    -fx-background-color : -white-10;
+}
+
+.date-picker-popup{
+    -fxt-text-fill : white;
+    -fxt-background-color : -primary-100;
+    -fx-background-inset : 0, 1;
+    -fx-background-radius : 0;
+    -fx-alignment : CENTER.
+    -fx-spacing : 0;
+    -fx-padding : 4px;
+    -fx-effect : dropshadow(gaussian, rgba(0,0,0,0.2);
+}
+
+.date-picker > .text-field {
+    -fx-text-fill : -white-100;
+}
+
+.date-picker-popup > .month-year-pane {
+    -fx-base : -primary-100;
+    -fx-mark-highlight-color ; -fx-light-text-color;
+}*/
+
+.date-picker {
+    -fx-inset : 0;
+    -fx-background-color : -white-10;
+}
+
+.date-picker > .text-field{
+    -fx-padding : 8px 0 8px 16px;
+    -fx-background-color : transparent;
+    -fx-text-fill : -white-100;
+}
+
+/*
+.date-picker:focused{
+    -fx-base : -white-10;
+}
+*/
+
+.date-picker .arrow-button {
+	-fx-background-color: -primary-100;
+	-fx-background-radius: 0;
+	-fx-cursor : HAND;
+
+/*	-fx-background-size : 60% 60%;
+	-fx-background-position : center center;*/
+}
+
+.date-picker .arrow-button:hover {
+	-fx-background-color: -primary-40;
+}
+.date-picker .arrow-button .arrow {
+	-fx-background-color: -white-100;
+}
+
+.date-picker .cell {
+	-fx-background-color: -white-100;
+}
+
+.date-picker .cell:hover {
+	-fx-background-color: -primary-40;
+}
+
+.date-picker .cell:focused {
+	-fx-background-color: -primary-100;
+	-fx-text-fill : -white-100;
+}
+.date-picker .selected {
+	-fx-background-color: -primary-100;
+	-fx-text-fill: -white-100;
+}
+
+.date-picker .selected:focused {
+	-fx-background-color: -primary-100;
+	-fx-text-fill: -white-100;
+}
+
+.date-picker-popup  {
+	-fx-border-color: transparent;
+}
+
+.date-picker-popup .month-year-pane {
+	-fx-background-color: -primary-100;
+}
+.date-picker-popup .month-year-pane .label {
+	-fx-text-fill: -white-100;
+}
+.date-picker-popup .week-number-cell {
+	-fx-text-fill: -primary-40;
+}
+
+.date-picker-popup .spinner .button .left-arrow,
+.date-picker-popup .spinner .button .right-arrow {
+	-fx-background-color: -white-100;

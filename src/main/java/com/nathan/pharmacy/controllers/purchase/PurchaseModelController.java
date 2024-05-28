@@ -21,7 +21,7 @@ public class PurchaseModelController implements ModelInterface<Purchase> {
 
     @Override
     public ResultSet selectBy(String colName, String value) throws Exception {
-        String query = String.format("SELECT * FROM purchase WHERE %s = %s", colName, value);
+        String query = String.format("SELECT * FROM purchase WHERE %s = '%s'", colName, value);
         ResultSet rs = connection.executeQuery(query);
         return  rs;
     }
@@ -38,7 +38,8 @@ public class PurchaseModelController implements ModelInterface<Purchase> {
 
     @Override
     public void delete(int id) throws Exception {
-
+        String query = "DELETE FROM purchase WHERE purchaseId = " + id;
+        connection.executeUpdateQuery(query);
     }
 
     @Override

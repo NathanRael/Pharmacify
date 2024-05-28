@@ -1,24 +1,27 @@
 package com.nathan.pharmacy.models;
-//Patient(patientId, patientFName, patientLName, patientPhone, patientAddress)
+//Patient(patientId, patientFName, patientLName, patientPhone, patientAddress, patientEmail)
 public class Patient {
     private int id;
     private String firstName;
     private String lastName;
     private String phone;
     private String address;
+    private String email;
 
-    public Patient(int id, String firstName, String lastName, String phone, String address) {
+    public Patient(int id, String firstName, String lastName, String phone, String address, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
         this.address = address;
+        this.email = email;
     }
-    public Patient(String firstName, String lastName, String phone, String address) {
+    public Patient(String firstName, String lastName, String phone, String address, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
         this.address = address;
+        this.email = email;
     }
 
     public int getId() {
@@ -59,5 +62,13 @@ public class Patient {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

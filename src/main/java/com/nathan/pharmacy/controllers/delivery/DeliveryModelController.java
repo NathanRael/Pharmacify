@@ -34,7 +34,7 @@ public class DeliveryModelController implements ModelInterface<Delivery> {
     }
 
     @Override
-    public void update(Delivery obj) throws Exception {
+    public void update(Delivery delivery) throws Exception {
 
     }
 
@@ -49,8 +49,9 @@ public class DeliveryModelController implements ModelInterface<Delivery> {
     }
 
     @Override
-    public void insert(Delivery obj) throws Exception {
-
+    public void insert(Delivery delivery) throws Exception {
+        String query = String.format("INSERT INTO delivery(delPrice, delDate, supId, medId, delQuantity) VALUES ('%s', '%s', '%s', '%s', '%s')", delivery.getPrice(), delivery.getDate().toString(), delivery.getSupId(), delivery.getMedId(), delivery.getQuantity());
+        connection.executeUpdateQuery(query);
     }
 
     @Override
