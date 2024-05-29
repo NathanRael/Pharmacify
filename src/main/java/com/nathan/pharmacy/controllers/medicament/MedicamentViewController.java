@@ -148,7 +148,7 @@ public class MedicamentViewController implements Initializable {
         int stockId = 1;
         LocalDate medExpDate = LocalDate.now();
 
-        boolean allFieldValidated = validText(inputMedName, new ValidText()) && validText(inputMedDesc, new ValidLongText()) && validText(inputMedPrice, new ValidNumber<>(AcceptedNumber.FLOAT));
+        boolean allFieldValidated = validText(inputMedName, new ValidText()) && validText(inputMedDesc, new ValidLongText()) && validText(inputMedPrice, new ValidNumber());
 
         Medicament medicament = new Medicament(medName, medDesc, medPrice, medQuantity, stockId, medExpDate);
         MedicamentModelController mc = null;

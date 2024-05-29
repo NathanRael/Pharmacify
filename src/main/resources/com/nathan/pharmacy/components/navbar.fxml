@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="720.0" prefWidth="230.0" style="-fx-background-color: -dark-100;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.components.NavbarViewController">
+<AnchorPane prefHeight="720.0" prefWidth="230.0" style="-fx-background-color: -gray-100;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.components.NavbarViewController">
    <stylesheets>
       <URL value="@../styles/globals.css" />
       <URL value="@../styles/navbar.css" />

@@ -75,6 +75,16 @@ public class NavbarViewController implements Initializable {
         switchSubsceneTo(SubScenesName.SUPPLIER);
     }
     @FXML
+    void switchToDelivery(ActionEvent event){
+        switchSubsceneTo(SubScenesName.DELIVERY);
+    }
+
+    @FXML
+    void switchToPatient(ActionEvent event) {
+        switchSubsceneTo(SubScenesName.PATIENT);
+    }
+
+    @FXML
     void switchToHistory(ActionEvent event) {
 
     }
@@ -83,17 +93,6 @@ public class NavbarViewController implements Initializable {
     void switchToPrescription(ActionEvent event){
 
     }
-
-    @FXML
-    void switchToDelivery(ActionEvent event){
-
-    }
-
-    @FXML
-    void switchToPatient(ActionEvent event) {
-
-    }
-
 
     @FXML
     void switchToUser(ActionEvent event) {

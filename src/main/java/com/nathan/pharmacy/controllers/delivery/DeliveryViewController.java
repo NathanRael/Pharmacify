@@ -85,11 +85,14 @@ public class DeliveryViewController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         inputDelDate.setEditable(false);
         inputDelDate.setValue(LocalDate.now());
-        btnCancelDelivery.setOnAction(event -> cancelDelivery(currSelectedDeliveryRow.getFirst().getId(), currSelectedDeliveryRow.getFirst().getDate()));
         btnDeliver.setOnAction(event -> deliver());
+        btnCancelDelivery.setOnAction(event -> cancelDelivery(currSelectedDeliveryRow.getFirst().getId(), currSelectedDeliveryRow.getFirst().getDate()));
 
+        listenKeyEvent();
         initTableView();
         initSelectMedName();
+
+
         try {
             loadTableContent();
             tableDelivery.getSelectionModel().selectedItemProperty().addListener((observableValue, oldSelection, newSelection) -> {
@@ -102,31 +105,11 @@ public class DeliveryViewController implements Initializable {
         }
     }
 
-    @FXML
-    void handleInputSupIdKeyTyped(KeyEvent event) {
-        updateButtonState();
-    }
-    @FXML
-    void handleInputMedQuantityKeyTyped(KeyEvent event){
-        updateButtonState();
-    }
-    @FXML
-    public void handleInputDelPriceKeyTyped(KeyEvent event) {
-        updateButtonState();
-    }
-    @FXML
-    void handleSelectMedNameSelected(ContextMenuEvent event) {
-        updateButtonState();
-    }
-    @FXML
-    void handleInputDelDateKeyTyped(ContextMenuEvent event) {
-        updateButtonState();
-    }
 
     @FXML
     void handleKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ESCAPE) clearAllField();
-//        updateButtonState();
+        updateButtonState();
     }
 
     public void listenKeyEvent(){
@@ -205,8 +188,7 @@ public class DeliveryViewController implements Initializable {
             if (rs.next()){
                 currentQuantity = rs.getInt("medQuantity");
                 newQuantity = currentQuantity + medQuantity;
-
-                mc.updateBy("medQuantity", newQuantity, "medId", medQuantity);
+                mc.updateBy("medQuantity", newQuantity, "medId", medId);
                 System.out.println("Medicament updated");
             }
         } catch (Exception ex) {
@@ -277,21 +259,25 @@ public class DeliveryViewController implements Initializable {
 
     public void handleDelRowSelected(Delivery newSelection){
         updateCurrSelectedDelRow(newSelection);
-//        setFieldsValue(newSelection);
+        setFieldsValue(newSelection);
         updateButtonState();
     }
 
-    public  void updateButtonState(){
-        // HANDLING DATE INPUT
-        boolean canDeliver = validText(inputSupId, new ValidNumber<>(AcceptedNumber.INTEGER)) && validText(inputDelQuantity, new ValidNumber<>(AcceptedNumber.INTEGER)) && validText(inputDelPrice, new ValidNumber<>(AcceptedNumber.INTEGER)) && !inputDelDate.getValue().isBefore(LocalDate.now()) ;
-        boolean canCancelDelivery = inputDelDate.getValue().isAfter(LocalDate.now());
+    public void updateButtonState() {
+        boolean isValidSupId = validText(inputSupId, new ValidNumber());
+        boolean isValidDelQuantity = validText(inputDelQuantity, new ValidNumber());
+        boolean isValidDelPrice = validText(inputDelPrice, new ValidNumber());
+        boolean isMedNameSelected = selectMedName.getSelectionModel().getSelectedItem() != null;
+        boolean isDateValid = inputDelDate.getValue() != null;
 
-        if (!currSelectedDeliveryRow.isEmpty())
-            canDeliver = currSelectedDeliveryRow.getFirst().getId() > 0;
+        boolean canDeliver = isValidSupId && isValidDelQuantity && isValidDelPrice && isMedNameSelected && isDateValid;
+
+        boolean canCancelDelivery = inputDelDate.getValue() != null && inputDelDate.getValue().isAfter(LocalDate.now()) && !currSelectedDeliveryRow.isEmpty();
 
         btnDeliver.setDisable(!canDeliver);
         btnCancelDelivery.setDisable(!canCancelDelivery);
     }
+
 
     public void clearAllField(){
         inputDelDate.setValue(LocalDate.now());

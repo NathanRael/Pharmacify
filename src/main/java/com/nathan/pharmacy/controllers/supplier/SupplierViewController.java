@@ -196,7 +196,7 @@ public class SupplierViewController implements Initializable {
     public void updateButtonState(){
         boolean canAdd = validText(inputSupName, new ValidName()) && validText(inputSupPhone, new ValidPhone());
         boolean canEdit = validText(inputSupName, new ValidName()) && validText(inputSupPhone, new ValidPhone());
-        boolean canDelete = validText(inputSupId, new ValidNumber<>(AcceptedNumber.INTEGER));
+        boolean canDelete = validText(inputSupId, new ValidNumber());
 
         btnAdd.setDisable(!canAdd);
         btnEdit.setDisable(!canEdit);

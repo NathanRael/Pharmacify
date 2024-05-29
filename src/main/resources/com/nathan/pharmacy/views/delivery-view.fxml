@@ -53,7 +53,7 @@
                               <String fx:value="font-700" />
                            </styleClass>
                         </Text>
-                        <TextField onKeyTyped="#handleInputSupIdKeyTyped" fx:id="inputSupId" prefHeight="46.0" prefWidth="175.0" promptText="Identifiant du fournisseur" style="-fx-background-radius: 8 0 0 8; -fx-border-radius: 8 0 0 8; -fx-border-color: -dark-100;" styleClass="input" />
+                        <TextField fx:id="inputSupId"  prefHeight="46.0" prefWidth="175.0" promptText="Identifiant du fournisseur" style="-fx-background-radius: 8 0 0 8; -fx-border-radius: 8 0 0 8; -fx-border-color: -dark-100;" styleClass="input" />
                      </children>
                   </VBox>
                   <VBox layoutX="10.0" layoutY="10.0" spacing="8.0">
@@ -64,7 +64,7 @@
                               <String fx:value="font-700" />
                            </styleClass>
                         </Text>
-                        <ChoiceBox onContextMenuRequested="#handleSelectMedNameSelected" fx:id="selectMedName" prefHeight="45.0" prefWidth="161.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-border-color: -dark-100;" styleClass="input-md" />
+                        <ChoiceBox fx:id="selectMedName"  prefHeight="45.0" prefWidth="161.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-border-color: -dark-100;" styleClass="input-md" />
                      </children>
                   </VBox>
                   <VBox layoutX="217.0" layoutY="10.0" spacing="8.0">
@@ -75,7 +75,7 @@
                               <String fx:value="font-700" />
                            </styleClass>
                         </Text>
-                        <TextField fx:id="inputDelQuantity" onKeyTyped="#handleInputMedQuantityKeyTyped" prefHeight="46.0" prefWidth="157.0" promptText="Quantité à livrer" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-border-color: -dark-100;" styleClass="input" />
+                        <TextField fx:id="inputDelQuantity"  prefHeight="46.0" prefWidth="157.0" promptText="Quantité à livrer" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-border-color: -dark-100;" styleClass="input" />
                      </children>
                   </VBox>
                   <VBox layoutX="632.0" layoutY="10.0" spacing="8.0">
@@ -86,7 +86,7 @@
                               <String fx:value="font-700" />
                            </styleClass>
                         </Text>
-                        <TextField fx:id="inputDelPrice" onKeyTyped="#handleInputDelPriceKeyTyped" promptText="Prix  de la livraison" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-border-color: -dark-100;" styleClass="input" />
+                        <TextField fx:id="inputDelPrice"  promptText="Prix  de la livraison" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-border-color: -dark-100;" styleClass="input" />
                      </children>
                   </VBox>
                   <VBox layoutX="217.0" layoutY="10.0" spacing="8.0">
@@ -97,7 +97,7 @@
                               <String fx:value="font-700" />
                            </styleClass>
                         </Text>
-                        <DatePicker onContextMenuRequested="#handleInputDelDateKeyTyped" fx:id="inputDelDate" prefHeight="46.0" prefWidth="176.0" promptText="Date de livraison" style="-fx-background-radius: 0;" stylesheets="@../styles/datePicker.css" />
+                        <DatePicker fx:id="inputDelDate" prefHeight="46.0" prefWidth="176.0" promptText="Date de livraison" style="-fx-background-radius: 0;" stylesheets="@../styles/datePicker.css" />
                      </children>
                   </VBox>
                   <Button fx:id="btnDeliver" disable="true" layoutX="755.0" layoutY="40.0" mnemonicParsing="false" style="-fx-text-fill: -white-100; -fx-background-radius: 0; -fx-border-color: 0;" styleClass="button-lg" text="Livrer" />

@@ -98,7 +98,7 @@ public class PurchaseViewController implements Initializable {
         updateButtonState();
     }
     @FXML void handleInputPatientKeyTyped(KeyEvent event){
-        if (ValidationUtil.validTextField(inputPatientId, new ValidNumber<>(AcceptedNumber.INTEGER))){
+        if (ValidationUtil.validTextField(inputPatientId, new ValidNumber())){
             setInputPatientName(Integer.parseInt(inputPatientId.getText()));
         }else{
             inputPatientName.setText("-1");
@@ -172,7 +172,7 @@ public class PurchaseViewController implements Initializable {
     }
 
     private void setInputTotalPrice(){
-        if (ValidationUtil.validTextField(inputMedQuantity, new ValidNumber<>(AcceptedNumber.INTEGER))){
+        if (ValidationUtil.validTextField(inputMedQuantity, new ValidNumber())){
             String medQuantity = inputMedQuantity.getText();
             int quantity =  Integer.parseInt(medQuantity);
             int priceUnit = (int)currSelectedMedRow.getFirst().getPrice();
@@ -217,7 +217,7 @@ public class PurchaseViewController implements Initializable {
 
     public void updateButtonState() {
         boolean canPurchase = currSelectedMedRow.getFirst().getQuantity() > Integer.parseInt(inputMedQuantity.getText());
-        boolean AllFieldValid = ValidationUtil.validTextField(inputPatientId, new ValidNumber<>(AcceptedNumber.INTEGER)) && ValidationUtil.validTextField(inputMedQuantity, new ValidNumber<>(AcceptedNumber.INTEGER)) && ValidationUtil.validTextField(inputPatientName, new ValidName()) && ValidationUtil.validTextField(inputMedName, new ValidText()) && ValidationUtil.validTextField(inputTotalPrice, new ValidNumber<>(AcceptedNumber.FLOAT));
+        boolean AllFieldValid = ValidationUtil.validTextField(inputPatientId, new ValidNumber()) && ValidationUtil.validTextField(inputMedQuantity, new ValidNumber()) && ValidationUtil.validTextField(inputPatientName, new ValidName()) && ValidationUtil.validTextField(inputMedName, new ValidText()) && ValidationUtil.validTextField(inputTotalPrice, new ValidNumber());
         btnPurchase.setDisable(!AllFieldValid || !canPurchase);
     }
 

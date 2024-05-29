@@ -17,9 +17,11 @@ import java.io.IOException;
 public class ViewFactory {
     private final StringProperty selectedMenuItem;
     private ScrollPane dashboardView;
+    private ScrollPane patientView;
     private AnchorPane purchaseView;
     private AnchorPane medicamentView;
     private AnchorPane supplierView;
+    private AnchorPane deliveryView;
 
 
     public ViewFactory(){
@@ -46,6 +48,27 @@ public class ViewFactory {
             ex.printStackTrace();
         }
         return supplierView;
+    }
+
+    public ScrollPane getPatientView(){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("patient-view.fxml"));
+            patientView = fxmlLoader.load();
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return patientView;
+    }
+    public AnchorPane getDeliveryView(){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("delivery-view.fxml"));
+            deliveryView = fxmlLoader.load();
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return deliveryView;
     }
 
     public AnchorPane getPurchaseView(){
