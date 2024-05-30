@@ -5,6 +5,7 @@ import com.nathan.pharmacy.databases.ConnectionDb;
 import com.nathan.pharmacy.models.Medicament;
 import javafx.fxml.FXML;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -25,7 +26,7 @@ public class MedicamentModelController implements  ModelInterface<Medicament>{
 
     @Override
     public ResultSet selectBy(String colName, String value) throws Exception{
-        String query = String.format("SELECT * FROM medicament WHERE %s = '%s'", colName, value);
+        String query = String.format("SELECT * FROM medicament WHERE %s = '%s' ", colName, value);
         ResultSet rs = connection.executeQuery(query);
         return  rs;
     }
@@ -46,7 +47,7 @@ public class MedicamentModelController implements  ModelInterface<Medicament>{
         StringBuilder query = new StringBuilder("UPDATE medicament SET ");
         for (int i = 0, j = i+1; i < rows.length; i +=2,j+=2){
             if (i == rows.length-2){
-                query.append(" WHERE ").append(rows[i]).append(" = ").append(rows[j]);
+                query.append(" WHERE ").append(rows[i]).append(" = ").append("'").append(rows[j]).append("'");
                 break;
             }
             query.append(rows[i]).append(" = ").append("'").append(rows[j]).append("'");
@@ -55,13 +56,14 @@ public class MedicamentModelController implements  ModelInterface<Medicament>{
             }
 
         }
+        System.out.println(query);
         connection.executeUpdateQuery(String.valueOf(query));
     }
 
     @Override
     public int getCount() throws Exception{
         ResultSet rs = null;
-        String query = "SELECT count(*) as len FROM user";
+        String query = "SELECT count(*) as len FROM medicament";
         rs = connection.executeQuery(query);
         rs.next();
         int len = rs.getInt("len");
@@ -78,6 +80,30 @@ public class MedicamentModelController implements  ModelInterface<Medicament>{
     public void insert(Medicament medicament) throws Exception {
         String query = String.format("INSERT INTO medicament(medName, medDesc, medPrice, medQuantity, stockId, medExpDate) VALUES ('%s','%s','%s', '%s', '%s', '%s')", medicament.getName(), medicament.getDesc(), medicament.getPrice(), medicament.getQuantity(), medicament.getStockId(), medicament.getExpDate().toString());
         connection.executeUpdateQuery(query);
+    }
+
+    public ResultSet searchBy(Object ...rows) throws Exception {
+        StringBuilder query = new StringBuilder("SELECT * FROM medicament WHERE ");
+        for (int i = 0, j = i+1; i < rows.length; i +=2,j+=2){
+            query.append(rows[i]).append(" LIKE ").append("'%").append(rows[j]).append("%'");
+            if (i < rows.length - 4){
+                query.append("OR");
+            }
+
+        }
+        return connection.executeQuery(String.valueOf(query));
+    }
+
+    public ResultSet searchLike(String colName, String value) throws Exception{
+        String query = "SELECT * FROM medicament WHERE " + colName + " LIKE ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        try{
+            preparedStatement.setString(1, "%" + value + "%");
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        ResultSet rs = preparedStatement.executeQuery();
+        return  rs;
     }
 
     @Override

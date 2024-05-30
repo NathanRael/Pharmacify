@@ -4,6 +4,7 @@ import com.nathan.pharmacy.databases.ConnectionDb;
 import com.nathan.pharmacy.interfaces.ModelInterface;
 import com.nathan.pharmacy.models.Patient;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class PatientModelController implements ModelInterface<Patient> {
@@ -39,7 +40,23 @@ public class PatientModelController implements ModelInterface<Patient> {
 
     @Override
     public int getCount() throws Exception {
-        return 0;
+        String query = "SELECT count(*) as len FROM patient";
+        ResultSet rs = connection.executeQuery(query);
+        rs.next();
+        int ln = rs.getInt("len");
+        return ln;
+    }
+
+    public ResultSet searchLike(String colName, String value) throws Exception{
+        String query = "SELECT * FROM patient WHERE " + colName + " LIKE ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        try{
+            preparedStatement.setString(1, "%" + value + "%");
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        ResultSet rs = preparedStatement.executeQuery();
+        return  rs;
     }
 
     @Override

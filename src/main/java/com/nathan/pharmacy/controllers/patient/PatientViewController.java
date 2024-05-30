@@ -75,15 +75,18 @@ public class PatientViewController implements Initializable {
     private TextField inputPatPhone;
 
     @FXML
-    private ChoiceBox<?> selectMedFilter;
+    private ChoiceBox<String> selectPatientFilter;
 
     @FXML
-    private TableView<Patient> tableDelivery;
+    private TextField inputPatientSearch;
+
+    @FXML
+    private TableView<Patient> tablePatient;
 
     private final List<Patient> currSelectedPatientRow = new ArrayList<>();
 
     @FXML
-    void handleKeyPressed(KeyEvent event){
+    void handleKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ESCAPE) clearAllField();
         updateButtonState();
     }
@@ -95,12 +98,16 @@ public class PatientViewController implements Initializable {
         btnDelete.setOnAction(event -> deletePatient(currSelectedPatientRow.get(0).getId()));
         btnInvoice.setOnAction(event -> generateInvoice(currSelectedPatientRow.get(0).getId()));
 
+        selectPatientFilter.getItems().addAll("Id", "Nom", "Adresse");
+        selectPatientFilter.getSelectionModel().select(0);
+
+
         initTableView();
-        listenKeyEvent();
+        listenToEvent();
         try {
             loadTableContent();
-            tableDelivery.getSelectionModel().selectedItemProperty().addListener((observableValue, oldSelection, newSelection) -> {
-                if (newSelection != null){
+            tablePatient.getSelectionModel().selectedItemProperty().addListener((observableValue, oldSelection, newSelection) -> {
+                if (newSelection != null) {
                     handlePatientRowSelected(newSelection);
                 }
             });
@@ -110,78 +117,19 @@ public class PatientViewController implements Initializable {
     }
 
     private void initTableView() {
-        try{
+        try {
             colId.setCellValueFactory(new PropertyValueFactory<Patient, Integer>("id"));
             colPhone.setCellValueFactory(new PropertyValueFactory<Patient, String>("phone"));
             colAddress.setCellValueFactory(new PropertyValueFactory<Patient, String>("address"));
             colEmail.setCellValueFactory(new PropertyValueFactory<Patient, String>("email"));
             colFName.setCellValueFactory(new PropertyValueFactory<Patient, String>("firstName"));
             colLName.setCellValueFactory(new PropertyValueFactory<Patient, String>("lastName"));
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private void addPatient(){
-        int patientId = currSelectedPatientRow.get(0).getId();
-        String patientFName = inputPatFName.getText();
-        String patientLName = inputPatLName.getText();
-        String patientPhone = inputPatPhone.getText();
-        String patientAddress = inputPatAddress.getText();
-        String patientEmail = inputPatEmail.getText();
-
-        try{
-            PatientModelController pc = new PatientModelController();
-            Patient patient = new Patient(patientId, patientFName, patientLName, patientPhone, patientAddress, patientEmail);
-
-            pc.insert(patient);
-            System.out.println("Patient added");
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-        clearAllField();
-        loadTableContent();
-    }
-
-    private void deletePatient(int id){
-        try {
-            PatientModelController pc = new PatientModelController();
-
-            pc.delete(id);
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-        clearAllField();
-        loadTableContent();
-    }
-
-    private void editPatient(){
-        int patientId = currSelectedPatientRow.get(0).getId();
-        String patientFName = currSelectedPatientRow.get(0).getFirstName();
-        String patientLName = currSelectedPatientRow.get(0).getLastName();
-        String patientPhone = currSelectedPatientRow.get(0).getPhone();
-        String patientAddress = currSelectedPatientRow.get(0).getAddress();
-        String patientEmail = currSelectedPatientRow.get(0).getEmail();
-
-        try{
-            PatientModelController pc = new PatientModelController();
-            Patient patient = new Patient(patientId, patientFName, patientLName,patientPhone,patientAddress, patientEmail);
-
-            pc.update(patient);
-            System.out.println("patient updated");
-
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-        loadTableContent();
-        clearAllField();
-    }
-
-    private void generateInvoice(int patientId){
-        loadTableContent();
-    }
-
-    private void listenKeyEvent(){
+    private void listenToEvent() {
         EventHandler<Event> keyTypeHandler = event -> updateButtonState();
 
         inputPatFName.setOnKeyTyped(keyTypeHandler);
@@ -189,9 +137,112 @@ public class PatientViewController implements Initializable {
         inputPatPhone.setOnKeyTyped(keyTypeHandler);
         inputPatEmail.setOnKeyTyped(keyTypeHandler);
         inputPatAddress.setOnContextMenuRequested(keyTypeHandler);
+
+        inputPatientSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                try {
+                    loadTableContent();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                searchPatient();
+            }
+        });
     }
 
-    private void loadTableContent(){
+    private void searchPatient() {
+        String search = inputPatientSearch.getText();
+        String filterMode = selectPatientFilter.getSelectionModel().getSelectedItem();
+
+        try {
+            ObservableList<Patient> patients = FXCollections.observableArrayList();
+            PatientModelController pc = new PatientModelController();
+            ResultSet rs = null;
+            switch (filterMode) {
+                case "Id" -> rs = pc.searchLike("patientId", search);
+                case "Nom" -> rs = pc.searchLike("patientFName", search);
+                case "Adresse" -> rs = pc.searchLike("patientAddress", search);
+                default -> rs = pc.searchLike("patientId", search);
+            }
+
+            while(rs.next()){
+                int patientId = rs.getInt("patientId");
+                String patientFName = rs.getString("patientFName");
+                String patientLName = rs.getString("patientLName");
+                String patientPhone = rs.getString("patientPhone");
+                String patientAddress = rs.getString("patientAddress");
+                String patientEmail = rs.getString("patientEmail");
+                patients.add(new Patient(patientId, patientFName, patientLName, patientPhone, patientAddress, patientEmail));
+            }
+            tablePatient.setItems(patients);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
+    private void addPatient() {
+        int patientId = currSelectedPatientRow.get(0).getId();
+        String patientFName = inputPatFName.getText();
+        String patientLName = inputPatLName.getText();
+        String patientPhone = inputPatPhone.getText();
+        String patientAddress = inputPatAddress.getText();
+        String patientEmail = inputPatEmail.getText();
+
+        try {
+            PatientModelController pc = new PatientModelController();
+            Patient patient = new Patient(patientId, patientFName, patientLName, patientPhone, patientAddress, patientEmail);
+
+            pc.insert(patient);
+            System.out.println("Patient added");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        clearAllField();
+        loadTableContent();
+    }
+
+    private void deletePatient(int id) {
+        try {
+            PatientModelController pc = new PatientModelController();
+
+            pc.delete(id);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        clearAllField();
+        loadTableContent();
+    }
+
+    private void editPatient() {
+        int patientId = currSelectedPatientRow.get(0).getId();
+        String patientFName = currSelectedPatientRow.get(0).getFirstName();
+        String patientLName = currSelectedPatientRow.get(0).getLastName();
+        String patientPhone = currSelectedPatientRow.get(0).getPhone();
+        String patientAddress = currSelectedPatientRow.get(0).getAddress();
+        String patientEmail = currSelectedPatientRow.get(0).getEmail();
+
+        try {
+            PatientModelController pc = new PatientModelController();
+            Patient patient = new Patient(patientId, patientFName, patientLName, patientPhone, patientAddress, patientEmail);
+
+            pc.update(patient);
+            System.out.println("patient updated");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        loadTableContent();
+        clearAllField();
+    }
+
+    private void generateInvoice(int patientId) {
+        loadTableContent();
+    }
+
+
+    private void loadTableContent() {
         ObservableList<Patient> patient = FXCollections.observableArrayList();
         PatientModelController pc = new PatientModelController();
 
@@ -199,21 +250,21 @@ public class PatientViewController implements Initializable {
         try {
             rs = pc.selectAll();
 
-            while (rs.next()){
+            while (rs.next()) {
                 int patientId = rs.getInt("patientId");
                 String patientFName = rs.getString("patientFName");
                 String patientLName = rs.getString("patientLName");
                 String patientPhone = rs.getString("patientPhone");
                 String patientAddress = rs.getString("patientAddress");
                 String patientEmail = rs.getString("patientEmail");
-                patient.add(new Patient(patientId, patientFName, patientLName,patientPhone,patientAddress, patientEmail));
+                patient.add(new Patient(patientId, patientFName, patientLName, patientPhone, patientAddress, patientEmail));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
 
-        tableDelivery.setItems(patient);
+        tablePatient.setItems(patient);
     }
 
     public void updateCurrSelectedPatRow(Patient selectedRow) {
@@ -224,7 +275,7 @@ public class PatientViewController implements Initializable {
         String patientAddress = selectedRow.getAddress();
         String patientEmail = selectedRow.getEmail();
         currSelectedPatientRow.clear();
-        currSelectedPatientRow.add(new Patient(patientId, patientFName, patientLName,patientPhone,patientAddress, patientEmail));
+        currSelectedPatientRow.add(new Patient(patientId, patientFName, patientLName, patientPhone, patientAddress, patientEmail));
     }
 
 
@@ -234,7 +285,7 @@ public class PatientViewController implements Initializable {
         updateButtonState();
     }
 
-    private void setFieldsValue(Patient newSelection){
+    private void setFieldsValue(Patient newSelection) {
         inputPatPhone.setText(newSelection.getPhone());
         inputPatAddress.setText(newSelection.getAddress());
         inputPatEmail.setText(newSelection.getEmail());
@@ -262,7 +313,8 @@ public class PatientViewController implements Initializable {
         inputPatPhone.clear();
         updateButtonState();
     }
-    private boolean validText(TextField textField, FieldValidator fieldValidator){
+
+    private boolean validText(TextField textField, FieldValidator fieldValidator) {
         return ValidationUtil.validTextField(textField, fieldValidator);
     }
 }

@@ -8,6 +8,7 @@ import com.nathan.pharmacy.controllers.medicament.MedicamentModelController;
 import com.nathan.pharmacy.controllers.purchase.PurchaseModelController;
 import com.nathan.pharmacy.contstants.AcceptedNumber;
 import com.nathan.pharmacy.interfaces.FieldValidator;
+import com.nathan.pharmacy.models.Delivery;
 import com.nathan.pharmacy.models.Medicament;
 import com.nathan.pharmacy.models.Purchase;
 import com.nathan.pharmacy.models.Supplier;
@@ -16,10 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -62,6 +60,12 @@ public class SupplierViewController implements Initializable {
     private TextField inputSupPhone;
 
     @FXML
+    private TextField inputSupSearch;
+
+    @FXML
+    private ChoiceBox<String> selectSupFilter;
+
+    @FXML
     private TableView<Supplier> tableSupplier;
 
 
@@ -73,7 +77,12 @@ public class SupplierViewController implements Initializable {
         btnEdit.setOnAction(event -> updateSupplier());
         btnDelete.setOnAction(event -> deleteSupplier(currSelectedSupplierRow.getFirst().getId()));
 
+        selectSupFilter.getItems().addAll("Id", "Nom", "Telephone");
+        selectSupFilter.getSelectionModel().select(0);
+
         initTableView();
+        listenToEvent();
+
         try {
             loadTableContent();
             tableSupplier.getSelectionModel().selectedItemProperty().addListener((observableValue, oldSelection, newSelection) -> {
@@ -98,6 +107,20 @@ public class SupplierViewController implements Initializable {
     void handleKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ESCAPE) clearAllField();
         updateButtonState();
+    }
+
+    private void listenToEvent(){
+        inputSupSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()){
+                try {
+                    loadTableContent();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }else{
+                searchSupplier();
+            }
+        });
     }
 
     public void addSupplier(){
@@ -144,6 +167,33 @@ public class SupplierViewController implements Initializable {
             ex.printStackTrace();
         }
     }
+    private void searchSupplier() {
+        String search = inputSupSearch.getText();
+        String filterMode = selectSupFilter.getSelectionModel().getSelectedItem();
+
+        try {
+            ObservableList<Supplier> suppliers = FXCollections.observableArrayList();
+            SupplierModelController sc = new SupplierModelController();
+            ResultSet rs = null;
+            switch (filterMode) {
+                case "Id" -> rs = sc.searchLike("supId", search);
+                case "Nom" -> rs = sc.searchLike("supName", search);
+                case "Telephone" -> rs = sc.searchLike("supPhone", search);
+                default -> rs = sc.searchLike("supId", search);
+            }
+
+            while (rs.next()){
+                int supId = rs.getInt("supId");
+                String supName = rs.getString("supName");
+                String supPhone = rs.getString("supPhone");
+                suppliers.add(new Supplier(supId, supName, supPhone));
+            }
+            tableSupplier.setItems(suppliers);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
 
     public void updateCurrSelectedMedRow(Supplier selectedRow) {
         int supplierId = selectedRow.getId();
@@ -199,7 +249,7 @@ public class SupplierViewController implements Initializable {
         boolean canDelete = validText(inputSupId, new ValidNumber());
 
         btnAdd.setDisable(!canAdd);
-        btnEdit.setDisable(!canEdit);
+        btnEdit.setDisable(!canEdit || !canDelete);
         btnDelete.setDisable(!canDelete);
     }
 

@@ -4,6 +4,7 @@ import com.nathan.pharmacy.databases.ConnectionDb;
 import com.nathan.pharmacy.interfaces.ModelInterface;
 import com.nathan.pharmacy.models.Supplier;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class SupplierModelController implements ModelInterface<Supplier> {
@@ -26,6 +27,18 @@ public class SupplierModelController implements ModelInterface<Supplier> {
     public ResultSet selectBy(String colName, String value) throws Exception {
         return null;
     }
+    public ResultSet searchLike(String colName, String value) throws Exception{
+        String query = "SELECT * FROM supplier WHERE " + colName + " LIKE ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        try{
+            preparedStatement.setString(1, "%" + value + "%");
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        ResultSet rs = preparedStatement.executeQuery();
+        return  rs;
+    }
+
 
     @Override
     public void update(Supplier supplier) throws Exception {

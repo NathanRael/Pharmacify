@@ -44,8 +44,19 @@ public class PurchaseModelController implements ModelInterface<Purchase> {
 
     @Override
     public void insert(Purchase purchase) throws Exception {
-        String query = String.format("INSERT INTO purchase(purchaseDate, medId, patientId, totalPrice) VALUES ('%s','%s','%s', '%s')", purchase.getDate().toString(), purchase.getMedId(), purchase.getPatientId(), purchase.getTotalPrice());
+        String query = String.format("INSERT INTO purchase(purchaseDate, medId, patientId, totalPrice, purchaseQuantity) VALUES ('%s','%s','%s', '%s', '%s')", purchase.getDate().toString(), purchase.getMedId(), purchase.getPatientId(), purchase.getTotalPrice(), purchase.getQuantity());
         connection.executeUpdateQuery(query);
+    }
+
+    public ResultSet selectJoin() throws Exception {
+        String query = "SELECT * FROM purchase p, medicament m, patient pa WHERE p.medId = m.medId AND pa.patientId = p.patientId";
+        return connection.executeQuery(query);
+    }
+
+    public ResultSet selectMostPurchasedProduct(int Limit) throws Exception{
+        String query = "SELECT DISTINCT medName, count(medName) as count FROM purchase p, medicament m WHERE p.medId = m.medId ORDER BY count(medName) ASC LIMIT " + Limit;
+        
+        return connection.executeQuery(query);
     }
 
     @Override

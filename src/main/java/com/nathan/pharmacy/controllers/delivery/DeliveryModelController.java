@@ -4,6 +4,7 @@ import com.nathan.pharmacy.databases.ConnectionDb;
 import com.nathan.pharmacy.interfaces.ModelInterface;
 import com.nathan.pharmacy.models.Delivery;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class DeliveryModelController implements ModelInterface<Delivery> {
@@ -24,8 +25,20 @@ public class DeliveryModelController implements ModelInterface<Delivery> {
     }
 
     public ResultSet selectJoin() throws Exception{
-        String query = "SELECT delId, delPrice, delDate, delQuantity, s.supId, s.supName, m.medId, m.medName FROM delivery d, medicament m, supplier s WHERE d.supId = s.supId AND d.medId = m.medId";
+        String query = "SELECT d.delId, d.delPrice, d.delDate, d.delQuantity, s.supId, s.supName, m.medId, m.medName, m.medExpDate FROM delivery d, medicament m, supplier s WHERE d.supId = s.supId AND d.medId = m.medId";
         return connection.executeQuery(query);
+    }
+
+    public ResultSet searchLike(String colName, String value) throws Exception{
+        String query = "SELECT * FROM delivery d INNER JOIN medicament m ON m.medId = d.medId INNER JOIN supplier s ON s.supId = d.supId WHERE " + colName + " LIKE ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        try{
+            preparedStatement.setString(1, "%" + value + "%");
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        ResultSet rs = preparedStatement.executeQuery();
+        return  rs;
     }
 
     @Override
@@ -45,7 +58,8 @@ public class DeliveryModelController implements ModelInterface<Delivery> {
 
     @Override
     public void delete(int id) throws Exception {
-
+        String query = "DELETE FROM delivery WHERE delId = " + id;
+        connection.executeUpdateQuery(query);
     }
 
     @Override

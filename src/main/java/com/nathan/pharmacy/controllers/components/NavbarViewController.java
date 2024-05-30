@@ -85,14 +85,16 @@ public class NavbarViewController implements Initializable {
     }
 
     @FXML
+    void switchToPrescription(ActionEvent event){
+        switchSubsceneTo(SubScenesName.PRESCRIPTION);
+    }
+
+    @FXML
     void switchToHistory(ActionEvent event) {
 
     }
 
-    @FXML
-    void switchToPrescription(ActionEvent event){
 
-    }
 
     @FXML
     void switchToUser(ActionEvent event) {

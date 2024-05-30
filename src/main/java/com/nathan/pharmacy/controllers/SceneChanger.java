@@ -45,6 +45,9 @@ public class SceneChanger {
             case PATIENT -> {
                 mainParent.setCenter(Singleton.getInstance().getViewFactory().getPatientView());
             }
+            case PRESCRIPTION -> {
+                mainParent.setCenter(Singleton.getInstance().getViewFactory().getPrescriptionView());
+            }
             default -> {
                 Singleton.getInstance().getViewFactory().showNotFoundWindow();
             }

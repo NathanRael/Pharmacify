@@ -13,6 +13,7 @@ public class Delivery {
 
     private String medName;
     private String supName;
+    private LocalDate medExpDate;
 
     public Delivery(int id, LocalDate date, float price, int supId, int medId, int quantity) {
         this.id = id;
@@ -39,6 +40,17 @@ public class Delivery {
         this.quantity = quantity;
         this.medName = medName;
         this.supName = supName;
+    }
+    public  Delivery(int id, LocalDate date, float price, int supId, int medId, int quantity, String medName, String supName, LocalDate medExpDate){
+        this.id = id;
+        this.date = date;
+        this.price = price;
+        this.supId = supId;
+        this.medId = medId;
+        this.quantity = quantity;
+        this.medName = medName;
+        this.supName = supName;
+        this.medExpDate = medExpDate;
     }
 
 
@@ -104,5 +116,13 @@ public class Delivery {
 
     public void setSupName(String supName) {
         this.supName = supName;
+    }
+
+    public LocalDate getMedExpDate() {
+        return medExpDate;
+    }
+
+    public void setMedExpDate(LocalDate medExpDate) {
+        this.medExpDate = medExpDate;
     }
 }

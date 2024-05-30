@@ -36,7 +36,7 @@
                               <String fx:value="tex-base" />
                            </styleClass>
                         </Button>
-                        <TextField prefHeight="36.0" prefWidth="620.0" promptText="Rechercher un medicament" style="-fx-background-radius: 0 8 8 0;" styleClass="input-md" />
+                        <TextField fx:id="inputSearch" prefHeight="36.0" prefWidth="620.0" promptText="Rechercher un medicament" style="-fx-background-radius: 0 8 8 0;" styleClass="input-md" />
                      </children>
                   </HBox>
                   <ChoiceBox fx:id="selectMedFilter" prefHeight="36.0" prefWidth="150.0" style="-fx-padding: 4 8;" styleClass="input-md" />
@@ -46,13 +46,13 @@
                <children>
                   <VBox spacing="8.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" text="Patient id:">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" text="Nom patient :">
                            <styleClass>
                               <String fx:value="text-base" />
                               <String fx:value="font-700" />
                            </styleClass>
                         </Text>
-                        <TextField fx:id="inputPatientId" disable="true" onKeyTyped="#handleInputPatientKeyTyped" promptText="Identifiant du patient" style="-fx-background-radius: 8 0 0 8; -fx-border-radius: 8 0 0 8; -fx-border-color: -dark-100;" styleClass="input" />
+                        <ChoiceBox fx:id="selectPatName" disable="true" prefWidth="150.0" style="-fx-background-radius: 8 0 0 8;" styleClass="input-md" />
                      </children>
                   </VBox>
                   <VBox layoutX="217.0" layoutY="10.0" spacing="8.0">
@@ -64,17 +64,6 @@
                            </styleClass>
                         </Text>
                         <TextField fx:id="inputMedQuantity" disable="true" onKeyTyped="#handleQuantityKeyTyped" prefHeight="46.0" prefWidth="157.0" promptText="Quantité à vendre" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-border-color: -dark-100;" styleClass="input" />
-                     </children>
-                  </VBox>
-                  <VBox layoutX="10.0" layoutY="10.0" spacing="8.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" text="Nom patient:">
-                           <styleClass>
-                              <String fx:value="text-base" />
-                              <String fx:value="font-700" />
-                           </styleClass>
-                        </Text>
-                        <TextField fx:id="inputPatientName" disable="true" promptText="Nom du patient" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-border-color: -dark-100;" styleClass="input" />
                      </children>
                   </VBox>
                   <VBox layoutX="632.0" layoutY="10.0" spacing="8.0">

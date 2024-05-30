@@ -4,6 +4,8 @@ import com.nathan.pharmacy.contstants.AcceptedNumber;
 import com.nathan.pharmacy.interfaces.FieldValidator;
 import javafx.scene.control.TextField;
 
+import java.util.regex.Pattern;
+
 public class ValidNumber implements FieldValidator {
 
     @Override
@@ -12,10 +14,6 @@ public class ValidNumber implements FieldValidator {
         if (text.isEmpty()) {
             return false;
         }
-        try {
-            return Double.parseDouble(text) > 0;
-        }catch (Exception ex){
-            return false;
-        }
+        return text.matches("^\\d+$");
     }
 }

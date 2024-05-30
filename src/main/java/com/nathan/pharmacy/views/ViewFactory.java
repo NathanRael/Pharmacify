@@ -18,6 +18,7 @@ public class ViewFactory {
     private final StringProperty selectedMenuItem;
     private ScrollPane dashboardView;
     private ScrollPane patientView;
+    private ScrollPane prescriptionView;
     private AnchorPane purchaseView;
     private AnchorPane medicamentView;
     private AnchorPane supplierView;
@@ -59,6 +60,16 @@ public class ViewFactory {
             ex.printStackTrace();
         }
         return patientView;
+    }
+    public ScrollPane getPrescriptionView(){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("prescription-view.fxml"));
+            prescriptionView = fxmlLoader.load();
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return prescriptionView;
     }
     public AnchorPane getDeliveryView(){
         try {

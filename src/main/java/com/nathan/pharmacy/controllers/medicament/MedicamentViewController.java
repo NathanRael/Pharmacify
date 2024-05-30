@@ -1,9 +1,7 @@
 package com.nathan.pharmacy.controllers.medicament;
 
+import com.nathan.pharmacy.controllers.form.*;
 import com.nathan.pharmacy.controllers.stock.StockModelController;
-import com.nathan.pharmacy.controllers.form.ValidLongText;
-import com.nathan.pharmacy.controllers.form.ValidNumber;
-import com.nathan.pharmacy.controllers.form.ValidText;
 import com.nathan.pharmacy.controllers.stock.StockViewController;
 import com.nathan.pharmacy.contstants.AcceptedNumber;
 import com.nathan.pharmacy.interfaces.FieldValidator;
@@ -13,6 +11,7 @@ import com.nathan.pharmacy.models.Stock;
 import com.nathan.pharmacy.utils.ValidationUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -20,6 +19,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import org.w3c.dom.Text;
 
 import java.net.URL;
 import java.sql.Date;
@@ -89,8 +89,6 @@ public class MedicamentViewController implements Initializable {
 
     private List<Stock> stockInfo = new ArrayList<>();
 
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setStockInfo(stockInfo);
@@ -99,40 +97,66 @@ public class MedicamentViewController implements Initializable {
         btnDeleteMed.setOnAction(event -> deleteMedicament(currSelectedId));
         btnEditMed.setOnAction(event -> updateMedicament(currSelectedId));
 
-        selectMedFilter.getItems().addAll("Prix", "Date");
+        selectMedFilter.getItems().addAll("Id", "Nom", "Prix");
+        selectMedFilter.getSelectionModel().select(0);
         initSelectStock();
         initTableView();
+        listenTextFieldEvent();
+
         try {
             loadTableContent();
             //Listen for selection changes
             tableMedicament.getSelectionModel().selectedItemProperty().addListener((observableValue, oldSelection, newSelection) -> {
-                if (newSelection != null){
+                if (newSelection != null) {
                     int currentIndex = tableMedicament.getSelectionModel().getSelectedIndex();
                     setFieldsValue(currentIndex, newSelection);
+                    updateButtonState();
                 }
             });
 
         } catch (Exception ex) {
-           ex.printStackTrace();
+            ex.printStackTrace();
         }
     }
 
-    public void initSelectStock(){
-        for (Stock stock : stockInfo){
+    private void listenTextFieldEvent() {
+        EventHandler<KeyEvent> keyEventEventHandler = event -> updateButtonState();
+
+        inputSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()){
+                try {
+                    loadTableContent();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }else{
+                searchMedicament();
+            }
+        });
+
+        inputMedPrice.setOnKeyTyped(keyEventEventHandler);
+        inputMedDesc.setOnKeyTyped(keyEventEventHandler);
+        inputMedName.setOnKeyTyped(keyEventEventHandler);
+    }
+
+
+
+    public void initSelectStock() {
+        for (Stock stock : stockInfo) {
             selectStockId.getItems().add(Integer.toString(stock.getId()));
         }
         selectStockId.getSelectionModel().select(0);
     }
 
-    private void setFieldsValue(int row, Medicament currentSelection){
+    private void setFieldsValue(int row, Medicament currentSelection) {
         btnDeleteMed.setDisable(false);
         btnEditMed.setDisable(false);
 
         currSelectedId = currentSelection.getId();
         String medName = currentSelection.getName();
         String medDesc = currentSelection.getDesc();
-        float medPrice =  currentSelection.getPrice();
-        int stockId =  currentSelection.getStockId();
+        float medPrice = currentSelection.getPrice();
+        int stockId = currentSelection.getStockId();
 
         inputMedName.setText(medName);
         inputMedDesc.setText(medDesc);
@@ -140,11 +164,12 @@ public class MedicamentViewController implements Initializable {
         selectStockId.setValue(Integer.toString(stockId));
 
     }
-    private void addMedicament(){
+
+    private void addMedicament() {
         String medName = inputMedName.getText();
         String medDesc = inputMedDesc.getText();
         float medPrice = Float.parseFloat(inputMedPrice.getText());
-        int medQuantity =  0;
+        int medQuantity = 0;
         int stockId = 1;
         LocalDate medExpDate = LocalDate.now();
 
@@ -153,7 +178,7 @@ public class MedicamentViewController implements Initializable {
         Medicament medicament = new Medicament(medName, medDesc, medPrice, medQuantity, stockId, medExpDate);
         MedicamentModelController mc = null;
 
-        if (allFieldValidated){
+        if (allFieldValidated) {
             try {
                 mc = new MedicamentModelController();
                 mc.insert(medicament);
@@ -163,59 +188,92 @@ public class MedicamentViewController implements Initializable {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             System.out.println("Invalid field");
         }
     }
 
-    public void deleteMedicament(int id){
+    public void deleteMedicament(int id) {
         try {
             MedicamentModelController mc = new MedicamentModelController();
             mc.delete(id);
             System.out.println("Medicament deleted successfully");
+            clearAllField();
             loadTableContent();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private void updateMedicament(int id){
-        try{
-            String medName = inputMedName.getText();
-            String medDesc = inputMedDesc.getText();
-            float medPrice =  Float.parseFloat(inputMedPrice.getText());
-            int stockId = Integer.parseInt(selectStockId.getSelectionModel().getSelectedItem());
-            MedicamentModelController mc = new MedicamentModelController();
-            mc.updateBy( "stockId", stockId ,"medName", medName, "medDesc", medDesc, "medPrice", medPrice, "medId", id);
-            loadTableContent();
+    private void searchMedicament() {
+        String search = inputSearch.getText();
+        String filterMode = selectMedFilter.getSelectionModel().getSelectedItem();
 
-        }catch (Exception ex){
+
+        try {
+            ObservableList<Medicament> medicaments = FXCollections.observableArrayList();
+            MedicamentModelController mc = new MedicamentModelController();
+            ResultSet rs = null;
+            switch (filterMode) {
+                case "Id" -> rs = mc.searchLike("medId", search);
+                case "Nom" -> rs = mc.searchLike("medName", search);
+                case "Prix" -> rs = mc.searchLike("medPrice", search);
+                default -> rs = mc.searchLike("medId", search);
+            }
+
+            while(rs.next()){
+                int medId = rs.getInt("medId");
+                String medName = rs.getString("medName");
+                String medDesc = rs.getString("medDesc");
+                float medPrice = rs.getFloat("medPrice");
+                int medQuantity = rs.getInt("medQuantity");
+                int stockId = rs.getInt("stockId");
+                LocalDate medExpDate = rs.getDate("medExpDate").toLocalDate();
+                medicaments.add(new Medicament(medId, medName, medDesc, medPrice, medQuantity, stockId, medExpDate));
+            }
+            tableMedicament.setItems(medicaments);
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private  void loadTableContent() throws Exception {
+    private void updateMedicament(int id) {
+        try {
+            String medName = inputMedName.getText();
+            String medDesc = inputMedDesc.getText();
+            float medPrice = Float.parseFloat(inputMedPrice.getText());
+            int stockId = Integer.parseInt(selectStockId.getSelectionModel().getSelectedItem());
+            MedicamentModelController mc = new MedicamentModelController();
+            mc.updateBy("stockId", stockId, "medName", medName, "medDesc", medDesc, "medPrice", medPrice, "medId", id);
+            loadTableContent();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void loadTableContent() throws Exception {
         ObservableList<Medicament> medicaments = FXCollections.observableArrayList();
         MedicamentModelController mc = new MedicamentModelController();
 
         ResultSet rs = mc.selectAll();
 
-        while (rs.next()){
+        while (rs.next()) {
             int medId = rs.getInt("medId");
             String medName = rs.getString("medName");
             String medDesc = rs.getString("medDesc");
-            float medPrice =  rs.getFloat("medPrice");
+            float medPrice = rs.getFloat("medPrice");
             int medQuantity = rs.getInt("medQuantity");
-            int stockId =  rs.getInt("stockId");
+            int stockId = rs.getInt("stockId");
             LocalDate medExpDate = rs.getDate("medExpDate").toLocalDate();
-            medicaments.add(new Medicament(medId, medName, medDesc,medPrice, medQuantity,stockId, medExpDate));
+            medicaments.add(new Medicament(medId, medName, medDesc, medPrice, medQuantity, stockId, medExpDate));
         }
 
         tableMedicament.setItems(medicaments);
     }
 
-    public void initTableView(){
-        try{
+    public void initTableView() {
+        try {
             colId.setCellValueFactory(new PropertyValueFactory<Medicament, Integer>("id"));
             colStockId.setCellValueFactory(new PropertyValueFactory<Medicament, Integer>("stockId"));
             colName.setCellValueFactory(new PropertyValueFactory<Medicament, String>("name"));
@@ -224,32 +282,49 @@ public class MedicamentViewController implements Initializable {
             colQuantity.setCellValueFactory(new PropertyValueFactory<Medicament, Integer>("quantity"));
             colExpireDate.setCellValueFactory(new PropertyValueFactory<Medicament, LocalDate>("expDate"));
 
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
-    
-    public void setStockInfo(List<Stock> stockInfo){
+
+    public void setStockInfo(List<Stock> stockInfo) {
         StockViewController.setStockInfo(stockInfo);
     }
 
-    private void clearAllField(){
+    private void clearAllField() {
         inputMedDesc.clear();
         inputMedName.clear();
         inputMedPrice.clear();
         selectStockId.setValue("1");
+        inputSearch.clear();
+        try {
+            loadTableContent();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        updateButtonState();
     }
 
-    private void setMedTableObserver(String indication){
+    private void updateButtonState() {
+        boolean allFieldValid = validText(inputMedName, new ValidName()) && validText(inputMedPrice, new ValidNumber()) && validText(inputMedDesc, new ValidLongText());
+        boolean canDelete = currSelectedId > 0;
+
+        btnAddMed.setDisable(!allFieldValid);
+        btnEditMed.setDisable(!allFieldValid);
+        btnDeleteMed.setDisable(!canDelete);
+    }
+
+    private void setMedTableObserver(String indication) {
         Singleton.getInstance().getTableObserver().getMedTableChangedProperty().set(indication);
     }
 
-    public boolean validText(TextField textField, FieldValidator fieldValidator){
+    public boolean validText(TextField textField, FieldValidator fieldValidator) {
         return ValidationUtil.validTextField(textField, fieldValidator);
     }
 
     @FXML
     void handleKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ESCAPE) clearAllField();
+        updateButtonState();
     }
 }

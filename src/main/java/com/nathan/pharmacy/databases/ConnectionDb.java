@@ -21,6 +21,10 @@ public class ConnectionDb {
         stat.executeUpdate(query);
     }
 
+    public PreparedStatement prepareStatement(String query) throws  Exception{
+        return connection.prepareStatement(query);
+    }
+
     public void close() throws SQLException {
         stat.close();
         connection.close();

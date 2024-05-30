@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox spacing="8.0" style="-fx-background-color: -dark-100;" stylesheets="@../styles/globals.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ChoiceBox fx:id="selectMedName" prefHeight="39.0" prefWidth="150.0" styleClass="input-md" />
+      <TextField fx:id="inputMedQuantity" layoutX="10.0" layoutY="10.0" prefHeight="46.0" prefWidth="207.0" promptText="Nombre de medicament" style="-fx-border-color: -dark-100;" styleClass="input" />
+   </children>
+</HBox>

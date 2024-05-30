@@ -4,6 +4,7 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -35,9 +36,10 @@
                               <String fx:value="tex-base" />
                            </styleClass>
                         </Button>
-                        <TextField prefHeight="36.0" prefWidth="620.0" promptText="Rechercher un medicament" style="-fx-background-radius: 0 8 8 0;" styleClass="input-md" />
+                        <TextField fx:id="inputSupSearch" prefHeight="36.0" prefWidth="620.0" promptText="Rechercher un fournisseur" style="-fx-background-radius: 0 8 8 0;" styleClass="input-md" />
                      </children>
                   </HBox>
+                  <ChoiceBox fx:id="selectSupFilter" prefHeight="36.0" prefWidth="150.0" style="-fx-padding: 4 8;" styleClass="input-md" />
                </children>
             </HBox>
             <HBox alignment="BOTTOM_LEFT">

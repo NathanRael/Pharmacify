@@ -37,7 +37,7 @@
                               <String fx:value="tex-base" />
                            </styleClass>
                         </Button>
-                        <TextField prefHeight="36.0" prefWidth="620.0" promptText="Rechercher un medicament" style="-fx-background-radius: 0 8 8 0;" styleClass="input-md" />
+                        <TextField fx:id="inputMedSearch" prefHeight="36.0" prefWidth="620.0" promptText="Rechercher un medicament" style="-fx-background-radius: 0 8 8 0;" styleClass="input-md" />
                      </children>
                   </HBox>
                   <ChoiceBox fx:id="selectMedFilter" prefHeight="36.0" prefWidth="150.0" style="-fx-padding: 4 8;" styleClass="input-md" />
@@ -53,7 +53,7 @@
                               <String fx:value="font-700" />
                            </styleClass>
                         </Text>
-                        <TextField fx:id="inputSupId"  prefHeight="46.0" prefWidth="175.0" promptText="Identifiant du fournisseur" style="-fx-background-radius: 8 0 0 8; -fx-border-radius: 8 0 0 8; -fx-border-color: -dark-100;" styleClass="input" />
+                        <TextField fx:id="inputSupId" prefHeight="46.0" prefWidth="175.0" promptText="Identifiant du fournisseur" style="-fx-background-radius: 8 0 0 8; -fx-border-radius: 8 0 0 8; -fx-border-color: -dark-100;" styleClass="input" />
                      </children>
                   </VBox>
                   <VBox layoutX="10.0" layoutY="10.0" spacing="8.0">
@@ -64,7 +64,7 @@
                               <String fx:value="font-700" />
                            </styleClass>
                         </Text>
-                        <ChoiceBox fx:id="selectMedName"  prefHeight="45.0" prefWidth="161.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-border-color: -dark-100;" styleClass="input-md" />
+                        <ChoiceBox fx:id="selectMedName" prefHeight="45.0" prefWidth="161.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-border-color: -dark-100;" styleClass="input-md" />
                      </children>
                   </VBox>
                   <VBox layoutX="217.0" layoutY="10.0" spacing="8.0">
@@ -75,7 +75,7 @@
                               <String fx:value="font-700" />
                            </styleClass>
                         </Text>
-                        <TextField fx:id="inputDelQuantity"  prefHeight="46.0" prefWidth="157.0" promptText="Quantité à livrer" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-border-color: -dark-100;" styleClass="input" />
+                        <TextField fx:id="inputDelQuantity" prefHeight="46.0" prefWidth="157.0" promptText="Quantité à livrer" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-border-color: -dark-100;" styleClass="input" />
                      </children>
                   </VBox>
                   <VBox layoutX="632.0" layoutY="10.0" spacing="8.0">
@@ -86,18 +86,18 @@
                               <String fx:value="font-700" />
                            </styleClass>
                         </Text>
-                        <TextField fx:id="inputDelPrice"  promptText="Prix  de la livraison" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-border-color: -dark-100;" styleClass="input" />
+                        <TextField fx:id="inputDelPrice" promptText="Prix  de la livraison" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-border-color: -dark-100;" styleClass="input" />
                      </children>
                   </VBox>
                   <VBox layoutX="217.0" layoutY="10.0" spacing="8.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" text="Date livraison :">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" text="Date d'expiration :">
                            <styleClass>
                               <String fx:value="text-base" />
                               <String fx:value="font-700" />
                            </styleClass>
                         </Text>
-                        <DatePicker fx:id="inputDelDate" prefHeight="46.0" prefWidth="176.0" promptText="Date de livraison" style="-fx-background-radius: 0;" stylesheets="@../styles/datePicker.css" />
+                        <DatePicker fx:id="inputExpDate" prefHeight="46.0" prefWidth="176.0" promptText="Date d'expiration" style="-fx-background-radius: 0;" stylesheets="@../styles/datePicker.css" />
                      </children>
                   </VBox>
                   <Button fx:id="btnDeliver" disable="true" layoutX="755.0" layoutY="40.0" mnemonicParsing="false" style="-fx-text-fill: -white-100; -fx-background-radius: 0; -fx-border-color: 0;" styleClass="button-lg" text="Livrer" />
@@ -106,14 +106,15 @@
             </HBox>
             <TableView fx:id="tableDelivery" prefHeight="353.0" prefWidth="972.0" stylesheets="@../styles/table.css">
                <columns>
-                  <TableColumn fx:id="colDelId" minWidth="62.0" prefWidth="133.0" resizable="false" text="Id livraison" />
-                  <TableColumn fx:id="colSupId" minWidth="62.0" prefWidth="133.0" resizable="false" text="Id fournisseur" />
-                  <TableColumn fx:id="colMedId" minWidth="94.0" prefWidth="148.0" resizable="false" style="-fx-text-alignment: LEFT;" text="Id medicament" />
-                  <TableColumn fx:id="colMedName" minWidth="90.0" prefWidth="150.0" resizable="false" text="Nom medicament" />
-                  <TableColumn fx:id="colSupName" minWidth="73.0" prefWidth="159.0" resizable="false" text="Nom fournisseur" />
-                  <TableColumn fx:id="colDelQuantity" minWidth="53.0" prefWidth="122.0" resizable="false" text="Quantité livrée" />
-                  <TableColumn fx:id="colDelDate" minWidth="46.0" prefWidth="143.0" resizable="false" text="Date livraison" />
-                  <TableColumn fx:id="colDelPrice" minWidth="46.0" prefWidth="343.0" resizable="false" text="Prix livraison" />
+                  <TableColumn fx:id="colDelId" minWidth="62.0" prefWidth="95.0" resizable="false" text="Id livraison" />
+                  <TableColumn fx:id="colSupId" minWidth="62.0" prefWidth="116.0" resizable="false" text="Id fournisseur" />
+                  <TableColumn fx:id="colMedId" minWidth="94.0" prefWidth="119.0" resizable="false" style="-fx-text-alignment: LEFT;" text="Id medicament" />
+                  <TableColumn fx:id="colMedName" minWidth="90.0" prefWidth="147.0" resizable="false" text="Nom medicament" />
+                  <TableColumn fx:id="colSupName" minWidth="73.0" prefWidth="175.0" resizable="false" text="Nom fournisseur" />
+                  <TableColumn fx:id="colDelQuantity" minWidth="53.0" prefWidth="138.0" resizable="false" text="Quantité livrée" />
+                  <TableColumn fx:id="colDelDate" minWidth="46.0" prefWidth="142.0" resizable="false" text="Date livraison" />
+                  <TableColumn fx:id="colDelPrice" minWidth="46.0" prefWidth="130.0" resizable="false" text="Prix livraison" />
+                  <TableColumn fx:id="colExpDate" minWidth="46.0" prefWidth="130.0" resizable="false" text="Date d'expiration" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

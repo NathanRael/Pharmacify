@@ -7,5 +7,6 @@ public enum SubScenesName {
     SUPPLIER,
     DELIVERY,
     PATIENT,
+    PRESCRIPTION,
     NOTFOUND,
 }

@@ -39,7 +39,7 @@
                         <TextField fx:id="inputSearch" prefHeight="36.0" prefWidth="620.0" promptText="Rechercher un medicament" style="-fx-background-radius: 0 8 8 0;" styleClass="input-md" />
                      </children>
                   </HBox>
-                  <ChoiceBox fx:id="selectMedFilter" prefHeight="36.0" prefWidth="150.0" />
+                  <ChoiceBox fx:id="selectMedFilter" prefHeight="36.0" prefWidth="150.0" style="-fx-padding: 4 8;" styleClass="input-md" />
                </children>
             </HBox>
             <HBox alignment="BOTTOM_LEFT">

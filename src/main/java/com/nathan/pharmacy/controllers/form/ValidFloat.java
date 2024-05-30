@@ -3,10 +3,13 @@ package com.nathan.pharmacy.controllers.form;
 import com.nathan.pharmacy.interfaces.FieldValidator;
 import javafx.scene.control.TextField;
 
-public class ValidName implements FieldValidator {
+public class ValidFloat implements FieldValidator {
     @Override
     public boolean isValidField(TextField textField) {
-        String name = textField.getText();
-        return name != null && name.matches("^\\w{1}[\\w\\d_-]{4,}$");
+        String text = textField.getText();
+        if (text.isEmpty()) {
+            return false;
+        }
+        return text.matches("^\\d+\\.?\\d+$");
     }
 }

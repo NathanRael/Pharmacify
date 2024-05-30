@@ -118,6 +118,8 @@
 }
 
 
+
+
 /*Choice box**/
 
 .choice-box {
@@ -160,4 +162,28 @@
   -fx-background-radius: 100%;
   -fx-width: 48px;
   -fx-height: 48px;
+}
+
+/*Chart*/
+.chart{
+
+}
+
+.chart-title{
+    -fx-text-fill : -white-100;
+    -fx-font-size : 14px;
+    -fx-font-weight : 700;
+}
+
+.axis-label{
+    -fx-text-fill : -white-100;
+    -fx-font-size : 13px;
+
+}
+
+.chart-legend{
+}
+
+.chart-legend-item{
+    -fx-text-fill : -primary-100;
 }

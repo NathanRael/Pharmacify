@@ -1,10 +1,12 @@
 package com.nathan.pharmacy.controllers.delivery;
 
+import com.nathan.pharmacy.controllers.form.ValidFloat;
 import com.nathan.pharmacy.controllers.form.ValidNumber;
 import com.nathan.pharmacy.controllers.medicament.MedicamentModelController;
 import com.nathan.pharmacy.contstants.AcceptedNumber;
 import com.nathan.pharmacy.interfaces.FieldValidator;
 import com.nathan.pharmacy.models.Delivery;
+import com.nathan.pharmacy.models.Medicament;
 import com.nathan.pharmacy.utils.ValidationUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +19,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+import org.w3c.dom.Text;
 
 import java.net.URL;
 import java.security.Key;
@@ -44,6 +48,9 @@ public class DeliveryViewController implements Initializable {
     private TableColumn<Delivery, Integer> colDelId;
 
     @FXML
+    private TableColumn<Delivery, LocalDate> colExpDate;
+
+    @FXML
     private TableColumn<Delivery, Integer> colDelQuantity;
 
     @FXML
@@ -59,7 +66,7 @@ public class DeliveryViewController implements Initializable {
     private TableColumn<Delivery, String> colSupName;
 
     @FXML
-    private DatePicker inputDelDate;
+    private DatePicker inputExpDate;
 
     @FXML
     private TextField inputDelPrice;
@@ -75,6 +82,8 @@ public class DeliveryViewController implements Initializable {
 
     @FXML
     private ChoiceBox<String> selectMedFilter;
+    @FXML
+    private TextField inputMedSearch;
 
     @FXML
     private TableView<Delivery> tableDelivery;
@@ -83,8 +92,8 @@ public class DeliveryViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        inputDelDate.setEditable(false);
-        inputDelDate.setValue(LocalDate.now());
+        inputExpDate.setEditable(false);
+        inputExpDate.setValue(LocalDate.of(2026,10,24));
         btnDeliver.setOnAction(event -> deliver());
         btnCancelDelivery.setOnAction(event -> cancelDelivery(currSelectedDeliveryRow.getFirst().getId(), currSelectedDeliveryRow.getFirst().getDate()));
 
@@ -92,6 +101,8 @@ public class DeliveryViewController implements Initializable {
         initTableView();
         initSelectMedName();
 
+        selectMedFilter.getItems().addAll("Id", "Prix", "Quantité");
+        selectMedFilter.getSelectionModel().select(0);
 
         try {
             loadTableContent();
@@ -112,14 +123,43 @@ public class DeliveryViewController implements Initializable {
         updateButtonState();
     }
 
-    public void listenKeyEvent(){
+    private void listenKeyEvent(){
         EventHandler<Event> keyTypeHandler = event -> updateButtonState();
 
         inputSupId.setOnKeyTyped(keyTypeHandler);
         inputDelPrice.setOnKeyTyped(keyTypeHandler);
-        inputDelDate.setOnKeyTyped(keyTypeHandler);
         inputDelQuantity.setOnKeyTyped(keyTypeHandler);
         selectMedName.setOnContextMenuRequested(keyTypeHandler);
+
+        inputExpDate.setDayCellFactory(picker -> new DateCell(){
+            @Override
+            public void updateItem(LocalDate date, boolean empty){
+                super.updateItem(date, empty);
+                if (date.isBefore(LocalDate.now())){
+                    setDisable(true);
+                    setStyle("-fx-background-color : rgba(226, 226, 226, 0.1)");
+                }
+                if (!empty){
+                    setOnMouseClicked(event -> {
+                        if (event.getButton() == MouseButton.PRIMARY){
+                            updateButtonState();
+                        }
+                    });
+                }
+            }
+        });
+
+        inputMedSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()){
+                try {
+                    loadTableContent();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }else{
+                searchMedicament();
+            }
+        });
     }
 
     public void initTableView(){
@@ -132,6 +172,7 @@ public class DeliveryViewController implements Initializable {
             colDelDate.setCellValueFactory(new PropertyValueFactory<Delivery, LocalDate>("date"));
             colDelPrice.setCellValueFactory(new PropertyValueFactory<Delivery, Float>("price"));
             colDelQuantity.setCellValueFactory(new PropertyValueFactory<Delivery, Integer>("quantity"));
+            colExpDate.setCellValueFactory(new PropertyValueFactory<Delivery, LocalDate>("medExpDate"));
         }catch (Exception ex){
             ex.printStackTrace();
         }
@@ -146,13 +187,14 @@ public class DeliveryViewController implements Initializable {
             int delId = rs.getInt("delId");
             float delPrice = rs.getFloat("delPrice");
             LocalDate delDate = rs.getDate("delDate").toLocalDate();
+            LocalDate medExpDate = rs.getDate("medExpDate").toLocalDate();
             int supId = rs.getInt("supId");
             int medId = rs.getInt("medId");
             int delQuantity = rs.getInt("delQuantity");
             String medName = rs.getString("medName");
             String supName = rs.getString("supName");
 
-            delivery.add(new Delivery(delId, delDate, delPrice, supId, medId,delQuantity, medName, supName));
+            delivery.add(new Delivery(delId, delDate, delPrice, supId, medId,delQuantity, medName, supName, medExpDate));
         }
         tableDelivery.setItems(delivery);
     }
@@ -161,15 +203,20 @@ public class DeliveryViewController implements Initializable {
         String medName = selectMedName.getSelectionModel().getSelectedItem();
         int delQuantity = Integer.parseInt(inputDelQuantity.getText());
         float delPrice = Float.parseFloat(inputDelPrice.getText());
+        LocalDate medExpDate = inputExpDate.getValue();
 
-        LocalDate delDate = inputDelDate.getValue();
+        LocalDate delDate = LocalDate.now();
 
         int medId = getMedId(medName);
 
         DeliveryModelController dc = new DeliveryModelController();
+
         Delivery delivery = new Delivery(delDate,delPrice,supId, medId, delQuantity);
         try {
+            MedicamentModelController mc = new MedicamentModelController();
+
             dc.insert(delivery);
+            mc.updateBy("medExpDate", medExpDate, "medId", getMedId(selectMedName.getSelectionModel().getSelectedItem()));
             updateMedQuantity(delQuantity, medId);
             System.out.println("Delivery added");
             loadTableContent();
@@ -195,6 +242,40 @@ public class DeliveryViewController implements Initializable {
             ex.printStackTrace();
         }
 
+    }
+
+    private void searchMedicament() {
+        String search = inputMedSearch.getText();
+        String filterMode = selectMedFilter.getSelectionModel().getSelectedItem();
+
+
+        try {
+            ObservableList<Delivery> deliveries = FXCollections.observableArrayList();
+            DeliveryModelController dc = new DeliveryModelController();
+            ResultSet rs = null;
+            switch (filterMode) {
+                case "Id" -> rs = dc.searchLike("delId", search);
+                case "Quantité" -> rs = dc.searchLike("delQuantity", search);
+                case "Prix" -> rs = dc.searchLike("delPrice", search);
+                default -> rs = dc.searchLike("delId", search);
+            }
+
+            while(rs.next()){
+                int delId = rs.getInt("delId");
+                float delPrice = rs.getFloat("delPrice");
+                LocalDate delDate = rs.getDate("delDate").toLocalDate();
+                LocalDate expDate = rs.getDate("medExpDate").toLocalDate();
+                int supId = rs.getInt("supId");
+                int medId = rs.getInt("medId");
+                int delQuantity = rs.getInt("delQuantity");
+                String medName = rs.getString("medName");
+                String supName = rs.getString("supName");
+                deliveries.add(new Delivery(delId, delDate, delPrice, supId, medId,delQuantity, medName, supName, expDate));
+            }
+            tableDelivery.setItems(deliveries);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public int getMedId(String medName){
@@ -224,13 +305,29 @@ public class DeliveryViewController implements Initializable {
 
     public void cancelDelivery(int delId, LocalDate delDate){
         LocalDate currDate = LocalDate.now();
+        int currentQuantity = currSelectedDeliveryRow.get(0).getQuantity();
+        int medId = currSelectedDeliveryRow.get(0).getMedId();
+        int newQuantity;
         if (delDate.isAfter(currDate)){
+
             DeliveryModelController dc = new DeliveryModelController();
             try {
+
+                MedicamentModelController mc = new MedicamentModelController();
+                ResultSet rs = mc.selectBy("medId", String.valueOf(medId));
+                rs.next();
+
+                newQuantity = rs.getInt("medQuantity") - currentQuantity;
+
+                mc.updateBy("medQuantity", newQuantity,"medId",medId );
                 dc.delete(delId);
+                System.out.println("Purchase canceled");
+                loadTableContent();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
+
+            clearAllField();
         }else{
             System.out.println("Cannot be canceled");
         }
@@ -241,7 +338,7 @@ public class DeliveryViewController implements Initializable {
         selectMedName.getSelectionModel().select(newSelection.getMedName());
         inputDelQuantity.setText(String.valueOf(newSelection.getQuantity()));
         inputDelPrice.setText(String.valueOf(newSelection.getPrice()));
-        inputDelDate.setValue(newSelection.getDate());
+        inputExpDate.setValue(newSelection.getDate());
     }
 
     public void updateCurrSelectedDelRow(Delivery selectedRow) {
@@ -266,13 +363,14 @@ public class DeliveryViewController implements Initializable {
     public void updateButtonState() {
         boolean isValidSupId = validText(inputSupId, new ValidNumber());
         boolean isValidDelQuantity = validText(inputDelQuantity, new ValidNumber());
-        boolean isValidDelPrice = validText(inputDelPrice, new ValidNumber());
+        boolean isValidDelPrice = validText(inputDelPrice, new ValidFloat());
         boolean isMedNameSelected = selectMedName.getSelectionModel().getSelectedItem() != null;
-        boolean isDateValid = inputDelDate.getValue() != null;
+        boolean isDateValid = inputExpDate.getValue() != null;
+
 
         boolean canDeliver = isValidSupId && isValidDelQuantity && isValidDelPrice && isMedNameSelected && isDateValid;
 
-        boolean canCancelDelivery = inputDelDate.getValue() != null && inputDelDate.getValue().isAfter(LocalDate.now()) && !currSelectedDeliveryRow.isEmpty();
+        boolean canCancelDelivery = inputExpDate.getValue() != null && inputExpDate.getValue().isAfter(LocalDate.now()) && !currSelectedDeliveryRow.isEmpty();
 
         btnDeliver.setDisable(!canDeliver);
         btnCancelDelivery.setDisable(!canCancelDelivery);
@@ -280,7 +378,7 @@ public class DeliveryViewController implements Initializable {
 
 
     public void clearAllField(){
-        inputDelDate.setValue(LocalDate.now());
+        inputExpDate.setValue(LocalDate.of(2026,12,24));
         inputDelPrice.clear();
         inputDelQuantity.setText("1");
         inputSupId.clear();
