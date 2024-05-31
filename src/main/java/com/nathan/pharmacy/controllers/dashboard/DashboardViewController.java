@@ -1,5 +1,6 @@
 package com.nathan.pharmacy.controllers.dashboard;
 
+import com.nathan.pharmacy.controllers.Session;
 import com.nathan.pharmacy.controllers.medicament.MedicamentModelController;
 import com.nathan.pharmacy.controllers.patient.PatientModelController;
 import com.nathan.pharmacy.controllers.purchase.PurchaseModelController;
@@ -26,14 +27,12 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
-import java.util.Arrays;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class DashboardViewController implements Initializable {
 
     @FXML
     private ScrollPane scroll;
-
 
     @FXML
     private TableColumn<Purchase, Integer> colMedId;
@@ -75,6 +74,9 @@ public class DashboardViewController implements Initializable {
     private Text patientNumber;
 
     @FXML
+    private Text txtUserName;
+
+    @FXML
     private Text userNumber;
 
     @Override
@@ -84,19 +86,21 @@ public class DashboardViewController implements Initializable {
         updateDashboardPanel();
         createBarChart();
         creatingPieChart();
+
         try {
             loadTableContent();
         } catch (Exception e) {
+            System.out.println("errorInDash" + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    private void getIncomPerDay(){
-        LocalDate monday = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY));
-        LocalDate tuesday = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.TUESDAY));
-    }
+
 
     private void updateDashboardPanel(){
+        if (Session.getInstance().sessionExist()){
+            txtUserName.setText(Session.getInstance().getUserName());
+        }
         try {
             MedicamentModelController mc = new MedicamentModelController();
             PatientModelController pc = new PatientModelController();
@@ -105,12 +109,28 @@ public class DashboardViewController implements Initializable {
             medicamentNumber.setText(String.valueOf(mc.getCount()));
             patientNumber.setText(String.valueOf(pc.getCount()));
             userNumber.setText(String.valueOf(uc.getCount()));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
     private void createBarChart(){
+        Map<String, Double> dailyIncomes = new HashMap<>();
+
+        try{
+
+            PurchaseModelController pc = new PurchaseModelController();
+            ResultSet rs = pc.selectDateBefore(LocalDate.now());
+            while (rs.next()) {
+                LocalDate date = rs.getDate("purchaseDate").toLocalDate();
+                double price = rs.getInt("price");
+                dailyIncomes.put(date.getDayOfWeek().toString(), price);
+            }
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
         double[] incomes = {1200, 1500, 1100, 1800, 1600, 1700, 1300};
         String[] daysOfWeek = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"};
         
@@ -126,10 +146,11 @@ public class DashboardViewController implements Initializable {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Revenue");
 
-        // Add new data to the series
-        for (int i = 0; i < daysOfWeek.length; i++) {
-            series.getData().add(i, new XYChart.Data<>(daysOfWeek[i], incomes[i] ));
-        }
+
+        dailyIncomes.forEach((date, income) -> {
+            XYChart.Data<String, Number> data = new XYChart.Data<>(date, income);
+            series.getData().add(data);
+        });
 
         barChart.getData().add(series);
 
@@ -138,9 +159,6 @@ public class DashboardViewController implements Initializable {
 
     private void creatingPieChart(){
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-          new PieChart.Data("Paracetamole", 40),
-          new PieChart.Data("Efferalgant", 30),
-          new PieChart.Data("Admin", 30)
         );
 
         try{

@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<ScrollPane fx:id="scroll" fitToWidth="true" hbarPolicy="NEVER" hmax="0.0" pannable="true" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-color: transparent;" stylesheets="@../styles/dashboard.css" vvalue="0.42" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.dashboard.DashboardViewController">
+<ScrollPane fx:id="scroll" fitToWidth="true" hbarPolicy="NEVER" hmax="0.0" pannable="true" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-color: transparent;" stylesheets="@../styles/dashboard.css" vvalue="0.04" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.dashboard.DashboardViewController">
    <content>
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1200.0" prefWidth="1020.0" style="-fx-background-color: -dark-100;">
          <children>
@@ -21,7 +21,7 @@
                   <HBox>
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" styleClass="text-title-1" text="Bienvenue, " />
-                        <Text layoutX="10.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -primary-100;" styleClass="text-title-1" text="Nathan" />
+                        <Text fx:id="txtUserName" layoutX="10.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -primary-100;" styleClass="text-title-1" text="Nathan" />
                      </children>
                   </HBox>
                   <VBox alignment="CENTER" spacing="16.0">

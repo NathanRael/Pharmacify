@@ -1,6 +1,7 @@
 package com.nathan.pharmacy.controllers.components;
 
 import com.nathan.pharmacy.controllers.SceneChanger;
+import com.nathan.pharmacy.controllers.Session;
 import com.nathan.pharmacy.contstants.ScenesName;
 import com.nathan.pharmacy.contstants.SubScenesName;
 import com.nathan.pharmacy.models.Singleton;
@@ -9,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -16,8 +18,6 @@ import java.util.ResourceBundle;
 
 public class NavbarViewController implements Initializable {
 
-    @FXML
-    private Button btnHistory;
 
     @FXML
     private Button btnLogout;
@@ -26,16 +26,22 @@ public class NavbarViewController implements Initializable {
     private Button btnNavDashboard;
 
     @FXML
+    private Button btnNavDelivery;
+
+    @FXML
+    private Button btnNavHistory;
+
+    @FXML
     private Button btnNavMedicine;
 
     @FXML
     private Button btnNavPatient;
 
     @FXML
-    private Button btnNavPurchase;
+    private Button btnNavPrescription;
 
     @FXML
-    private Button btnNavDelivery;
+    private Button btnNavPurchase;
 
     @FXML
     private Button btnNavSupplier;
@@ -44,16 +50,53 @@ public class NavbarViewController implements Initializable {
     private Button btnNavUser;
 
     @FXML
-    private Button btnNavPrescription;
-
-    @FXML
     private VBox navbar;
 
     @FXML
     private VBox roleBadge;
 
     @FXML
-    void logout(ActionEvent event) {
+    private Text txtUserName;
+
+    @FXML
+    private Text txtUserRole;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        handleUserSession();
+    }
+
+    private void handleUserSession() {
+        if (Session.getInstance().sessionExist()) {
+            String userRole = Integer.parseInt(Session.getInstance().getUserRole()) == 1 ? "Utilisateur" : "SuperUtilisateur";
+            txtUserName.setText(Session.getInstance().getUserName());
+            txtUserRole.setText(userRole);
+
+            if (Integer.parseInt(Session.getInstance().getUserRole()) == 1){
+                hideAdminPart();
+            }
+        } else {
+//            logout();
+        }
+    }
+
+    private void hideAdminPart(){
+        btnNavHistory.setVisible(false);
+        btnNavSupplier.setVisible(false);
+        btnNavUser.setVisible(false);
+
+        btnNavHistory.setDisable(true);
+        btnNavSupplier.setDisable(true);
+        btnNavUser.setDisable(true);
+    }
+
+    @FXML
+    void handleLogout(ActionEvent event) {
+        logout();
+    }
+
+    private void logout() {
+        Session.getInstance().clear();
         switchSceneTo(ScenesName.LOGIN);
     }
 
@@ -61,6 +104,7 @@ public class NavbarViewController implements Initializable {
     void switchToDashboard(ActionEvent event) {
         switchSubsceneTo(SubScenesName.DASHBOARD);
     }
+
     @FXML
     void switchToPurchase(ActionEvent event) {
         switchSubsceneTo(SubScenesName.PURCHASE);
@@ -70,12 +114,14 @@ public class NavbarViewController implements Initializable {
     void switchToMedicine(ActionEvent event) {
         switchSubsceneTo(SubScenesName.MEDICAMENT);
     }
+
     @FXML
     void switchToSupplier(ActionEvent event) {
         switchSubsceneTo(SubScenesName.SUPPLIER);
     }
+
     @FXML
-    void switchToDelivery(ActionEvent event){
+    void switchToDelivery(ActionEvent event) {
         switchSubsceneTo(SubScenesName.DELIVERY);
     }
 
@@ -85,7 +131,7 @@ public class NavbarViewController implements Initializable {
     }
 
     @FXML
-    void switchToPrescription(ActionEvent event){
+    void switchToPrescription(ActionEvent event) {
         switchSubsceneTo(SubScenesName.PRESCRIPTION);
     }
 
@@ -94,24 +140,19 @@ public class NavbarViewController implements Initializable {
 
     }
 
-
-
     @FXML
     void switchToUser(ActionEvent event) {
 
     }
 
-    public void switchSubsceneTo(SubScenesName subScenesName){
+    public void switchSubsceneTo(SubScenesName subScenesName) {
         Singleton.getInstance().getViewFactory().getSelectedMenuItem().set(String.valueOf(subScenesName));
     }
 
     public void switchSceneTo(ScenesName sceneName) {
-        Stage currentStage = (Stage)navbar.getScene().getWindow();
+        Stage currentStage = (Stage) navbar.getScene().getWindow();
         SceneChanger.changeSceneTo(sceneName, currentStage);
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    }
 }

@@ -1,12 +1,21 @@
 package com.nathan.pharmacy.controllers.auth;
 
 import com.nathan.pharmacy.controllers.SceneChanger;
+import com.nathan.pharmacy.controllers.Session;
+import com.nathan.pharmacy.controllers.form.ValidName;
+import com.nathan.pharmacy.controllers.form.ValidPassword;
+import com.nathan.pharmacy.controllers.form.ValidPhone;
+import com.nathan.pharmacy.controllers.form.ValidText;
 import com.nathan.pharmacy.controllers.user.UserModelController;
 import com.nathan.pharmacy.contstants.ScenesName;
+import com.nathan.pharmacy.interfaces.FieldValidator;
+import com.nathan.pharmacy.utils.ValidationUtil;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -38,18 +47,19 @@ public class LoginController implements Initializable {
     @FXML
     private Label txtPassword;
 
-//    private final Stage currentStage = (Stage)btnLogin.getScene().getWindow();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        EventHandler<KeyEvent> keyEventEventHandler = event -> updateButtonState();
+        inputName.setOnKeyTyped(keyEventEventHandler);
+        inputPassword.setOnKeyTyped(keyEventEventHandler);
     }
     @FXML
     void login(ActionEvent event) throws Exception {
         boolean currentUserFound = false;
         String name = inputName.getText();
         String password = inputPassword.getText();
-        List<Object> currentUserInfoInDb = new ArrayList<>();
+        Map<String, Object> userInfo = new HashMap<>();
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
@@ -60,15 +70,20 @@ public class LoginController implements Initializable {
         user = uc.selectBy("userName", name);
         while (user.next()){
             if (user.getString("userName").equalsIgnoreCase(name)){
-                Collections.addAll(currentUserInfoInDb, user.getString("userId"), user.getString("userName"), user.getString("userPwd"));
+                userInfo.put("id", user.getString("userId"));
+                userInfo.put("name", user.getString("userName"));
+                userInfo.put("password", user.getString("userPwd"));
+                userInfo.put("role", user.getString("userRole"));
                 currentUserFound = true;
                 break;
             }
         }
 
         if (currentUserFound){
-            if (password.equals(currentUserInfoInDb.get(2))){
+            if (password.equals(userInfo.get("password"))){
                 alert.setContentText("Redirection ...");
+                Session.getInstance().setUserName((String) userInfo.get("name"));
+                Session.getInstance().setUserRole((String) userInfo.get("role"));
                 alert.showAndWait();
                 switchSceneTo(ScenesName.MAIN);
             }else{
@@ -92,5 +107,15 @@ public class LoginController implements Initializable {
         Stage currentStage = (Stage)btnLogin.getScene().getWindow();
         SceneChanger.changeSceneTo(scenesName, currentStage);
     }
+    private void updateButtonState(){
+        boolean allFieldValidated = validText(inputName, new ValidName()) && validText(inputPassword, new ValidPassword());
+
+        btnLogin.setDisable(!allFieldValidated);
+    }
+
+    public boolean validText(TextField textField, FieldValidator fieldValidator){
+        return ValidationUtil.validTextField(textField, fieldValidator);
+    }
+
 
 }

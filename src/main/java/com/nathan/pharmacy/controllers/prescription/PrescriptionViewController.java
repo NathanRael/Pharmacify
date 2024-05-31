@@ -1,5 +1,6 @@
 package com.nathan.pharmacy.controllers.prescription;
 
+import com.nathan.pharmacy.controllers.form.ValidLongText;
 import com.nathan.pharmacy.controllers.form.ValidNumber;
 import com.nathan.pharmacy.controllers.medicament.MedicamentModelController;
 import com.nathan.pharmacy.controllers.patient.PatientModelController;
@@ -92,6 +93,9 @@ public class PrescriptionViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        inputPrescDesc.setDisable(false);
+
         btnAdd.setOnAction(event -> addPrescription() );
         btnDelete.setOnAction(event -> deletePrescription(currSelectedPrescRow.get(0).getId()));
         btnUse.setOnAction(event -> usePrecription());
@@ -120,9 +124,10 @@ public class PrescriptionViewController implements Initializable {
         inputPrescMedNum.setOnKeyTyped(keyTypeHandler);
         inputPrescDuration.setOnKeyTyped(keyTypeHandler);
         selectPatientFName.setOnContextMenuRequested(keyTypeHandler);
+        inputPrescDesc.setOnKeyTyped(keyTypeHandler);
 
         inputPrescMedNum.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null && newValue.matches("\\d")) {
+            if (newValue != null && newValue.matches("^\\d+$")) {
                 int value = Integer.parseInt(newValue);
                 if (value > 0) generateTextField(value);
                 for (MedUsage medUsage : inputMedUsageList){
@@ -159,7 +164,8 @@ public class PrescriptionViewController implements Initializable {
     private void addPrescription(){
         LocalDateTime prescDate = LocalDateTime.now();
         String prescDuration = inputPrescDuration.getText();
-        String prescDesc = generatePresc(inputMedUsageList, selectMedNameList);
+//        String prescDesc = generatePresc(inputMedUsageList, selectMedNameList);
+        String prescDesc = inputPrescDesc.getText();
         int patientId = getPatientId(selectPatientFName.getSelectionModel().getSelectedItem());
         PrescriptionModelController pc = new PrescriptionModelController();
         Prescription prescription = new Prescription(prescDate, prescDuration, prescDesc, patientId);
@@ -200,10 +206,13 @@ public class PrescriptionViewController implements Initializable {
 
                 if (rs.next()){
                     int currentQuantity = rs.getInt("medQuantity");
-
-                    newQuantity = currentQuantity + medQuantity;
-                    mc.updateBy("medQuantity", newQuantity, "medId", medId);
-                    System.out.println("Medicament updated");
+                    if (medQuantity <= currentQuantity){
+                        newQuantity = currentQuantity - medQuantity;
+                        mc.updateBy("medQuantity", newQuantity, "medId", medId);
+                        System.out.println("Medicament updated");
+                    }else {
+                        System.out.println("Quantité insuffisant");
+                    }
                 }
                 loadTableContent();
             }catch (Exception ex){
@@ -302,7 +311,6 @@ public class PrescriptionViewController implements Initializable {
             int prescDuration = Integer.parseInt(currSelectedPrescRow.get(0).getDuration());
 
             currMedUsageList.add(new PrescMedInfo(morningQuantity, noonQuantity, afternoonQuantity, medName, prescDuration));
-
         }
     }
 
@@ -406,18 +414,17 @@ public class PrescriptionViewController implements Initializable {
     }
 
     private void updateButtonState() {
-        System.out.println("updayed");
+        System.out.println("updated");
         boolean validMedInputs = true;
-        for ( MedUsage medUsage: inputMedUsageList){
+/*        for ( MedUsage medUsage: inputMedUsageList){
             boolean validMedInput = validText(medUsage.inputAfternoonQuantity(), new ValidNumber()) && validText(medUsage.inputNoonQuantity(), new ValidNumber()) && validText(medUsage.inputMorningQuantity(), new ValidNumber());
             if (!validMedInput) {
                 validMedInputs = false;
                 break;
             }
-        }
+        }*/
 
-        boolean allFieldValid = validMedInputs  && validText(inputPrescMedNum, new ValidNumber()) && validText(inputPrescDuration, new ValidNumber());
-
+        boolean allFieldValid = validMedInputs  && validText(inputPrescMedNum, new ValidNumber()) && validText(inputPrescDuration, new ValidNumber()) && !inputPrescDesc.getText().isEmpty();;
 
         boolean canDelete =  false;
         boolean canUse = false;
@@ -426,10 +433,10 @@ public class PrescriptionViewController implements Initializable {
         if (!currSelectedPrescRow.isEmpty())
             canDelete =currSelectedPrescRow.get(0).getId() > 0;
 
-        btnAdd.setDisable(false);
+        btnAdd.setDisable(!allFieldValid);
         btnDelete.setDisable(!canDelete);
         btnUse.setDisable(!canDelete);
-        btnEdit.setDisable(!canEdit);
+        btnEdit.setDisable(!allFieldValid && !canDelete);
     }
 
     private void clearAllField() {

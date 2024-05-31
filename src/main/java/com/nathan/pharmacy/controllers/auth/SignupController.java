@@ -1,6 +1,7 @@
 package com.nathan.pharmacy.controllers.auth;
 
 import com.nathan.pharmacy.controllers.SceneChanger;
+import com.nathan.pharmacy.controllers.form.ValidName;
 import com.nathan.pharmacy.controllers.user.UserModelController;
 import com.nathan.pharmacy.controllers.form.ValidPassword;
 import com.nathan.pharmacy.controllers.form.ValidPhone;
@@ -10,9 +11,11 @@ import com.nathan.pharmacy.interfaces.FieldValidator;
 import com.nathan.pharmacy.models.User;
 import com.nathan.pharmacy.utils.ValidationUtil;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -55,7 +58,12 @@ public class SignupController  implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        EventHandler<KeyEvent> keyEventEventHandler = event -> updateButtonState();
 
+        inputName.setOnKeyTyped(keyEventEventHandler);
+        inputPhone.setOnKeyTyped(keyEventEventHandler);
+        inputPhone.setOnKeyTyped(keyEventEventHandler);
+        inputPassword.setOnKeyTyped(keyEventEventHandler);
     }
 
     @FXML
@@ -115,6 +123,12 @@ public class SignupController  implements Initializable {
 
     public boolean validText(TextField textField, FieldValidator fieldValidator){
         return ValidationUtil.validTextField(textField, fieldValidator);
+    }
+
+    private void updateButtonState(){
+        boolean allFieldValidated = validText(inputName, new ValidName()) && validText(inputPhone, new ValidPhone()) && validText(inputPassword, new ValidPassword());
+
+        btnSignup.setDisable(!allFieldValidated);
     }
 
 }

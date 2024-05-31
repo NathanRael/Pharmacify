@@ -2,6 +2,7 @@ package com.nathan.pharmacy;
 
 
 import com.nathan.pharmacy.controllers.SceneChanger;
+import com.nathan.pharmacy.controllers.Session;
 import com.nathan.pharmacy.contstants.ScenesName;
 import javafx.application.Application;
 import javafx.stage.Stage;

@@ -5,6 +5,7 @@ import com.nathan.pharmacy.interfaces.ModelInterface;
 import com.nathan.pharmacy.models.Purchase;
 
 import java.sql.ResultSet;
+import java.time.LocalDate;
 
 public class PurchaseModelController implements ModelInterface<Purchase> {
     private ConnectionDb connection;
@@ -54,8 +55,13 @@ public class PurchaseModelController implements ModelInterface<Purchase> {
     }
 
     public ResultSet selectMostPurchasedProduct(int Limit) throws Exception{
-        String query = "SELECT DISTINCT medName, count(medName) as count FROM purchase p, medicament m WHERE p.medId = m.medId ORDER BY count(medName) ASC LIMIT " + Limit;
+        String query = "SELECT DISTINCT medName, count(medName) as count FROM purchase p, medicament m WHERE p.medId = m.medId GROUP BY medName ORDER BY count(medName) ASC LIMIT " + Limit;
         
+        return connection.executeQuery(query);
+    }
+
+    public ResultSet selectDateBefore(LocalDate date) throws Exception {
+        String query = "SELECT sum(totalPrice * purchaseQuantity) as price,  purchaseDate FROM purchase  WHERE purchaseDate <= '" + date + "' GROUP BY purchaseDate LIMIT 7";
         return connection.executeQuery(query);
     }
 

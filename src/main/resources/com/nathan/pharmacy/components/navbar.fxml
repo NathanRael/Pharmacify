@@ -22,7 +22,7 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -primary-100; -fx-text-alignment: left;" styleClass="text-title-1" text="Pharmacify" wrappingWidth="222.423828125" />
             <HBox prefHeight="22.0" prefWidth="208.0" spacing="8.0" style="-fx-spacing: 32;">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" text="Nathan">
+                  <Text fx:id="txtUserName" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" text="Nathan">
                      <styleClass>
                         <String fx:value="text-lead" />
                         <String fx:value="font-bold" />
@@ -30,7 +30,7 @@
                   </Text>
                   <VBox fx:id="roleBadge" prefHeight="3.0" prefWidth="51.0" style="-fx-padding: 4 8;" styleClass="badge">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -primary-100;" styleClass="text-small" text="Admin" />
+                        <Text fx:id="txtUserRole" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -primary-100;" styleClass="text-small" text="Admin" />
                      </children>
                      <padding>
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
@@ -139,7 +139,7 @@
                         <String fx:value="nav-button" />
                      </styleClass>
                   </Button>
-                  <Button id="btnMedicine" fx:id="btnHistory" graphicTextGap="8.0" layoutX="10.0" layoutY="108.0" mnemonicParsing="false" onAction="#switchToHistory" prefHeight="26.0" prefWidth="223.0" style="-fx-text-fill: -white-100; -fx-alignment: left;" text="Historiques">
+                  <Button id="btnMedicine" fx:id="btnNavHistory" graphicTextGap="8.0" layoutX="10.0" layoutY="108.0" mnemonicParsing="false" onAction="#switchToHistory" prefHeight="26.0" prefWidth="223.0" style="-fx-text-fill: -white-100; -fx-alignment: left;" text="Historiques">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -153,7 +153,7 @@
                   </Button>
                </children>
             </VBox>
-            <Button id="btnMedicine" fx:id="btnLogout" alignment="TOP_LEFT" graphicTextGap="8.0" mnemonicParsing="false" onAction="#logout" prefHeight="26.0" prefWidth="223.0" style="-fx-text-fill: -white-100; -fx-alignment: left;" text="Se deconnecter">
+            <Button id="btnMedicine" fx:id="btnLogout" alignment="TOP_LEFT" graphicTextGap="8.0" mnemonicParsing="false" onAction="#handleLogout" prefHeight="26.0" prefWidth="223.0" style="-fx-text-fill: -white-100; -fx-alignment: left;" text="Se deconnecter">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

@@ -103,18 +103,18 @@ public class ViewFactory {
 
     public void showLoginWindow(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login-view.fxml"));
-        createStage(fxmlLoader, false);
+        createStage(fxmlLoader);
     }
     public void showSignupWindow(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("signup-view.fxml"));
-        createStage(fxmlLoader, false);
+        createStage(fxmlLoader);
     }
 
     public void showMainWindow(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
         MainController mainController = new MainController();
         fxmlLoader.setController(mainController);
-        createStage(fxmlLoader, false);
+        createStage(fxmlLoader);
     }
 
     public void showNotFoundWindow(){
@@ -140,7 +140,7 @@ public class ViewFactory {
         stage.show();
     }
 
-    private void createStage(FXMLLoader fxmlLoader, boolean fullscreen){
+    private void createStage(FXMLLoader fxmlLoader){
         Scene scene = null;
         try{
             scene  = new Scene(fxmlLoader.load());
@@ -151,7 +151,7 @@ public class ViewFactory {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("Pharmacify");
-        if (fullscreen){
+        if (false){
             stage.setFullScreen(true);
         }
 //        stage.setResizable(false);
