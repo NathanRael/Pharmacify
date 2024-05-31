@@ -1,6 +1,5 @@
 package com.nathan.pharmacy.utils;
 
-import com.nathan.pharmacy.controllers.form.ValidNumber;
 import com.nathan.pharmacy.interfaces.FieldValidator;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;

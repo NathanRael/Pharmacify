@@ -20,16 +20,20 @@ public class ViewFactory {
     private ScrollPane patientView;
     private ScrollPane prescriptionView;
     private AnchorPane purchaseView;
+    private AnchorPane userView;
+    private AnchorPane historyView;
     private AnchorPane medicamentView;
     private AnchorPane supplierView;
     private AnchorPane deliveryView;
 
 
-    public ViewFactory(){
+    public ViewFactory() {
         this.selectedMenuItem = new SimpleStringProperty("");
-    };
+    }
 
-    public ScrollPane getDashboardView(){
+    ;
+
+    public ScrollPane getDashboardView() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("dashboard-view.fxml"));
             dashboardView = fxmlLoader.load();
@@ -40,7 +44,18 @@ public class ViewFactory {
         return dashboardView;
     }
 
-    public AnchorPane getSupplierView(){
+    public AnchorPane getHistoryView() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("history-view.fxml"));
+            historyView = fxmlLoader.load();
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return historyView;
+    }
+
+    public AnchorPane getSupplierView() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("supplier-view.fxml"));
             supplierView = fxmlLoader.load();
@@ -51,7 +66,7 @@ public class ViewFactory {
         return supplierView;
     }
 
-    public ScrollPane getPatientView(){
+    public ScrollPane getPatientView() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("patient-view.fxml"));
             patientView = fxmlLoader.load();
@@ -61,7 +76,8 @@ public class ViewFactory {
         }
         return patientView;
     }
-    public ScrollPane getPrescriptionView(){
+
+    public ScrollPane getPrescriptionView() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("prescription-view.fxml"));
             prescriptionView = fxmlLoader.load();
@@ -71,7 +87,8 @@ public class ViewFactory {
         }
         return prescriptionView;
     }
-    public AnchorPane getDeliveryView(){
+
+    public AnchorPane getDeliveryView() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("delivery-view.fxml"));
             deliveryView = fxmlLoader.load();
@@ -82,7 +99,7 @@ public class ViewFactory {
         return deliveryView;
     }
 
-    public AnchorPane getPurchaseView(){
+    public AnchorPane getPurchaseView() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("purchase-view.fxml"));
             purchaseView = fxmlLoader.load();
@@ -91,33 +108,45 @@ public class ViewFactory {
         }
         return purchaseView;
     }
-    public AnchorPane getMedicamentView(){
-        try{
+
+    public AnchorPane getMedicamentView() {
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("medicament-view.fxml"));
             medicamentView = fxmlLoader.load();
-        }catch (IOException ex){
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
         return medicamentView;
     }
 
-    public void showLoginWindow(){
+    public AnchorPane getUserView() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("user-view.fxml"));
+            userView = fxmlLoader.load();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return userView;
+    }
+
+    public void showLoginWindow() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login-view.fxml"));
         createStage(fxmlLoader);
     }
-    public void showSignupWindow(){
+
+    public void showSignupWindow() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("signup-view.fxml"));
         createStage(fxmlLoader);
     }
 
-    public void showMainWindow(){
+    public void showMainWindow() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
         MainController mainController = new MainController();
         fxmlLoader.setController(mainController);
         createStage(fxmlLoader);
     }
 
-    public void showNotFoundWindow(){
+    public void showNotFoundWindow() {
 
         Group root = new Group();
         Scene scene = new Scene(root, 600, 600);
@@ -140,32 +169,31 @@ public class ViewFactory {
         stage.show();
     }
 
-    private void createStage(FXMLLoader fxmlLoader){
+    private void createStage(FXMLLoader fxmlLoader) {
         Scene scene = null;
-        try{
-            scene  = new Scene(fxmlLoader.load());
+        try {
+            scene = new Scene(fxmlLoader.load());
 
-        }catch (IOException ex){
+        } catch (IOException ex) {
             System.out.println(ex);
         }
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("Pharmacify");
-        if (false){
+        if (false) {
             stage.setFullScreen(true);
         }
 //        stage.setResizable(false);
         stage.show();
     }
 
-    public void closeStage(Stage stage){
+    public void closeStage(Stage stage) {
         stage.close();
     }
 
     public StringProperty getSelectedMenuItem() {
         return selectedMenuItem;
     }
-
 
 
 }

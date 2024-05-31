@@ -1,10 +1,7 @@
-package com.nathan.pharmacy.controllers;
+package com.nathan.pharmacy.utils;
 
-import com.nathan.pharmacy.controllers.medicament.MedicamentViewController;
+
 import com.nathan.pharmacy.models.Medicament;
-import com.nathan.pharmacy.models.Singleton;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.TableView;

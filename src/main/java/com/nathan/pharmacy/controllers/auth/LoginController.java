@@ -1,11 +1,9 @@
 package com.nathan.pharmacy.controllers.auth;
 
-import com.nathan.pharmacy.controllers.SceneChanger;
-import com.nathan.pharmacy.controllers.Session;
+import com.nathan.pharmacy.utils.SceneChanger;
+import com.nathan.pharmacy.utils.Session;
 import com.nathan.pharmacy.controllers.form.ValidName;
 import com.nathan.pharmacy.controllers.form.ValidPassword;
-import com.nathan.pharmacy.controllers.form.ValidPhone;
-import com.nathan.pharmacy.controllers.form.ValidText;
 import com.nathan.pharmacy.controllers.user.UserModelController;
 import com.nathan.pharmacy.contstants.ScenesName;
 import com.nathan.pharmacy.interfaces.FieldValidator;
@@ -73,23 +71,28 @@ public class LoginController implements Initializable {
                 userInfo.put("id", user.getString("userId"));
                 userInfo.put("name", user.getString("userName"));
                 userInfo.put("password", user.getString("userPwd"));
-                userInfo.put("role", user.getString("userRole"));
+                userInfo.put("role", user.getInt("userRole"));
+                userInfo.put("status", user.getInt("userStatus"));
                 currentUserFound = true;
                 break;
             }
         }
 
         if (currentUserFound){
-            if (password.equals(userInfo.get("password"))){
-                alert.setContentText("Redirection ...");
-                Session.getInstance().setUserName((String) userInfo.get("name"));
-                Session.getInstance().setUserRole((String) userInfo.get("role"));
-                alert.showAndWait();
-                switchSceneTo(ScenesName.MAIN);
-            }else{
-                alert.setAlertType(Alert.AlertType.ERROR);
-                alert.setContentText("Mot de passe incorrect");
-                alert.showAndWait();
+            if ((int)userInfo.get("status") == 1){
+                if (password.equals(userInfo.get("password"))){
+                    alert.setContentText("Redirection ...");
+                    Session.getInstance().setUserName(userInfo.get("name").toString());
+                    Session.getInstance().setUserRole(String.valueOf(userInfo.get("role")));
+                    alert.showAndWait();
+                    switchSceneTo(ScenesName.MAIN);
+                }else{
+                    alert.setAlertType(Alert.AlertType.ERROR);
+                    alert.setContentText("Mot de passe incorrect");
+                    alert.showAndWait();
+                }
+            }else {
+                System.out.println("Your account is still waiting for approbation");
             }
         }else {
             alert.setAlertType(Alert.AlertType.ERROR);

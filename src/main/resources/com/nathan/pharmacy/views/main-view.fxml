@@ -7,6 +7,6 @@
         <fx:include fx:id="navbar" source="../components/navbar.fxml" BorderPane.alignment="TOP_LEFT" />
     </left>
     <center>
-        <fx:include source="dashboard-view.fxml " BorderPane.alignment="TOP_LEFT" />
+        <fx:include source="history-view.fxml " BorderPane.alignment="TOP_LEFT" />
     </center>
 </BorderPane>

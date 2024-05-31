@@ -1,4 +1,4 @@
-package com.nathan.pharmacy.controllers;
+package com.nathan.pharmacy.utils;
 
 import com.nathan.pharmacy.controllers.purchase.PurchaseViewController;
 import com.nathan.pharmacy.contstants.ScenesName;
@@ -47,6 +47,12 @@ public class SceneChanger {
             }
             case PRESCRIPTION -> {
                 mainParent.setCenter(Singleton.getInstance().getViewFactory().getPrescriptionView());
+            }
+            case USER -> {
+                mainParent.setCenter(Singleton.getInstance().getViewFactory().getUserView());
+            }
+            case HISTORY -> {
+                mainParent.setCenter(Singleton.getInstance().getViewFactory().getHistoryView());
             }
             default -> {
                 Singleton.getInstance().getViewFactory().showNotFoundWindow();

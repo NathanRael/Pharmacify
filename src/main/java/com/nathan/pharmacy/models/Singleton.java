@@ -1,6 +1,6 @@
 package com.nathan.pharmacy.models;
 
-import com.nathan.pharmacy.controllers.TableObserver;
+import com.nathan.pharmacy.utils.TableObserver;
 import com.nathan.pharmacy.views.ViewFactory;
 //singleton design pattern
 public class Singleton {

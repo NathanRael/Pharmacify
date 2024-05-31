@@ -30,13 +30,13 @@
                            <children>
                               <AnchorPane prefWidth="240.0" styleClass="dashboard-card">
                                  <children>
-                                    <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pharmaciens" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0">
+                                    <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fournisseurs" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0">
                                        <styleClass>
                                           <String fx:value="indication" />
                                           <String fx:value="font-700" />
                                        </styleClass>
                                     </Text>
-                                    <Text fx:id="userNumber" layoutX="25.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="50" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="16.0">
+                                    <Text fx:id="supplierNumber" layoutX="25.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="50" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="16.0">
                                        <styleClass>
                                           <String fx:value="number" />
                                           <String fx:value="font-700" />

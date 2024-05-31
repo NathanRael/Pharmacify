@@ -1,6 +1,6 @@
 package com.nathan.pharmacy.controllers.auth;
 
-import com.nathan.pharmacy.controllers.SceneChanger;
+import com.nathan.pharmacy.utils.SceneChanger;
 import com.nathan.pharmacy.controllers.form.ValidName;
 import com.nathan.pharmacy.controllers.user.UserModelController;
 import com.nathan.pharmacy.controllers.form.ValidPassword;

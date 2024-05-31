@@ -1,7 +1,7 @@
 package com.nathan.pharmacy.controllers.components;
 
-import com.nathan.pharmacy.controllers.SceneChanger;
-import com.nathan.pharmacy.controllers.Session;
+import com.nathan.pharmacy.utils.SceneChanger;
+import com.nathan.pharmacy.utils.Session;
 import com.nathan.pharmacy.contstants.ScenesName;
 import com.nathan.pharmacy.contstants.SubScenesName;
 import com.nathan.pharmacy.models.Singleton;
@@ -72,7 +72,7 @@ public class NavbarViewController implements Initializable {
             txtUserName.setText(Session.getInstance().getUserName());
             txtUserRole.setText(userRole);
 
-            if (Integer.parseInt(Session.getInstance().getUserRole()) == 1){
+            if (Integer.parseInt(Session.getInstance().getUserRole()) == 1) {
                 hideAdminPart();
             }
         } else {
@@ -80,7 +80,7 @@ public class NavbarViewController implements Initializable {
         }
     }
 
-    private void hideAdminPart(){
+    private void hideAdminPart() {
         btnNavHistory.setVisible(false);
         btnNavSupplier.setVisible(false);
         btnNavUser.setVisible(false);
@@ -136,14 +136,15 @@ public class NavbarViewController implements Initializable {
     }
 
     @FXML
-    void switchToHistory(ActionEvent event) {
-
+    void switchToUser(ActionEvent event) {
+        switchSubsceneTo(SubScenesName.USER);
     }
 
     @FXML
-    void switchToUser(ActionEvent event) {
-
+    void switchToHistory(ActionEvent event) {
+        switchSubsceneTo(SubScenesName.HISTORY);
     }
+
 
     public void switchSubsceneTo(SubScenesName subScenesName) {
         Singleton.getInstance().getViewFactory().getSelectedMenuItem().set(String.valueOf(subScenesName));

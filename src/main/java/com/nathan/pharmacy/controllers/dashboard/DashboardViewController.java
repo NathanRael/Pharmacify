@@ -1,11 +1,10 @@
 package com.nathan.pharmacy.controllers.dashboard;
 
-import com.nathan.pharmacy.controllers.Session;
+import com.nathan.pharmacy.utils.Session;
 import com.nathan.pharmacy.controllers.medicament.MedicamentModelController;
 import com.nathan.pharmacy.controllers.patient.PatientModelController;
 import com.nathan.pharmacy.controllers.purchase.PurchaseModelController;
-import com.nathan.pharmacy.controllers.user.UserModelController;
-import com.nathan.pharmacy.models.Medicament;
+import com.nathan.pharmacy.controllers.supplier.SupplierModelController;
 import com.nathan.pharmacy.models.Purchase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,12 +20,9 @@ import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.sql.ResultSet;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.temporal.TemporalAdjuster;
-import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 
 public class DashboardViewController implements Initializable {
@@ -77,7 +73,7 @@ public class DashboardViewController implements Initializable {
     private Text txtUserName;
 
     @FXML
-    private Text userNumber;
+    private Text supplierNumber;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -90,12 +86,9 @@ public class DashboardViewController implements Initializable {
         try {
             loadTableContent();
         } catch (Exception e) {
-            System.out.println("errorInDash" + e.getMessage());
             e.printStackTrace();
         }
     }
-
-
 
     private void updateDashboardPanel(){
         if (Session.getInstance().sessionExist()){
@@ -104,11 +97,11 @@ public class DashboardViewController implements Initializable {
         try {
             MedicamentModelController mc = new MedicamentModelController();
             PatientModelController pc = new PatientModelController();
-            UserModelController uc = new UserModelController();
+            SupplierModelController sc = new SupplierModelController();
 
             medicamentNumber.setText(String.valueOf(mc.getCount()));
             patientNumber.setText(String.valueOf(pc.getCount()));
-            userNumber.setText(String.valueOf(uc.getCount()));
+            supplierNumber.setText(String.valueOf(sc.getCount()));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -131,8 +124,6 @@ public class DashboardViewController implements Initializable {
             ex.printStackTrace();
         }
 
-        double[] incomes = {1200, 1500, 1100, 1800, 1600, 1700, 1300};
-        String[] daysOfWeek = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"};
         
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Jours");

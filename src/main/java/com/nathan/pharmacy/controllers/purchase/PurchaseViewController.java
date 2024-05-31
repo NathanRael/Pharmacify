@@ -59,8 +59,6 @@ public class PurchaseViewController implements Initializable {
     @FXML
     private ChoiceBox<String> selectPatName;
 
-
-
     @FXML
     private TextField inputSearch;
 

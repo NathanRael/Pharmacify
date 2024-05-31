@@ -8,5 +8,8 @@ public enum SubScenesName {
     DELIVERY,
     PATIENT,
     PRESCRIPTION,
+
+    HISTORY,
+    USER,
     NOTFOUND,
 }

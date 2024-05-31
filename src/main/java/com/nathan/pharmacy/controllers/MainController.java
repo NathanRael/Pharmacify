@@ -2,6 +2,7 @@ package com.nathan.pharmacy.controllers;
 
 import com.nathan.pharmacy.contstants.SubScenesName;
 import com.nathan.pharmacy.models.Singleton;
+import com.nathan.pharmacy.utils.SceneChanger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;

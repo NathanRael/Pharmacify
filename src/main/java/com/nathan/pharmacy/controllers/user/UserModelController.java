@@ -23,6 +23,13 @@ public class UserModelController implements ModelInterface<User> {
         connection.executeUpdateQuery(query);
     }
 
+    public  ResultSet searchJoin(String colName, String value) throws Exception {
+        String query = String.format("SELECT * FROM user u, stock s WHERE u.stockId = s.stockId AND %s = '%s'", colName, value.trim());
+        ResultSet res = connection.executeQuery(query);
+        return  res;
+    }
+
+
     @Override
     public void updateBy(Object... rows) throws Exception {
         StringBuilder query = new StringBuilder("UPDATE user SET ");
@@ -46,6 +53,11 @@ public class UserModelController implements ModelInterface<User> {
         connection.executeUpdateQuery(query);
     }
 
+    public ResultSet selectJoin() throws Exception {
+        String query = "SELECT * FROM user u, stock s WHERE u.stockId = s.stockId";
+        return connection.executeQuery(query);
+    }
+
 
     @Override
     public ResultSet selectBy(String colName, String value) throws Exception{
@@ -56,7 +68,7 @@ public class UserModelController implements ModelInterface<User> {
 
     @Override
     public void update(User user) throws Exception {
-        String query = String.format("UPDATE user SET userName = '%s',  userPhone = '%s', stockId = '%s', userStatus = '%s' WHERE userId = '%s'",user.getName(), user.getPhone(), user.getStockId(), user.getstatus(), user.getId());
+        String query = String.format("UPDATE user SET userName = '%s',  userPhone = '%s', stockId = '%s', userStatus = '%s' WHERE userId = '%s'",user.getName(), user.getPhone(), user.getStockId(), user.getStatus(), user.getId());
         connection.executeUpdateQuery(query);
     }
 

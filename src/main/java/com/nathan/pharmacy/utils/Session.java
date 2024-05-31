@@ -1,10 +1,4 @@
-package com.nathan.pharmacy.controllers;
-
-import com.nathan.pharmacy.contstants.UserRole;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
-import java.util.Arrays;
+package com.nathan.pharmacy.utils;
 
 public class Session {
     private static Session instance = null;

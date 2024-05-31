@@ -61,7 +61,7 @@ public class PurchaseModelController implements ModelInterface<Purchase> {
     }
 
     public ResultSet selectDateBefore(LocalDate date) throws Exception {
-        String query = "SELECT sum(totalPrice * purchaseQuantity) as price,  purchaseDate FROM purchase  WHERE purchaseDate <= '" + date + "' GROUP BY purchaseDate LIMIT 7";
+        String query = "SELECT sum(totalPrice) as price,  purchaseDate FROM purchase  WHERE purchaseDate <= '" + date + "' GROUP BY purchaseDate LIMIT 7";
         return connection.executeQuery(query);
     }
 

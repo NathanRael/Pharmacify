@@ -21,7 +21,7 @@ public class StockModelController implements ModelInterface<Stock> {
 
     @Override
     public ResultSet selectBy(String colName, String value) throws Exception {
-        String query = String.format("SELECT * FROM stock WHERE %s = %s", colName, value);
+        String query = String.format("SELECT * FROM stock WHERE %s = '%s'", colName, value);
         return connection.executeQuery(query);
     }
 

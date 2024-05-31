@@ -48,7 +48,10 @@ public class SupplierModelController implements ModelInterface<Supplier> {
 
     @Override
     public int getCount() throws Exception {
-        return 0;
+        String query = "SELECT COUNT(*) AS len FROM supplier";
+        ResultSet rs = connection.executeQuery(query);
+        rs.next();
+        return rs.getInt("len");
     }
 
     @Override

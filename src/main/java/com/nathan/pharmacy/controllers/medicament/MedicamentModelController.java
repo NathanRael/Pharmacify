@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class MedicamentModelController implements  ModelInterface<Medicament>{
     public String[] tableRow = {""};
@@ -109,6 +110,11 @@ public class MedicamentModelController implements  ModelInterface<Medicament>{
     @Override
     public void deleteBy(String colName, String value) throws Exception {
         String query = String.format("DELETE * FROM medicament WHERE %s = %s", colName, value);
+        connection.executeUpdateQuery(query);
+    }
+
+    public void deleteMedicamentAt(String currentDate) throws SQLException {
+        String query = "DELETE FROM medicament WHERE medExpDate <= " + currentDate ;
         connection.executeUpdateQuery(query);
     }
 
