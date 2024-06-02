@@ -29,4 +29,8 @@ public class ConnectionDb {
         stat.close();
         connection.close();
     }
+
+    public Connection getConnection(){
+        return connection;
+    }
 }

@@ -2,11 +2,13 @@ package com.nathan.pharmacy;
 
 
 import com.nathan.pharmacy.utils.DataManager;
+import com.nathan.pharmacy.utils.PdfManager;
 import com.nathan.pharmacy.utils.SceneChanger;
 import com.nathan.pharmacy.contstants.ScenesName;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -18,7 +20,6 @@ public class Main extends Application {
     }
     public static void main(String[] args) {
         Timer timer = new Timer();
-
         TimerTask clearUnusedData = new TimerTask() {
             @Override
             public void run() {
@@ -31,7 +32,10 @@ public class Main extends Application {
         int delay = 0, period = 3 * 60 * 1000;
 
         timer.scheduleAtFixedRate(clearUnusedData, delay, period);
+        PdfManager pdfManager = new PdfManager();
 
-        launch();
+        pdfManager.print(4,LocalDate.of(2024,5,30));
+
+//        launch();
     }
 }

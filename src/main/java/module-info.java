@@ -4,6 +4,8 @@ module com.nathan.pharmacy {
     requires java.sql;
     requires de.jensd.fx.glyphs.fontawesome;
     requires de.jensd.fx.glyphs.commons;
+    requires jasperreports;
+    requires java.mail;
 
     opens com.nathan.pharmacy to javafx.fxml;
     opens com.nathan.pharmacy.models to javafx.base;
@@ -25,5 +27,6 @@ module com.nathan.pharmacy {
     opens com.nathan.pharmacy.test to javafx.fxml;
     opens com.nathan.pharmacy.databases to java.sql;
     opens com.nathan.pharmacy.interfaces to javafx.fxml;
-    opens com.nathan.pharmacy.utils to javafx.fxml;
+    opens com.nathan.pharmacy.utils to javafx.fxml, java.mail;
+
 }

@@ -19,7 +19,7 @@ public class ViewFactory {
     private ScrollPane dashboardView;
     private ScrollPane patientView;
     private ScrollPane prescriptionView;
-    private AnchorPane purchaseView;
+    private ScrollPane purchaseView;
     private AnchorPane userView;
     private AnchorPane historyView;
     private AnchorPane medicamentView;
@@ -99,7 +99,7 @@ public class ViewFactory {
         return deliveryView;
     }
 
-    public AnchorPane getPurchaseView() {
+    public ScrollPane getPurchaseView() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("purchase-view.fxml"));
             purchaseView = fxmlLoader.load();

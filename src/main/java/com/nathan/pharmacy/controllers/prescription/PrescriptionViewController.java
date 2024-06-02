@@ -94,7 +94,7 @@ public class PrescriptionViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        inputPrescDesc.setDisable(false);
+        inputPrescDesc.setDisable(true);
 
         btnAdd.setOnAction(event -> addPrescription() );
         btnDelete.setOnAction(event -> deletePrescription(currSelectedPrescRow.get(0).getId()));
@@ -102,7 +102,7 @@ public class PrescriptionViewController implements Initializable {
 
         updateViews();
         initTableView();
-        inputPrescMedNum.setText("1");
+
         generateTextField(1);
         listenKeyEvent();
 
@@ -130,15 +130,15 @@ public class PrescriptionViewController implements Initializable {
             if (newValue != null && newValue.matches("^\\d+$")) {
                 int value = Integer.parseInt(newValue);
                 if (value > 0) generateTextField(value);
-                for (MedUsage medUsage : inputMedUsageList){
-                    medUsage.inputMorningQuantity().setOnKeyTyped(keyTypeHandler);
-                    medUsage.inputAfternoonQuantity().setOnKeyTyped(keyTypeHandler);
-                    medUsage.inputNoonQuantity().setOnKeyTyped(keyTypeHandler);
-                }
+                handleMedUsageList(keyTypeHandler);
                 updateButtonState();
             }
         });
+        handleMedUsageList(keyTypeHandler);
 
+    }
+
+    private void handleMedUsageList(EventHandler<Event> keyTypeHandler){
         for (MedUsage medUsage : inputMedUsageList){
             medUsage.inputMorningQuantity().setOnKeyTyped(keyTypeHandler);
             medUsage.inputAfternoonQuantity().setOnKeyTyped(keyTypeHandler);
@@ -164,8 +164,8 @@ public class PrescriptionViewController implements Initializable {
     private void addPrescription(){
         LocalDateTime prescDate = LocalDateTime.now();
         String prescDuration = inputPrescDuration.getText();
-//        String prescDesc = generatePresc(inputMedUsageList, selectMedNameList);
-        String prescDesc = inputPrescDesc.getText();
+        String prescDesc = generatePresc(inputMedUsageList, selectMedNameList);
+//        String prescDesc = inputPrescDesc.getText();
         int patientId = getPatientId(selectPatientFName.getSelectionModel().getSelectedItem());
         PrescriptionModelController pc = new PrescriptionModelController();
         Prescription prescription = new Prescription(prescDate, prescDuration, prescDesc, patientId);
@@ -262,6 +262,10 @@ public class PrescriptionViewController implements Initializable {
         medicamentContainer.setPrefWidth(460);
         medicamentContainer.getChildren().clear();
 
+        selectMedNameList.clear();
+        inputMedUsageList.clear();
+
+
         for (int i = 0; i < fieldCount; i++) {
             HBox hBox = new HBox(8);
             ChoiceBox<String> selectMedName = new ChoiceBox<>();
@@ -298,7 +302,6 @@ public class PrescriptionViewController implements Initializable {
 
 //        generateTextField(inputNumber);
 
-
         for (int i = 0; i < inputNumber; i++){
             String item = prescriptions[i];
             String[] parts = item.split("=>");
@@ -322,10 +325,10 @@ public class PrescriptionViewController implements Initializable {
 
     private void updateCurrSelectedPrescRow(Prescription newSelection) {
         int prescId = newSelection.getId();
-        LocalDateTime prescDate = LocalDateTime.now();
-        String prescDuration = inputPrescDuration.getText();
-        String prescDesc = generatePresc(inputMedUsageList, selectMedNameList);
-        int patientId = getPatientId(selectPatientFName.getSelectionModel().getSelectedItem());
+        LocalDateTime prescDate = newSelection.getDate();
+        String prescDuration = newSelection.getDuration();
+        String prescDesc = newSelection.getDesc();
+        int patientId = newSelection.getPatientId();
 
         currSelectedPrescRow.clear();
         currSelectedPrescRow.add(new Prescription(prescId,prescDate, prescDuration, prescDesc, patientId));
@@ -416,15 +419,16 @@ public class PrescriptionViewController implements Initializable {
     private void updateButtonState() {
         System.out.println("updated");
         boolean validMedInputs = true;
-/*        for ( MedUsage medUsage: inputMedUsageList){
+        for ( MedUsage medUsage: inputMedUsageList){
             boolean validMedInput = validText(medUsage.inputAfternoonQuantity(), new ValidNumber()) && validText(medUsage.inputNoonQuantity(), new ValidNumber()) && validText(medUsage.inputMorningQuantity(), new ValidNumber());
             if (!validMedInput) {
                 validMedInputs = false;
                 break;
             }
-        }*/
+        }
 
-        boolean allFieldValid = validMedInputs  && validText(inputPrescMedNum, new ValidNumber()) && validText(inputPrescDuration, new ValidNumber()) && !inputPrescDesc.getText().isEmpty();;
+        boolean allFieldValid = validMedInputs  && validText(inputPrescMedNum, new ValidNumber()) && validText(inputPrescDuration, new ValidNumber()) ;
+//        && !inputPrescDesc.getText().isEmpty()
 
         boolean canDelete =  false;
         boolean canUse = false;
@@ -440,7 +444,7 @@ public class PrescriptionViewController implements Initializable {
     }
 
     private void clearAllField() {
-        inputPrescMedNum.setText("1");
+//        generateTextField(1);
         inputMedUsageList.get(0).clear();
         inputPrescDesc.clear();
         selectPatientFName.getSelectionModel().select(0);
