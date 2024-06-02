@@ -6,6 +6,9 @@ import com.nathan.pharmacy.controllers.medicament.MedicamentModelController;
 import com.nathan.pharmacy.controllers.patient.PatientModelController;
 import com.nathan.pharmacy.interfaces.FieldValidator;
 import com.nathan.pharmacy.models.*;
+import com.nathan.pharmacy.utils.HistoryUtil;
+import com.nathan.pharmacy.utils.NotificationManager;
+import com.nathan.pharmacy.utils.Session;
 import com.nathan.pharmacy.utils.ValidationUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -209,6 +212,8 @@ public class PrescriptionViewController implements Initializable {
                     if (medQuantity <= currentQuantity){
                         newQuantity = currentQuantity - medQuantity;
                         mc.updateBy("medQuantity", newQuantity, "medId", medId);
+
+                        NotificationManager.sendPatientPrescription(currSelectedPrescRow.get(0).getPatientFName(),"ralaivoavy.natanael@gmail.com", currMedUsageList);
                         System.out.println("Medicament updated");
                     }else {
                         System.out.println("Quantité insuffisant");
@@ -329,9 +334,10 @@ public class PrescriptionViewController implements Initializable {
         String prescDuration = newSelection.getDuration();
         String prescDesc = newSelection.getDesc();
         int patientId = newSelection.getPatientId();
+        String patientFName = newSelection.getPatientFName();
 
         currSelectedPrescRow.clear();
-        currSelectedPrescRow.add(new Prescription(prescId,prescDate, prescDuration, prescDesc, patientId));
+        currSelectedPrescRow.add(new Prescription(prescId,prescDate, prescDuration, prescDesc, patientId, patientFName));
     }
 
     private void setFieldsValue(Prescription newSelection) {

@@ -37,6 +37,11 @@ public class MedicamentModelController implements  ModelInterface<Medicament>{
         connection.executeUpdateQuery(query);
     }
 
+    public ResultSet getMedicamentWithLowStock(int threshold) throws Exception {
+        String query =  "SELECT * FROM medicament WHERE medQuantity <= " + threshold;
+        return connection.executeQuery(query);
+    }
+
     @Override
     public void update(Medicament medicament) throws Exception {
         String query = String.format("UPDATE medicament SET medName = %s, medDesc = %s, medPrice = %f, medQuantity = %s, stockId = %s, medExpDate = %s WHERE medId = %s", medicament.getName(), medicament.getDesc(), medicament.getPrice(), medicament.getQuantity(), medicament.getStockId() ,medicament.getExpDate().toString(), medicament.getId());
@@ -109,12 +114,12 @@ public class MedicamentModelController implements  ModelInterface<Medicament>{
 
     @Override
     public void deleteBy(String colName, String value) throws Exception {
-        String query = String.format("DELETE * FROM medicament WHERE %s = %s", colName, value);
+        String query = String.format("DELETE * FROM medicament WHERE %s = '%s'", colName, value);
         connection.executeUpdateQuery(query);
     }
 
     public void deleteMedicamentAt(String currentDate) throws SQLException {
-        String query = "DELETE FROM medicament WHERE medExpDate <= " + currentDate ;
+        String query = "DELETE FROM medicament WHERE medExpDate <= ' " + currentDate + " '" ;
         connection.executeUpdateQuery(query);
     }
 

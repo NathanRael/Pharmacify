@@ -4,7 +4,7 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (4)"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM purchase p, medicament m, patient pa WHERE p.medId = m.medId AND pa.patientId = p.patientId]]>
+		<![CDATA[SELECT * FROM purchase p, medicament m, patient pa WHERE p.medId = m.medId AND p.patientId = pa.patientId]]>
 	</queryString>
 	<field name="purchaseId" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="purchaseId"/>
@@ -101,6 +101,9 @@
 		<property name="com.jaspersoft.studio.field.label" value="patientEmail"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="patient"/>
 	</field>
+	<variable name="COLUMN_141" class="java.lang.Integer" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{COLUMN_14}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -201,35 +204,42 @@
 				<text><![CDATA[Quantité acheté]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="270" y="120" width="70" height="19" uuid="5faedeba-5603-4102-851a-c82e2927eb08"/>
+				<reportElement x="240" y="120" width="70" height="19" uuid="5faedeba-5603-4102-851a-c82e2927eb08"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prix unitaire]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="120" width="90" height="19" uuid="b15e773b-0c35-41e4-8a6c-d741d9e2a37e"/>
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Prix totale]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="385" y="120" width="90" height="19" uuid="b15e773b-0c35-41e4-8a6c-d741d9e2a37e"/>
-				<textElement>
-					<font size="10" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Date d'achat]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="80" y="0" width="140" height="20" uuid="af89c503-84d6-46ff-9599-08ce42df7216">
+				<reportElement x="80" y="0" width="90" height="20" uuid="af89c503-84d6-46ff-9599-08ce42df7216">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a571e54e-cbfb-4118-ab11-5e389e8b09ef"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{patientFName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="190" y="0" width="140" height="20" uuid="4235fe8e-1e4c-46a6-ac88-63d06d413411">
+				<reportElement x="170" y="0" width="140" height="20" uuid="4235fe8e-1e4c-46a6-ac88-63d06d413411">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a571e54e-cbfb-4118-ab11-5e389e8b09ef"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{patientLName}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="490" y="121" width="90" height="19" uuid="8dda62e2-0e29-4fa4-8dd5-7d1929a9c238"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date d'achat]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch">
+		<band height="28" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="5" width="100" height="20" uuid="1a47d43f-d6fc-466a-a239-a716fd1b2d72">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a571e54e-cbfb-4118-ab11-5e389e8b09ef"/>
@@ -243,13 +253,19 @@
 				<textFieldExpression><![CDATA[$F{purchaseQuantity}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="270" y="0" width="100" height="20" uuid="5edaa9ee-a55c-4cad-848d-64e8a6ae33b1">
+				<reportElement x="240" y="0" width="100" height="20" uuid="5edaa9ee-a55c-4cad-848d-64e8a6ae33b1">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a571e54e-cbfb-4118-ab11-5e389e8b09ef"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[$F{medPrice}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{medPrice} ]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="384" y="0" width="100" height="20" uuid="61ecb00c-1b78-4f8c-b89e-ca1414affa0d">
+				<reportElement x="349" y="0" width="100" height="20" uuid="61ecb00c-1b78-4f8c-b89e-ca1414affa0d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a571e54e-cbfb-4118-ab11-5e389e8b09ef"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{totalPrice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="489" y="1" width="100" height="20" uuid="e9c748f9-017b-4de7-b81e-661d8489d295">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a571e54e-cbfb-4118-ab11-5e389e8b09ef"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{purchaseDate}]]></textFieldExpression>
@@ -257,7 +273,15 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="5" y="10" width="90" height="19" uuid="aebfb81c-88e8-4b93-9b9c-3aebc9703c7e"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Montant total :]]></text>
+			</staticText>
+		</band>
 	</columnFooter>
 	<pageFooter>
 		<band height="54" splitType="Stretch"/>

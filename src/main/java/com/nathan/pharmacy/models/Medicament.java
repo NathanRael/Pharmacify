@@ -12,6 +12,11 @@ public class Medicament {
     private LocalDate expDate;
     private int stockId;
 
+    public Medicament(int id, String name, int quantity){
+        this.id = id;
+        this.name = name;
+        this.quantity = quantity;
+    }
     public Medicament(int id, String name, String desc, float price, int quantity, int stockId,  LocalDate expDate) {
         this.id = id;
         this.name = name;

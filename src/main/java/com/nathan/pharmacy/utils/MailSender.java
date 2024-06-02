@@ -1,14 +1,15 @@
 package com.nathan.pharmacy.utils;
 
+import com.nathan.pharmacy.contstants.MailType;
+
 import java.util.Properties;
 import javax.mail.*;
-import javax.crypto.*;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.Properties;
+
 public class MailSender {
-    public static void sendMailTo(String host, String subject, String body){
+    public static void sendMailTo(String host, String subject, String body, MailType contentType){
         if (host.matches("^[a-z]+[\\w-_\\.]+@[\\w-_]+\\.[\\w-_]{2,4}$")){
             final String user="natanael.ralaivoavy@gmail.com";
             final String password=System.getenv("PHARMACIFY_MAIL_PWD");
@@ -36,7 +37,12 @@ public class MailSender {
                 message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));
 
                 message.setSubject(subject);
-                message.setText(body);
+
+                switch (contentType){
+                    case TEXT -> message.setText(body);
+                    case TEXT_HTML -> message.setContent(body, "text/html");
+                }
+
                 Transport.send(message);
 
                 System.out.println("message sent successfully via mail ... !!! ");
@@ -47,6 +53,5 @@ public class MailSender {
             System.out.println("Cannot send email");
         }
     }
-
 
 }

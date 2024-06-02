@@ -14,6 +14,10 @@ public class Purchase {
     private String medName;
     private String patName;
 
+    public Purchase(LocalDateTime date, int patientId) {
+        this.date = date;
+        this.patientId = patientId;
+    }
 
     public Purchase(int id, LocalDateTime date, int quantity, int medId, int patientId, float totalPrice) {
         this.id = id;
@@ -23,6 +27,8 @@ public class Purchase {
         this.patientId = patientId;
         this.totalPrice = totalPrice;
     }
+
+
     public Purchase(LocalDateTime date, int quantity, int medId, int patientId, float totalPrice) {
         this.date = date;
         this.quantity = quantity;
