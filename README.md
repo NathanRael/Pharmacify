@@ -16,5 +16,5 @@ A pharmacy management desktop app with javaFx
 
 
 ## Author 
-Full name : Natanaël RALAIVOAVY
-Email : ralaivoavy.natanael@gmail.com
+ - Full name : Natanaël RALAIVOAVY
+ - Email : ralaivoavy.natanael@gmail.com
