@@ -9,6 +9,13 @@ public class ValidationUtil {
         return fieldValidator.isValidField(textField);
     }
 
+    public static String purifyValue(Object value){
+        if (value instanceof String){
+            return ((String) value).replaceAll("'|;|(--)", "`");
+        }
+        return value.toString();
+    }
+
     public static boolean validateSelect(ChoiceBox choiceBox){
         return false;
     }

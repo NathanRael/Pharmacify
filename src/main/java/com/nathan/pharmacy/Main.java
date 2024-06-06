@@ -17,10 +17,13 @@ import java.util.TimerTask;
     TODO :
         - Generate patient invoice according to the selected row ==> Done
         - Informing the SuperAdmin when a stock is almost out ==> Done
-        - Adding the total amount to the patient invoice
-        - Logging all changes
-        - Sending the user medicament usage via email
+        - Escape all of the String char in the modelController by using purifyString method ==> Done
+        - Logging all changes => Done
+        - Sending the user medicament usage via email => Done
+        - Only selecting a medicament which has a quantity > 0 => Done
+        - Adding the total amount to the patient invoice => Pending
         - Adding message label for error or success
+        - List of all expired medicament when delivering a medicament
         - Changing forgotten password via email code
         - Make the most selected item as the default selection for the choiceBox
         - Show the most purchased medicament according the selected date
@@ -38,20 +41,11 @@ public class Main extends Application {
         TimerTask clearUnusedData = new TimerTask() {
             @Override
             public void run() {
-                DataManager  dataManager = new DataManager();
-                dataManager.clearUnusedData();
                 System.out.println("clearing unusedData");
             }
         };
-
-        //Executing task asynchronously
-/*        Runnable task = () -> {
-            try {
-//                NotificationManager.checkMedQuantityAndNotify("ralaivoavy.natanael@gmail.com");
-            }catch (Exception ex){
-                ex.printStackTrace();
-            }
-        };*/
+        DataManager  dataManager = new DataManager();
+        dataManager.clearUnusedData();
 
         timer.scheduleAtFixedRate(clearUnusedData, timerDelay, period);
         launch();

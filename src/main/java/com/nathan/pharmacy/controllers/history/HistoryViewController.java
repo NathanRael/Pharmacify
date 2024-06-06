@@ -46,11 +46,6 @@ public class HistoryViewController implements Initializable {
         inputHistoryDate.getEditor().setDisable(true);
         inputHistoryDate.setValue(LocalDate.now());
 
-        HistoryManager.getInstance().push("nathan", "Removed user");
-        HistoryManager.getInstance().push("nathanBlast", "Removed blast");
-        HistoryManager.getInstance().push("admin", "Removed blast");
-
-
         initTableView();
         loadHistory(LocalDate.now());
         listenTextFieldEvent();

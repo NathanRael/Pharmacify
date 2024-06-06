@@ -13,7 +13,7 @@ public class PatientModelController implements ModelInterface<Patient> {
 
     public PatientModelController() {
         try {
-            connection = new ConnectionDb();
+            connection = ConnectionDb.getInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -33,7 +33,7 @@ public class PatientModelController implements ModelInterface<Patient> {
 
     @Override
     public void update(Patient patient) throws Exception {
-        String query = String.format("UPDATE patient SET patientFName = '%s', patientLName = '%s', patientPhone = '%s', patientAddress = '%s', patientEmail = '%s' WHERE patientId = '%s'", patient.getFirstName(), patient.getLastName(), patient.getPhone(),patient.getAddress(), patient.getEmail(), patient.getId());
+        String query = String.format("UPDATE patient SET patientFName = '%s', patientLName = '%s', patientPhone = '%s', patientAddress = '%s', patientEmail = '%s' WHERE patientId = '%s'", purifyValue(patient.getFirstName()), purifyValue(patient.getLastName()), patient.getPhone(),purifyValue(patient.getAddress()), patient.getEmail(), patient.getId());
 
         connection.executeUpdateQuery(query);
     }
@@ -67,7 +67,7 @@ public class PatientModelController implements ModelInterface<Patient> {
 
     @Override
     public void insert(Patient patient) throws Exception {
-        String query = String.format("INSERT INTO patient(patientFName, patientLName, patientPhone, patientAddress, patientEmail) VALUES ('%s', '%s', '%s', '%s', '%s' )", patient.getFirstName(), patient.getLastName(), patient.getPhone(),patient.getAddress(), patient.getEmail());
+        String query = String.format("INSERT INTO patient(patientFName, patientLName, patientPhone, patientAddress, patientEmail) VALUES ('%s', '%s', '%s', '%s', '%s' )", purifyValue(patient.getFirstName()), purifyValue(patient.getLastName()), patient.getPhone(),purifyValue(patient.getAddress()), patient.getEmail());
         connection.executeUpdateQuery(query);
     }
 
@@ -76,10 +76,10 @@ public class PatientModelController implements ModelInterface<Patient> {
         StringBuilder query = new StringBuilder("UPDATE patient SET ");
         for (int i = 0, j = i+1; i < rows.length; i +=2,j+=2){
             if (i == rows.length-2){
-                query.append(" WHERE ").append(rows[i]).append(" = ").append(rows[j]);
+                query.append(" WHERE ").append(rows[i]).append(" = ").append(purifyValue(rows[j]));
                 break;
             }
-            query.append(rows[i]).append(" = ").append("'").append(rows[j]).append("'");
+            query.append(rows[i]).append(" = ").append("'").append(purifyValue(rows[j])).append("'");
             if (i < rows.length - 4){
                 query.append(",");
             }

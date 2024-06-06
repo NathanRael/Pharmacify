@@ -146,6 +146,7 @@ public class PurchaseViewController implements Initializable {
     private void generateInvoice(int patientId, LocalDate purchaseDate) {
         PdfManager pdfManager = new PdfManager();
         pdfManager.print(patientId, purchaseDate);
+        HistoryUtil.pushHistory(Session.getInstance().getUserName(), "Generation d'une facture du patient : " + currSelectedPurchaseRow.get(0).getPatName());
         System.out.println("Invoice created");
     }
 
@@ -205,7 +206,7 @@ public class PurchaseViewController implements Initializable {
         ObservableList<Medicament> medicament = FXCollections.observableArrayList();
         MedicamentModelController mc = new MedicamentModelController();
 
-        ResultSet rs = mc.selectAll();
+        ResultSet rs = mc.selectAllDisponibleMed();
 
         while (rs.next()){
             int medId = rs.getInt("medId");
@@ -264,11 +265,11 @@ public class PurchaseViewController implements Initializable {
                 pc.insert(purchase);
                 mc.updateBy("medQuantity", newQuantity, "medId", medId);
                 System.out.println("Medicament purchased");
+
+                HistoryUtil.pushHistory(Session.getInstance().getUserName(), "Vente de medicament (" + inputMedName.getText() + ") à " + patientFName);
                 loadTableContent();
                 loadPurchaseTableContent();
                 clearAllField();
-
-                HistoryUtil.pushHistory(Session.getInstance().getUserName(), "Vente de medicament (" + inputMedName.getText() + ") à " + patientFName);
             }else{
                 System.out.println("The quantity is not enough");
             }

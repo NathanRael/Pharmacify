@@ -8,6 +8,8 @@ import com.nathan.pharmacy.controllers.medicament.MedicamentModelController;
 import com.nathan.pharmacy.interfaces.FieldValidator;
 import com.nathan.pharmacy.models.Medicament;
 import com.nathan.pharmacy.models.Patient;
+import com.nathan.pharmacy.utils.HistoryUtil;
+import com.nathan.pharmacy.utils.Session;
 import com.nathan.pharmacy.utils.ValidationUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -96,6 +98,7 @@ public class PatientViewController implements Initializable {
         btnAdd.setOnAction(event -> addPatient());
         btnEdit.setOnAction(event -> editPatient());
         btnDelete.setOnAction(event -> deletePatient(currSelectedPatientRow.get(0).getId()));
+        btnInvoice.setVisible(false);
         btnInvoice.setOnAction(event -> generateInvoice(currSelectedPatientRow.get(0).getId()));
 
         selectPatientFilter.getItems().addAll("Id", "Nom", "Adresse");
@@ -195,6 +198,7 @@ public class PatientViewController implements Initializable {
             Patient patient = new Patient(patientId, patientFName, patientLName, patientPhone, patientAddress, patientEmail);
 
             pc.insert(patient);
+            HistoryUtil.pushHistory(Session.getInstance().getUserName(), String.format("Ajout d'un patient ( %s ) ", patientFName));
             System.out.println("Patient added");
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -206,8 +210,10 @@ public class PatientViewController implements Initializable {
     private void deletePatient(int id) {
         try {
             PatientModelController pc = new PatientModelController();
-
+            ResultSet rs = pc.selectBy("patientId", String.valueOf(id));
+            rs.next();
             pc.delete(id);
+            HistoryUtil.pushHistory(Session.getInstance().getUserName(), String.format("Suppression d'un patient ( %s ) ", rs.getString("patientFName")));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -297,8 +303,6 @@ public class PatientViewController implements Initializable {
         boolean allFieldCorrect = validText(inputPatFName, new ValidName()) && validText(inputPatLName, new ValidName()) && validText(inputPatPhone, new ValidPhone()) && validText(inputPatAddress, new ValidName()) && validText(inputPatEmail, new ValidEmail());
         boolean canDelete = currSelectedPatientRow.get(0).getId() > 0;
         boolean canEdit = allFieldCorrect && !currSelectedPatientRow.isEmpty();
-        //TODO
-        boolean canInvoice = false;
 
         btnAdd.setDisable(!allFieldCorrect);
         btnDelete.setDisable(!canDelete);

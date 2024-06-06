@@ -4,6 +4,7 @@ import com.nathan.pharmacy.controllers.form.ValidLongText;
 import com.nathan.pharmacy.controllers.form.ValidNumber;
 import com.nathan.pharmacy.controllers.medicament.MedicamentModelController;
 import com.nathan.pharmacy.controllers.patient.PatientModelController;
+import com.nathan.pharmacy.controllers.purchase.PurchaseModelController;
 import com.nathan.pharmacy.interfaces.FieldValidator;
 import com.nathan.pharmacy.models.*;
 import com.nathan.pharmacy.utils.HistoryUtil;
@@ -25,6 +26,7 @@ import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -189,6 +191,7 @@ public class PrescriptionViewController implements Initializable {
         try {
             pc.delete(id);
             System.out.println("presc deleted");
+            HistoryUtil.pushHistory(Session.getInstance().getUserName(),  String.format("Suppression d'une prescription ( %s )", id));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -197,33 +200,67 @@ public class PrescriptionViewController implements Initializable {
     }
 
     private void usePrecription(){
-
+        String patientFName = currSelectedPrescRow.get(0).getPatientFName();
         for (PrescMedInfo prescMedInfo : currMedUsageList){
             try{
                 int newQuantity = 0;
                 int medQuantity = (prescMedInfo.getAfternoonQuantity() + prescMedInfo.getMorningQuantity() + prescMedInfo.getNoonQuantity()) * prescMedInfo.getDuration();
-                int medId = getMedId(prescMedInfo.getMedName());
+                String medName = prescMedInfo.getMedName();
+                int medId = getMedId(medName);
+                float totalPrice = 0;
 
                 MedicamentModelController mc = new MedicamentModelController();
                 ResultSet rs = mc.selectBy("medId", String.valueOf(medId));
+                int patientId = currSelectedPrescRow.get(0).getPatientId();
 
                 if (rs.next()){
                     int currentQuantity = rs.getInt("medQuantity");
+
                     if (medQuantity <= currentQuantity){
+                        totalPrice = rs.getFloat("medPrice") * medQuantity;
                         newQuantity = currentQuantity - medQuantity;
                         mc.updateBy("medQuantity", newQuantity, "medId", medId);
-
-                        NotificationManager.sendPatientPrescription(currSelectedPrescRow.get(0).getPatientFName(),"ralaivoavy.natanael@gmail.com", currMedUsageList);
+                        purchaseMedicament(medId, medQuantity,patientId, totalPrice, medName, patientFName);
                         System.out.println("Medicament updated");
                     }else {
                         System.out.println("Quantité insuffisant");
                     }
                 }
                 loadTableContent();
+
             }catch (Exception ex){
                 ex.printStackTrace();
             }
         }
+        NotificationManager.sendPatientPrescription(patientFName,"ralaivoavy.natanael@gmail.com", currMedUsageList);
+    }
+
+    public void purchaseMedicament(int medId, int quantity, int patientId, float totalPrice, String medName, String patientName){
+        try{
+            PurchaseModelController pc = new PurchaseModelController();
+            MedicamentModelController mc = new MedicamentModelController();
+
+            ResultSet rs = mc.selectBy("medId", String.valueOf(medId));
+            rs.next();
+            int oldQuantity = rs.getInt("medQuantity");
+            int newQuantity = oldQuantity - quantity;
+            if (newQuantity >= 0){
+                Purchase purchase = new Purchase( LocalDateTime.now(), quantity, medId, patientId, totalPrice);
+                pc.insert(purchase);
+                mc.updateBy("medQuantity", newQuantity, "medId", medId);
+                System.out.println("Medicament purchased");
+                HistoryUtil.pushHistory(Session.getInstance().getUserName(), "Vente de medicament (" + medName + ") à " + patientName);
+                loadTableContent();
+                clearAllField();
+
+            }else{
+                System.out.println("The quantity is not enough");
+            }
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
     }
 
     private void loadTableContent() {

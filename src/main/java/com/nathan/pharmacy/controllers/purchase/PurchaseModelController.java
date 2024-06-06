@@ -8,10 +8,10 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 
 public class PurchaseModelController implements ModelInterface<Purchase> {
-    private ConnectionDb connection;
+    private final ConnectionDb connection;
 
     public PurchaseModelController() throws Exception {
-        connection = new ConnectionDb();
+        connection = ConnectionDb.getInstance();
     }
     @Override
     public ResultSet selectAll() throws Exception {
@@ -22,7 +22,7 @@ public class PurchaseModelController implements ModelInterface<Purchase> {
 
     @Override
     public ResultSet selectBy(String colName, String value) throws Exception {
-        String query = String.format("SELECT * FROM purchase WHERE %s = '%s'", colName, value);
+        String query = String.format("SELECT * FROM purchase WHERE %s = '%s'", colName, purifyValue(value));
         ResultSet rs = connection.executeQuery(query);
         return  rs;
     }
@@ -70,10 +70,10 @@ public class PurchaseModelController implements ModelInterface<Purchase> {
         StringBuilder query = new StringBuilder("UPDATE purchase SET ");
         for (int i = 0, j = i+1; i < rows.length; i +=2,j+=2){
             if (i == rows.length-2){
-                query.append(" WHERE ").append(rows[i]).append(" = ").append(rows[j]);
+                query.append(" WHERE ").append(rows[i]).append(" = ").append(purifyValue(rows[j]));
                 break;
             }
-            query.append(rows[i]).append(" = ").append("'").append(rows[j]).append("'");
+            query.append(rows[i]).append(" = ").append("'").append(purifyValue(rows[j])).append("'");
             if (i < rows.length - 4){
                 query.append(",");
             }

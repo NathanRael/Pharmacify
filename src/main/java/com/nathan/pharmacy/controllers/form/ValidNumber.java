@@ -10,7 +10,7 @@ public class ValidNumber implements FieldValidator {
 
     @Override
     public boolean isValidField(TextField textField) {
-        String text = textField.getText();
+        String text = textField.getText().trim();
         if (text.isEmpty()) {
             return false;
         }

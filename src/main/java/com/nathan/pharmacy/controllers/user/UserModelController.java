@@ -12,7 +12,7 @@ public class UserModelController implements ModelInterface<User> {
     private final String[] tableRow = {"userId", "userName", "userPhone", "userPwd", "stockId", "userStatus"};
     private final ConnectionDb connection;
     public UserModelController() throws Exception{
-        connection =  new ConnectionDb();
+        connection =  ConnectionDb.getInstance();
     };
 
     @Override
@@ -35,10 +35,10 @@ public class UserModelController implements ModelInterface<User> {
         StringBuilder query = new StringBuilder("UPDATE user SET ");
         for (int i = 0, j = i+1; i < rows.length; i +=2,j+=2){
             if (i == rows.length-2){
-                query.append(" WHERE ").append(rows[i]).append(" = ").append(rows[j]);
+                query.append(" WHERE ").append(rows[i]).append(" = ").append(purifyValue(rows[j]));
                 break;
             }
-            query.append(rows[i]).append(" = ").append("'").append(rows[j]).append("'");
+            query.append(rows[i]).append(" = ").append("'").append(purifyValue(rows[j])).append("'");
             if (i < rows.length - 4){
                 query.append(",");
             }
@@ -49,7 +49,7 @@ public class UserModelController implements ModelInterface<User> {
 
     @Override
     public void deleteBy(String colName, String value) throws Exception {
-        String query = String.format("DELETE * FROM user WHERE %s = '%s' ", colName, value);
+        String query = String.format("DELETE * FROM user WHERE %s = '%s' ", colName, purifyValue(value));
         connection.executeUpdateQuery(query);
     }
 
@@ -68,7 +68,7 @@ public class UserModelController implements ModelInterface<User> {
 
     @Override
     public void update(User user) throws Exception {
-        String query = String.format("UPDATE user SET userName = '%s',  userPhone = '%s', stockId = '%s', userStatus = '%s' WHERE userId = '%s'",user.getName(), user.getPhone(), user.getStockId(), user.getStatus(), user.getId());
+        String query = String.format("UPDATE user SET userName = '%s',  userPhone = '%s', stockId = '%s', userStatus = '%s' WHERE userId = '%s'",purifyValue(user.getName()), user.getPhone(), user.getStockId(), user.getStatus(), user.getId());
         connection.executeUpdateQuery(query);
     }
 

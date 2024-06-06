@@ -11,7 +11,7 @@ public class DataManager {
     }
 
     public void clearUnusedData(){
-        clearExpiredMedicament();
+//        clearExpiredMedicament();
         clearOldHistory();
     }
 

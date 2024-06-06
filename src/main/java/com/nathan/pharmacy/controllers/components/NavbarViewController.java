@@ -84,10 +84,13 @@ public class NavbarViewController implements Initializable {
         btnNavHistory.setVisible(false);
         btnNavSupplier.setVisible(false);
         btnNavUser.setVisible(false);
+        btnNavMedicine.setVisible(false);
+
 
         btnNavHistory.setDisable(true);
         btnNavSupplier.setDisable(true);
         btnNavUser.setDisable(true);
+        btnNavMedicine.setDisable(true);
     }
 
     @FXML

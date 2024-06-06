@@ -15,7 +15,7 @@ public class MedicamentModelController implements  ModelInterface<Medicament>{
     private final ConnectionDb connection;
 
     public MedicamentModelController() throws Exception {
-        connection = new ConnectionDb();
+        connection = ConnectionDb.getInstance();
     }
 
     @Override
@@ -25,6 +25,11 @@ public class MedicamentModelController implements  ModelInterface<Medicament>{
         return  rs;
     }
 
+    public ResultSet selectAllDisponibleMed() throws Exception {
+        String query = "SELECT * FROM medicament WHERE medQuantity > 0 ORDER BY medName ASC";
+        ResultSet rs = connection.executeQuery(query);
+        return  rs;
+    }
     @Override
     public ResultSet selectBy(String colName, String value) throws Exception{
         String query = String.format("SELECT * FROM medicament WHERE %s = '%s' ", colName, value);
@@ -84,7 +89,7 @@ public class MedicamentModelController implements  ModelInterface<Medicament>{
 
     @Override
     public void insert(Medicament medicament) throws Exception {
-        String query = String.format("INSERT INTO medicament(medName, medDesc, medPrice, medQuantity, stockId, medExpDate) VALUES ('%s','%s','%s', '%s', '%s', '%s')", medicament.getName(), medicament.getDesc(), medicament.getPrice(), medicament.getQuantity(), medicament.getStockId(), medicament.getExpDate().toString());
+        String query = String.format("INSERT INTO medicament(medName, medDesc, medPrice, medQuantity, stockId, medExpDate) VALUES ('%s','%s','%s', '%s', '%s', '%s')", purifyValue(medicament.getName()), purifyValue(medicament.getDesc()), medicament.getPrice(), medicament.getQuantity(), medicament.getStockId(), medicament.getExpDate().toString());
         connection.executeUpdateQuery(query);
     }
 
@@ -122,6 +127,7 @@ public class MedicamentModelController implements  ModelInterface<Medicament>{
         String query = "DELETE FROM medicament WHERE medExpDate <= ' " + currentDate + " '" ;
         connection.executeUpdateQuery(query);
     }
+
 
 }
 

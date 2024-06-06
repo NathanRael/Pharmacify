@@ -10,7 +10,7 @@ public class StockModelController implements ModelInterface<Stock> {
     private final ConnectionDb connection;
 
     public StockModelController() throws Exception{
-        connection = new ConnectionDb();
+        connection = ConnectionDb.getInstance();
     }
 
     @Override
@@ -27,7 +27,7 @@ public class StockModelController implements ModelInterface<Stock> {
 
     @Override
     public void update(Stock stock) throws Exception {
-        String query = "UPDATE stock SET stockName = " + stock.getName() + "WHERE stockId = " + stock.getId();
+        String query = "UPDATE stock SET stockName = " + purifyValue(stock.getName()) + "WHERE stockId = " + stock.getId();
         connection.executeUpdateQuery(query);
     }
 
@@ -47,7 +47,7 @@ public class StockModelController implements ModelInterface<Stock> {
 
     @Override
     public void insert(Stock stock) throws Exception {
-        String query = "INSERT INTO stock values(stockName) VALUES ( '"+  stock.getName() + "')";
+        String query = "INSERT INTO stock values(stockName) VALUES ( '"+  purifyValue(stock.getName()) + "')";
         connection.executeUpdateQuery(query);
     }
 
@@ -58,7 +58,7 @@ public class StockModelController implements ModelInterface<Stock> {
 
     @Override
     public void deleteBy(String colName, String value) throws Exception {
-        String query = String.format("DELETE * FROM stock WHERE %s = %s", colName, value);
+        String query = String.format("DELETE * FROM stock WHERE %s = %s", colName, purifyValue(value));
         connection.executeUpdateQuery(query);
     }
 

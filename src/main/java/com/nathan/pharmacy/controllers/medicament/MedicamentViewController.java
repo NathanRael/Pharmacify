@@ -8,6 +8,8 @@ import com.nathan.pharmacy.interfaces.FieldValidator;
 import com.nathan.pharmacy.models.Medicament;
 import com.nathan.pharmacy.models.Singleton;
 import com.nathan.pharmacy.models.Stock;
+import com.nathan.pharmacy.utils.HistoryUtil;
+import com.nathan.pharmacy.utils.Session;
 import com.nathan.pharmacy.utils.ValidationUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -92,6 +94,7 @@ public class MedicamentViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setStockInfo(stockInfo);
+        btnAddMed.setDisable(true);
 
         btnAddMed.setOnAction(event -> addMedicament());
         btnDeleteMed.setOnAction(event -> deleteMedicament(currSelectedId));
@@ -171,7 +174,7 @@ public class MedicamentViewController implements Initializable {
         float medPrice = Float.parseFloat(inputMedPrice.getText());
         int medQuantity = 0;
         int stockId = 1;
-        LocalDate medExpDate = LocalDate.now();
+        LocalDate medExpDate = LocalDate.now().plusMonths(2);
 
         boolean allFieldValidated = validText(inputMedName, new ValidText()) && validText(inputMedDesc, new ValidLongText()) && validText(inputMedPrice, new ValidNumber());
 
@@ -182,6 +185,9 @@ public class MedicamentViewController implements Initializable {
             try {
                 mc = new MedicamentModelController();
                 mc.insert(medicament);
+
+                HistoryUtil.pushHistory(Session.getInstance().getUserName(), String.format("Ajout d'un medicament ( %s )", medName));
+
                 loadTableContent();
                 clearAllField();
                 System.out.println("Medicament added");
@@ -297,6 +303,7 @@ public class MedicamentViewController implements Initializable {
         inputMedPrice.clear();
         selectStockId.setValue("1");
         inputSearch.clear();
+        currSelectedId = -1;
         try {
             loadTableContent();
         } catch (Exception e) {
@@ -306,7 +313,7 @@ public class MedicamentViewController implements Initializable {
     }
 
     private void updateButtonState() {
-        boolean allFieldValid = validText(inputMedName, new ValidName()) && validText(inputMedPrice, new ValidNumber()) && validText(inputMedDesc, new ValidLongText());
+        boolean allFieldValid = validText(inputMedName, new ValidName()) && validText(inputMedPrice, new ValidFloat()) && validText(inputMedDesc, new ValidLongText());
         boolean canDelete = currSelectedId > 0;
 
         btnAddMed.setDisable(!allFieldValid);

@@ -12,7 +12,7 @@ public class PrescriptionModelController implements ModelInterface<Prescription>
 
     public PrescriptionModelController(){
         try {
-            connexion = new ConnectionDb();
+            connexion = ConnectionDb.getInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -26,8 +26,10 @@ public class PrescriptionModelController implements ModelInterface<Prescription>
 
     @Override
     public ResultSet selectBy(String colName, String value) throws Exception {
-        return null;
+        String query = String.format("SELECT * FROM prescription WHERE %s = '%s'", colName, value);
+        return connexion.executeQuery(query);
     }
+
 
     public ResultSet selectJoin() throws Exception{
         String query = "SELECT p.prescId, p.prescDate, p.prescDuration,p.prescDesc, pa.patientFName, pa.patientId FROM prescription p, patient pa WHERE p.patientId = pa.patientId";

@@ -2,6 +2,7 @@ package com.nathan.pharmacy.interfaces;
 
 import com.nathan.pharmacy.databases.ConnectionDb;
 import com.nathan.pharmacy.models.Medicament;
+import com.nathan.pharmacy.utils.ValidationUtil;
 
 import java.sql.ResultSet;
 
@@ -14,5 +15,8 @@ public interface ModelInterface<E> {
     public void insert(E obj) throws Exception;
     public void updateBy(Object ...rows) throws Exception;
     public void deleteBy(String colName, String value) throws Exception;
+    public default String purifyValue(Object value){
+        return ValidationUtil.purifyValue(value);
+    }
 
 }

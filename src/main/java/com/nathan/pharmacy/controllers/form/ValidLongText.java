@@ -7,6 +7,9 @@ public class ValidLongText implements FieldValidator {
     @Override
     public boolean isValidField(TextField textField) {
         String text = textField.getText();
-        return text != null && text.trim().length() >= 5;
+        if (text == null || text.isEmpty()) {
+            return false; // Return false if the text is null or empty
+        }
+        return text.trim().length() >= 5;
     }
 }

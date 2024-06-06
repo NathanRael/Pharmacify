@@ -7,6 +7,8 @@ import com.nathan.pharmacy.contstants.AcceptedNumber;
 import com.nathan.pharmacy.interfaces.FieldValidator;
 import com.nathan.pharmacy.models.Delivery;
 import com.nathan.pharmacy.models.Medicament;
+import com.nathan.pharmacy.utils.HistoryUtil;
+import com.nathan.pharmacy.utils.Session;
 import com.nathan.pharmacy.utils.ValidationUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -226,7 +228,7 @@ public class DeliveryViewController implements Initializable {
         }
     }
 
-    public void updateMedQuantity(int medQuantity, int medId){
+    public void updateMedQuantity(int delQuantity, int medId){
         int currentQuantity, newQuantity;
         try {
             MedicamentModelController mc = new MedicamentModelController();
@@ -234,7 +236,8 @@ public class DeliveryViewController implements Initializable {
 
             if (rs.next()){
                 currentQuantity = rs.getInt("medQuantity");
-                newQuantity = currentQuantity + medQuantity;
+                newQuantity = currentQuantity + delQuantity;
+                System.out.println("new Q :" + newQuantity);
                 mc.updateBy("medQuantity", newQuantity, "medId", medId);
                 System.out.println("Medicament updated");
             }

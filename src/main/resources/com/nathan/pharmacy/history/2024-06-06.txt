@@ -1,0 +1,5 @@
+2024-06-06T08:10:36.099511900 - null: Vente de medicament () à Raels
+2024-06-06T08:11:52.888755500 - null: Vente de medicament (Lisinopril) à Zuckerbergs
+2024-06-06T08:47:40.254239600 - Nathan: Ajout d'un patient ( Audric ) 
+2024-06-06T09:09:23.755010900 - NathanBlast: Vente de medicament (Ibuprofène) à Raels
+2024-06-06T09:35:33.194774800 - NathanBlast: Ajout d'un medicament ( Paracetamol )

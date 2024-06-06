@@ -13,7 +13,7 @@ public class DeliveryModelController implements ModelInterface<Delivery> {
 
     public DeliveryModelController(){
         try {
-            connection = new ConnectionDb();
+            connection = ConnectionDb.getInstance();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -25,7 +25,7 @@ public class DeliveryModelController implements ModelInterface<Delivery> {
     }
 
     public ResultSet selectJoin() throws Exception{
-        String query = "SELECT d.delId, d.delPrice, d.delDate, d.delQuantity, s.supId, s.supName, m.medId, m.medName, m.medExpDate FROM delivery d, medicament m, supplier s WHERE d.supId = s.supId AND d.medId = m.medId";
+        String query = "SELECT d.delId, d.delPrice, d.delDate, d.delQuantity as delQuantity, s.supId, s.supName, m.medId, m.medName, m.medExpDate FROM delivery d, medicament m, supplier s WHERE d.supId = s.supId  GROUP BY s.supId, d.delDate ORDER BY d.delDate DESC";
         return connection.executeQuery(query);
     }
 

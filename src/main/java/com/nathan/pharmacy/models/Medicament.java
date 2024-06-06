@@ -1,5 +1,7 @@
 package com.nathan.pharmacy.models;
 
+import com.nathan.pharmacy.utils.ValidationUtil;
+
 import java.time.LocalDate;
 
 //Medicament(medId, medName, medDesc, medPrice, medQuantity, #stockId)
@@ -98,4 +100,5 @@ public class Medicament {
     public void setExpDate(LocalDate expDate) {
         this.expDate = expDate;
     }
+
 }

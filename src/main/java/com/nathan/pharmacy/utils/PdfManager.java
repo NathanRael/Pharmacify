@@ -16,7 +16,7 @@ import java.util.Objects;
 public class PdfManager {
     public void print(int patientId, LocalDate purchaseDate){
         try {
-            ConnectionDb connectionDb = new ConnectionDb();
+            ConnectionDb connectionDb = ConnectionDb.getInstance();
             String outputPath = "src/main/resources/com/nathan/pharmacy/pdf/invoice.pdf";
             JasperDesign design = JRXmlLoader.load(Objects.requireNonNull(ViewFactory.class.getResourceAsStream("patient_invoice.jrxml")));
             JRDesignQuery designQuery = new JRDesignQuery();

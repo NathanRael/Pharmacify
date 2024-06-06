@@ -7,6 +7,6 @@ public class ValidName implements FieldValidator {
     @Override
     public boolean isValidField(TextField textField) {
         String name = textField.getText();
-        return name != null && name.matches("^\\w[\\w\\d_-]{4,}$");
+        return name != null && name.matches("^\\w[èéà\\w\\d\\s_-]{4,}$");
     }
 }
