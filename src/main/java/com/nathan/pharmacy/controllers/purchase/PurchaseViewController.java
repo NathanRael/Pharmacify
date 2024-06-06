@@ -1,6 +1,7 @@
 package com.nathan.pharmacy.controllers.purchase;
 
 
+import com.nathan.pharmacy.controllers.form.ValidFloat;
 import com.nathan.pharmacy.controllers.form.ValidNumber;
 import com.nathan.pharmacy.controllers.form.ValidText;
 import com.nathan.pharmacy.controllers.medicament.MedicamentModelController;
@@ -112,7 +113,6 @@ public class PurchaseViewController implements Initializable {
         btnPurchase.setOnAction(event -> purchaseMedicament());
         btnInvoice.setOnAction(event -> generateInvoice(currSelectedPurchaseRow.get(0).getPatientId(), currSelectedPurchaseRow.get(0).getDate().toLocalDate()));
 
-        selectMedFilter.getItems().addAll("Prix", "Expiration", "Test");
 
         initTableView();
         initPurchaseTableView();
@@ -121,7 +121,7 @@ public class PurchaseViewController implements Initializable {
 
 
         selectMedFilter.getItems().addAll("Id", "Nom", "Prix");
-        selectMedFilter.getSelectionModel().select(0);
+        selectMedFilter.getSelectionModel().select(1);
 
         try {
             loadTableContent();
@@ -390,7 +390,7 @@ public class PurchaseViewController implements Initializable {
         if (!currSelectedMedRow.isEmpty() && !inputMedQuantity.getText().isEmpty())
             canPurchase = currSelectedMedRow.get(0).getQuantity() >= Integer.parseInt(inputMedQuantity.getText()) && currSelectedMedRow.get(0).getQuantity() > 0 && currSelectedMedRow.get(0).getExpDate().isAfter(LocalDate.now());
 
-        boolean AllFieldValid = !selectPatName.getSelectionModel().getSelectedItem().isEmpty() && ValidationUtil.validTextField(inputMedQuantity, new ValidNumber())  && ValidationUtil.validTextField(inputMedName, new ValidText()) && ValidationUtil.validTextField(inputTotalPrice, new ValidNumber());
+        boolean AllFieldValid = !selectPatName.getSelectionModel().getSelectedItem().isEmpty() && ValidationUtil.validTextField(inputMedQuantity, new ValidNumber())  && ValidationUtil.validTextField(inputMedName, new ValidText()) && ValidationUtil.validTextField(inputTotalPrice, new ValidFloat());
         btnPurchase.setDisable(!AllFieldValid || !canPurchase);
         btnInvoice.setDisable(currSelectedPurchaseRow.isEmpty());
     }

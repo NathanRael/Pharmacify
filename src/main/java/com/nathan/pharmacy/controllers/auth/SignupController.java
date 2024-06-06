@@ -1,5 +1,7 @@
 package com.nathan.pharmacy.controllers.auth;
 
+import com.nathan.pharmacy.contstants.MessageStyle;
+import com.nathan.pharmacy.utils.MessageField;
 import com.nathan.pharmacy.utils.SceneChanger;
 import com.nathan.pharmacy.controllers.form.ValidName;
 import com.nathan.pharmacy.controllers.user.UserModelController;
@@ -56,13 +58,19 @@ public class SignupController  implements Initializable {
     @FXML
     private Label txtPhone;
 
+    @FXML
+    private Label txtMessage;
+    private MessageField messageField;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        messageField = new MessageField(txtMessage);
+        txtMessage.setVisible(false);
+
         EventHandler<KeyEvent> keyEventEventHandler = event -> updateButtonState();
 
         inputName.setOnKeyTyped(keyEventEventHandler);
         inputPhone.setOnKeyTyped(keyEventEventHandler);
-        inputPhone.setOnKeyTyped(keyEventEventHandler);
+        inputConfirm.setOnKeyTyped(keyEventEventHandler);
         inputPassword.setOnKeyTyped(keyEventEventHandler);
     }
 
@@ -85,6 +93,7 @@ public class SignupController  implements Initializable {
                     UserModelController uc = new UserModelController();
 
                     uc.insert(user);
+                    messageField.setMessage("Inscription réussie", MessageStyle.SUCCESS);
                     alert.setContentText("Inscription réussie");
                     alert.showAndWait();
                     switchSceneTo(ScenesName.LOGIN);
@@ -95,14 +104,10 @@ public class SignupController  implements Initializable {
                 }
 
             }else {
-                alert.setAlertType(Alert.AlertType.ERROR);
-                alert.setContentText("Le mot de passe ne correspond pas au précédent");
-                alert.showAndWait();
+                messageField.setMessage("Le mot de passe ne correspond pas au précédent", MessageStyle.ERROR);
             }
         }else {
-            alert.setAlertType(Alert.AlertType.ERROR);
-            alert.setContentText("Vérifier vos champs");
-            alert.showAndWait();
+            messageField.setMessage("Vérifier les champs", MessageStyle.SUCCESS);
         }
 
     }
@@ -126,8 +131,12 @@ public class SignupController  implements Initializable {
     }
 
     private void updateButtonState(){
-        boolean allFieldValidated = validText(inputName, new ValidName()) && validText(inputPhone, new ValidPhone()) && validText(inputPassword, new ValidPassword());
-
+        boolean allFieldValidated = validText(inputName, new ValidName()) && validText(inputPhone, new ValidPhone()) && validText(inputPassword, new ValidPassword()) && inputPassword.getText().equals(inputConfirm.getText());
+        if (!allFieldValidated) {
+            messageField.setMessage("Vérifier vos champs", MessageStyle.ERROR);
+        }else {
+            messageField.hide();
+        }
         btnSignup.setDisable(!allFieldValidated);
     }
 

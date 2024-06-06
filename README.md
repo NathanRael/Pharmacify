@@ -14,7 +14,6 @@ A pharmacy management desktop app with javaFx
  - Database manager (Deleting unused data automatically)
  - Chart for showing the most used product and the weekly income of the pharmacy.
 
-
 ## Author 
  - Full name : Natanaël RALAIVOAVY
- - Email : ralaivoavy.natanael@gmail.com
+ - Email : [ralaivoavy.natanael@gmail.com](mailto:ralaivoavy.natanael@gmail.com)

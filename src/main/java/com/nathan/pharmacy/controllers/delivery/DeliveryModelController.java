@@ -25,7 +25,7 @@ public class DeliveryModelController implements ModelInterface<Delivery> {
     }
 
     public ResultSet selectJoin() throws Exception{
-        String query = "SELECT d.delId, d.delPrice, d.delDate, d.delQuantity as delQuantity, s.supId, s.supName, m.medId, m.medName, m.medExpDate FROM delivery d, medicament m, supplier s WHERE d.supId = s.supId  GROUP BY s.supId, d.delDate ORDER BY d.delDate DESC";
+        String query = "SELECT d.delId, d.delPrice, d.delDate, sum(d.delQuantity) as delQuantity, s.supId, s.supName, m.medId, m.medName, m.medExpDate FROM delivery d, medicament m, supplier s WHERE d.supId = s.supId AND m.medId = d.medId  GROUP BY s.supId, d.delDate ORDER BY d.delDate DESC";
         return connection.executeQuery(query);
     }
 

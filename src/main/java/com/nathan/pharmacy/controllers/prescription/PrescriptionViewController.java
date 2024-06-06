@@ -201,6 +201,7 @@ public class PrescriptionViewController implements Initializable {
 
     private void usePrecription(){
         String patientFName = currSelectedPrescRow.get(0).getPatientFName();
+        int patientId = currSelectedPrescRow.get(0).getPatientId();
         for (PrescMedInfo prescMedInfo : currMedUsageList){
             try{
                 int newQuantity = 0;
@@ -211,7 +212,7 @@ public class PrescriptionViewController implements Initializable {
 
                 MedicamentModelController mc = new MedicamentModelController();
                 ResultSet rs = mc.selectBy("medId", String.valueOf(medId));
-                int patientId = currSelectedPrescRow.get(0).getPatientId();
+
 
                 if (rs.next()){
                     int currentQuantity = rs.getInt("medQuantity");
@@ -232,7 +233,16 @@ public class PrescriptionViewController implements Initializable {
                 ex.printStackTrace();
             }
         }
-        NotificationManager.sendPatientPrescription(patientFName,"ralaivoavy.natanael@gmail.com", currMedUsageList);
+
+        try {
+            PatientModelController pc = new PatientModelController();
+            ResultSet rs = pc.selectBy("patientId", String.valueOf(patientId));
+            rs.next();
+            //        NotificationManager.sendPatientPrescription(patientFName,"ralaivoavy.natanael@gmail.com", currMedUsageList);
+            NotificationManager.sendPatientPrescription(patientFName,rs.getString("patientEmail"), currMedUsageList);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     public void purchaseMedicament(int medId, int quantity, int patientId, float totalPrice, String medName, String patientName){
@@ -395,7 +405,7 @@ public class PrescriptionViewController implements Initializable {
     private ResultSet getMedName(){
         try {
             MedicamentModelController mc = new MedicamentModelController();
-            return  mc.selectAll();
+            return  mc.selectAllAvailable();
         } catch (Exception ex){
             ex.printStackTrace();
         }
@@ -412,7 +422,6 @@ public class PrescriptionViewController implements Initializable {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
     }
 
     private void updateViews(){
@@ -460,7 +469,6 @@ public class PrescriptionViewController implements Initializable {
     }
 
     private void updateButtonState() {
-        System.out.println("updated");
         boolean validMedInputs = true;
         for ( MedUsage medUsage: inputMedUsageList){
             boolean validMedInput = validText(medUsage.inputAfternoonQuantity(), new ValidNumber()) && validText(medUsage.inputNoonQuantity(), new ValidNumber()) && validText(medUsage.inputMorningQuantity(), new ValidNumber());
@@ -492,6 +500,7 @@ public class PrescriptionViewController implements Initializable {
         inputPrescDesc.clear();
         selectPatientFName.getSelectionModel().select(0);
         inputPrescDuration.clear();
+        updateButtonState();
     }
 
     public boolean validText(TextField textField, FieldValidator fieldValidator) {

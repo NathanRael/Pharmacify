@@ -30,4 +30,10 @@ public class MedicamentUtil {
     }
 
 
+/*    public static ResultSet getLowQuantityMedicament() throws Exception {
+        MedicamentModelController mc = new MedicamentModelController();
+        return mc.getMedicamentWithLowStock(10);
+    }*/
+
+
 }

@@ -21,4 +21,6 @@
   -danger-60: rgba(212, 49, 49, 0.6);
   -danger-40: rgba(212, 49, 49, 0.4);
   -danger-10: rgba(212, 49, 49, 0.1);
+  -warning-100 : #c5b41b;
+  -warning-10 : rgba(197, 180, 27, 0.1);
 }

@@ -1,5 +1,12 @@
 package com.nathan.pharmacy.controllers.dashboard;
 
+import com.nathan.pharmacy.contstants.MessageStyle;
+import com.nathan.pharmacy.contstants.SubScenesName;
+import com.nathan.pharmacy.models.Medicament;
+import com.nathan.pharmacy.models.Singleton;
+import com.nathan.pharmacy.utils.MedicamentUtil;
+import com.nathan.pharmacy.utils.MessageField;
+import com.nathan.pharmacy.utils.SceneChanger;
 import com.nathan.pharmacy.utils.Session;
 import com.nathan.pharmacy.controllers.medicament.MedicamentModelController;
 import com.nathan.pharmacy.controllers.patient.PatientModelController;
@@ -11,12 +18,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import net.sf.jasperreports.engine.util.MessageUtil;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -26,6 +34,17 @@ import java.time.LocalTime;
 import java.util.*;
 
 public class DashboardViewController implements Initializable {
+
+    @FXML
+    private Button btnSwitchToDeliver;
+
+    @FXML
+    private AnchorPane suppNumContainer;
+
+    @FXML
+    private AnchorPane medNumContainer;
+    @FXML
+    private AnchorPane patientNumContainer;
 
     @FXML
     private ScrollPane scroll;
@@ -75,18 +94,70 @@ public class DashboardViewController implements Initializable {
     @FXML
     private Text supplierNumber;
 
+    @FXML
+    private VBox notificationContainer;
+    @FXML
+    private DatePicker statisticaDate;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        statisticaDate.getEditor().setDisable(true);
+        statisticaDate.setValue(LocalDate.now());
+        btnSwitchToDeliver.setOnAction(event -> switchSubsceneTo(SubScenesName.DELIVERY));
+        listenEventKey();
+        showNotification();
         initTableView();
         updateDashboardPanel();
-        createBarChart();
-        creatingPieChart();
-
+        createBarChart(statisticaDate.getValue());
+        creatingPieChart(statisticaDate.getValue());
         try {
             loadTableContent();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void listenEventKey(){
+        statisticaDate.setDayCellFactory(picker -> new DateCell(){
+            @Override
+            public void updateItem(LocalDate date, boolean empty){
+                super.updateItem(date, empty);
+                if (date.isAfter(LocalDate.now())){
+                    setDisable(true);
+                    setStyle("-fx-background-color : rgba(226, 226, 226, 0.1)");
+                }
+                if (!empty){
+                    setOnMouseClicked(event -> {
+                        if (event.getButton() == MouseButton.PRIMARY){
+                            createBarChart(statisticaDate.getValue());
+                            creatingPieChart(statisticaDate.getValue());
+                        }
+                    });
+                }
+            }
+        });
+    }
+    private void showNotification() {
+        List<Medicament> medicaments = MedicamentUtil.getMedWithLowStock(10);
+        notificationContainer.getChildren().clear();
+        if (!medicaments.isEmpty()){
+            for (Medicament medicament : medicaments){
+                Label notification = new Label();
+                MessageField messageField = new MessageField(notification);
+                messageField.setMessage(medicament.getQuantity() == 0 ? String.format("Medicament : %s est épuisé", medicament.getName()) : String.format("Rupture de stock imminente pour %s, quantité disponible %s", medicament.getName(), medicament.getQuantity()),MessageStyle.WARNING );
+
+                notification.setStyle(notification.getStyle() + "-fx-padding : 8px 16px; -fx-font-size: 14px;-fx-font-family : Segoe UI; -fx-background-radius : 8px");
+
+                notificationContainer.getChildren().add(notification);
+            }
+            btnSwitchToDeliver.setDisable(false);
+        }else {
+            btnSwitchToDeliver.setDisable(true);
+            Label label = new Label();
+            label.setText("Pas de notification pour l'instant");
+            label.setStyle("-fx-font-weight: 700; -fx-font-size : 14px; -fx-text-fill : #e2e2e2");
+            notificationContainer.getChildren().add(label);
         }
     }
 
@@ -102,29 +173,32 @@ public class DashboardViewController implements Initializable {
             medicamentNumber.setText(String.valueOf(mc.getCount()));
             patientNumber.setText(String.valueOf(pc.getCount()));
             supplierNumber.setText(String.valueOf(sc.getCount()));
+
+            medNumContainer.setOnMouseClicked(event -> switchSubsceneTo(SubScenesName.MEDICAMENT));
+            patientNumContainer.setOnMouseClicked(event -> switchSubsceneTo(SubScenesName.PATIENT));
+            suppNumContainer.setOnMouseClicked(event -> switchSubsceneTo(SubScenesName.SUPPLIER));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private void createBarChart(){
+    private void createBarChart(LocalDate localDate){
+        barChartContainer.getChildren().clear();
         Map<String, Double> dailyIncomes = new HashMap<>();
 
         try{
-
             PurchaseModelController pc = new PurchaseModelController();
-            ResultSet rs = pc.selectDateBefore(LocalDate.now());
+            ResultSet rs = pc.selectDateBefore(localDate);
             while (rs.next()) {
                 LocalDate date = rs.getDate("purchaseDate").toLocalDate();
                 double price = rs.getInt("price");
                 dailyIncomes.put(date.getDayOfWeek().toString(), price);
             }
-
         }catch (Exception ex){
             ex.printStackTrace();
         }
 
-        
+
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Jours");
 
@@ -148,13 +222,14 @@ public class DashboardViewController implements Initializable {
         barChartContainer.getChildren().add(barChart);
     }
 
-    private void creatingPieChart(){
+    private void creatingPieChart(LocalDate localDate){
+        pieChartContainer.getChildren().clear();
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
         );
 
         try{
             PurchaseModelController pc = new PurchaseModelController();
-            ResultSet rs = pc.selectMostPurchasedProduct(3);
+            ResultSet rs = pc.selectMostPurchasedProduct(3, localDate.toString());
 
             pieChartData.clear();
             while (rs.next()){
@@ -204,6 +279,10 @@ public class DashboardViewController implements Initializable {
         }
 
         tablePurchase.setItems(purchase);
+    }
+
+    public void switchSubsceneTo(SubScenesName subScenesName) {
+        Singleton.getInstance().getViewFactory().getSelectedMenuItem().set(String.valueOf(subScenesName));
     }
 
 

@@ -3,12 +3,12 @@ package com.nathan.pharmacy.controllers.delivery;
 import com.nathan.pharmacy.controllers.form.ValidFloat;
 import com.nathan.pharmacy.controllers.form.ValidNumber;
 import com.nathan.pharmacy.controllers.medicament.MedicamentModelController;
-import com.nathan.pharmacy.contstants.AcceptedNumber;
+import com.nathan.pharmacy.controllers.supplier.SupplierModelController;
 import com.nathan.pharmacy.interfaces.FieldValidator;
 import com.nathan.pharmacy.models.Delivery;
-import com.nathan.pharmacy.models.Medicament;
-import com.nathan.pharmacy.utils.HistoryUtil;
-import com.nathan.pharmacy.utils.Session;
+import com.nathan.pharmacy.utils.MedicamentUtil;
+import com.nathan.pharmacy.utils.PurchaseUtil;
+import com.nathan.pharmacy.utils.SupplierUtil;
 import com.nathan.pharmacy.utils.ValidationUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,14 +18,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
-import org.w3c.dom.Text;
 
 import java.net.URL;
-import java.security.Key;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -80,7 +77,7 @@ public class DeliveryViewController implements Initializable {
     private ChoiceBox<String> selectMedName;
 
     @FXML
-    private TextField inputSupId;
+    private ChoiceBox<String> selectSupName;
 
     @FXML
     private ChoiceBox<String> selectMedFilter;
@@ -102,6 +99,7 @@ public class DeliveryViewController implements Initializable {
         listenKeyEvent();
         initTableView();
         initSelectMedName();
+        initSelectSupName();
 
         selectMedFilter.getItems().addAll("Id", "Prix", "Quantité");
         selectMedFilter.getSelectionModel().select(0);
@@ -119,6 +117,7 @@ public class DeliveryViewController implements Initializable {
     }
 
 
+
     @FXML
     void handleKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ESCAPE) clearAllField();
@@ -128,7 +127,7 @@ public class DeliveryViewController implements Initializable {
     private void listenKeyEvent(){
         EventHandler<Event> keyTypeHandler = event -> updateButtonState();
 
-        inputSupId.setOnKeyTyped(keyTypeHandler);
+//        inputSupId.setOnKeyTyped(keyTypeHandler);
         inputDelPrice.setOnKeyTyped(keyTypeHandler);
         inputDelQuantity.setOnKeyTyped(keyTypeHandler);
         selectMedName.setOnContextMenuRequested(keyTypeHandler);
@@ -201,7 +200,12 @@ public class DeliveryViewController implements Initializable {
         tableDelivery.setItems(delivery);
     }
     public void deliver(){
-        int supId = Integer.parseInt(inputSupId.getText());
+        int supId = 0;
+        try {
+            supId = SupplierUtil.getSupId(selectSupName.getSelectionModel().getSelectedItem());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         String medName = selectMedName.getSelectionModel().getSelectedItem();
         int delQuantity = Integer.parseInt(inputDelQuantity.getText());
         float delPrice = Float.parseFloat(inputDelPrice.getText());
@@ -305,6 +309,19 @@ public class DeliveryViewController implements Initializable {
             ex.printStackTrace();
         }
     }
+    private void initSelectSupName() {
+        try {
+            SupplierModelController sc = new SupplierModelController();
+            ResultSet rs = sc.selectAll();
+            while (rs.next())
+                selectSupName.getItems().add(rs.getString("supName"));
+            selectSupName.getSelectionModel().select(0);
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+
 
     public void cancelDelivery(int delId, LocalDate delDate){
         LocalDate currDate = LocalDate.now();
@@ -337,11 +354,12 @@ public class DeliveryViewController implements Initializable {
     }
 
     public void setFieldsValue(Delivery newSelection){
-        inputSupId.setText(Integer.toString(newSelection.getSupId()));
+//        inputSupId.setText(Integer.toString(newSelection.getSupId()));
+        selectSupName.setValue(newSelection.getSupName());
         selectMedName.getSelectionModel().select(newSelection.getMedName());
         inputDelQuantity.setText(String.valueOf(newSelection.getQuantity()));
         inputDelPrice.setText(String.valueOf(newSelection.getPrice()));
-        inputExpDate.setValue(newSelection.getDate());
+        inputExpDate.setValue(newSelection.getMedExpDate());
     }
 
     public void updateCurrSelectedDelRow(Delivery selectedRow) {
@@ -364,7 +382,7 @@ public class DeliveryViewController implements Initializable {
     }
 
     public void updateButtonState() {
-        boolean isValidSupId = validText(inputSupId, new ValidNumber());
+        boolean isValidSupId = !selectSupName.getSelectionModel().getSelectedItem().isEmpty();
         boolean isValidDelQuantity = validText(inputDelQuantity, new ValidNumber());
         boolean isValidDelPrice = validText(inputDelPrice, new ValidFloat());
         boolean isMedNameSelected = selectMedName.getSelectionModel().getSelectedItem() != null;
@@ -384,7 +402,7 @@ public class DeliveryViewController implements Initializable {
         inputExpDate.setValue(LocalDate.of(2026,12,24));
         inputDelPrice.clear();
         inputDelQuantity.setText("1");
-        inputSupId.clear();
+        selectSupName.getSelectionModel().select(0);
         // Selecting the most used medicament
         selectMedName.getSelectionModel().select(0);
         updateButtonState();

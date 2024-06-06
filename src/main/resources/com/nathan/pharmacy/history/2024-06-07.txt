@@ -1,0 +1,6 @@
+2024-06-07T00:48:45.957887600 - null: Vente de medicament (Amoxicilline) à Raels
+2024-06-07T00:52:15.477481500 - null: Ajout d'un medicament ( Paracétamole )
+2024-06-07T00:52:46.521854200 - null: Ajout d'un medicament ( Ibuprofène )
+2024-06-07T00:53:20.184160900 - null: Ajout d'un medicament ( Oméprazole )
+2024-06-07T00:53:58.074772200 - null: Ajout d'un medicament ( Loratadine )
+2024-06-07T00:54:26.588950600 - null: Ajout d'un medicament ( Metrofomine )

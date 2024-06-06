@@ -21,8 +21,12 @@ public class MedicamentModelController implements  ModelInterface<Medicament>{
     @Override
     public ResultSet selectAll() throws Exception {
         String query = "SELECT * FROM medicament";
-        ResultSet rs = connection.executeQuery(query);
-        return  rs;
+        return connection.executeQuery(query);
+    }
+
+    public ResultSet selectAllAvailable() throws Exception{
+        String query = "SELECT * FROM medicament WHERE medQuantity > 0";
+        return connection.executeQuery(query);
     }
 
     public ResultSet selectAllDisponibleMed() throws Exception {
@@ -125,6 +129,11 @@ public class MedicamentModelController implements  ModelInterface<Medicament>{
 
     public void deleteMedicamentAt(String currentDate) throws SQLException {
         String query = "DELETE FROM medicament WHERE medExpDate <= ' " + currentDate + " '" ;
+        connection.executeUpdateQuery(query);
+    }
+
+    public void deleteExpiredMedicament() throws SQLException {
+        String query = "DELETE FROM medicament WHERE medExpDate <= CURDATE() " ;
         connection.executeUpdateQuery(query);
     }
 

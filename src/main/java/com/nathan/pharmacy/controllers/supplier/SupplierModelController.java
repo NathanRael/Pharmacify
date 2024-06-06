@@ -11,13 +11,14 @@ import java.sql.ResultSet;
 public class SupplierModelController implements ModelInterface<Supplier> {
     private final ConnectionDb connection;
 
-    public SupplierModelController(){
+    public SupplierModelController() {
         try {
             connection = ConnectionDb.getInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
+
     @Override
     public ResultSet selectAll() throws Exception {
         String query = "SELECT * FROM supplier";
@@ -26,18 +27,26 @@ public class SupplierModelController implements ModelInterface<Supplier> {
 
     @Override
     public ResultSet selectBy(String colName, String value) throws Exception {
-        return null;
+        String query = String.format("SELECT * FROM supplier WHERE %s = '%s' ", colName, value);
+        return connection.executeQuery(query);
+
     }
-    public ResultSet searchLike(String colName, String value) throws Exception{
+
+    public ResultSet selectFavoriteSupplier() throws Exception{
+        String query = "ELECT MAX(delQuantity) , supName, supPhone, d.delQuantity FROM supplier s, delivery d WHERE s.supId = d.supId GROUP BY s.supId HAVING MAX(d.delQuantity) LIMIT 1;";
+        return connection.executeQuery(query);
+    }
+
+    public ResultSet searchLike(String colName, String value) throws Exception {
         String query = "SELECT * FROM supplier WHERE " + colName + " LIKE ?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
-        try{
+        try {
             preparedStatement.setString(1, "%" + value + "%");
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         ResultSet rs = preparedStatement.executeQuery();
-        return  rs;
+        return rs;
     }
 
 

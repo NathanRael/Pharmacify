@@ -1,10 +1,7 @@
 package com.nathan.pharmacy;
 
 
-import com.nathan.pharmacy.utils.DataManager;
-import com.nathan.pharmacy.utils.NotificationManager;
-import com.nathan.pharmacy.utils.PdfManager;
-import com.nathan.pharmacy.utils.SceneChanger;
+import com.nathan.pharmacy.utils.*;
 import com.nathan.pharmacy.contstants.ScenesName;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -21,8 +18,8 @@ import java.util.TimerTask;
         - Logging all changes => Done
         - Sending the user medicament usage via email => Done
         - Only selecting a medicament which has a quantity > 0 => Done
+        - Adding message label for error or success => Done
         - Adding the total amount to the patient invoice => Pending
-        - Adding message label for error or success
         - List of all expired medicament when delivering a medicament
         - Changing forgotten password via email code
         - Make the most selected item as the default selection for the choiceBox
@@ -37,6 +34,7 @@ public class Main extends Application {
         Timer timer = new Timer();
         int timerDelay = 0, period = 5 * 60 * 1000;
 
+        NotificationManager.checkMedQuantityAndNotify("ralaivoavy.natanael@gmail.com");
         //Executing task every x period
         TimerTask clearUnusedData = new TimerTask() {
             @Override
@@ -46,7 +44,6 @@ public class Main extends Application {
         };
         DataManager  dataManager = new DataManager();
         dataManager.clearUnusedData();
-
         timer.scheduleAtFixedRate(clearUnusedData, timerDelay, period);
         launch();
     }

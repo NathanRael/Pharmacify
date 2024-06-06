@@ -14,7 +14,7 @@ public class HistoryManager {
     private static HistoryManager instance = null;
     private final List<String> histories = new ArrayList<>();
     private String historyDate;
-    private final String historyPath = "D:\\Learning\\Java\\Project\\Pharmacy\\src\\main\\resources\\com\\nathan\\pharmacy\\history\\";
+    private final String historyPath = "src/main/resources/com/nathan/pharmacy/history/";
 
     private HistoryManager() {
         historyDate = LocalDate.now().toString();

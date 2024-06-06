@@ -223,11 +223,11 @@ public class PatientViewController implements Initializable {
 
     private void editPatient() {
         int patientId = currSelectedPatientRow.get(0).getId();
-        String patientFName = currSelectedPatientRow.get(0).getFirstName();
-        String patientLName = currSelectedPatientRow.get(0).getLastName();
-        String patientPhone = currSelectedPatientRow.get(0).getPhone();
-        String patientAddress = currSelectedPatientRow.get(0).getAddress();
-        String patientEmail = currSelectedPatientRow.get(0).getEmail();
+        String patientFName = inputPatFName.getText();
+        String patientLName = inputPatLName.getText();
+        String patientPhone = inputPatPhone.getText();
+        String patientAddress = inputPatAddress.getText();
+        String patientEmail = inputPatEmail.getText();
 
         try {
             PatientModelController pc = new PatientModelController();
@@ -280,6 +280,7 @@ public class PatientViewController implements Initializable {
         String patientPhone = selectedRow.getPhone();
         String patientAddress = selectedRow.getAddress();
         String patientEmail = selectedRow.getEmail();
+
         currSelectedPatientRow.clear();
         currSelectedPatientRow.add(new Patient(patientId, patientFName, patientLName, patientPhone, patientAddress, patientEmail));
     }

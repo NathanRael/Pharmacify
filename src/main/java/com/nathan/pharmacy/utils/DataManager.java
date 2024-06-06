@@ -11,14 +11,15 @@ public class DataManager {
     }
 
     public void clearUnusedData(){
-//        clearExpiredMedicament();
+        clearExpiredMedicament();
         clearOldHistory();
     }
 
     private void clearExpiredMedicament(){
         try {
             MedicamentModelController mc = new MedicamentModelController();
-            mc.deleteMedicamentAt(LocalDate.now().toString());
+            mc.deleteExpiredMedicament();
+
             System.out.println("Expired medicament deleted");
         }catch (Exception ex){
             ex.printStackTrace();

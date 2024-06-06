@@ -187,3 +187,20 @@
 .chart-legend-item{
     -fx-text-fill : -primary-100;
 }
+
+
+/*Messages*/
+.error-message{
+-fx-background-color : -danger-10;
+    -fx-text-fill : -danger-100;
+}
+
+.success-message{
+   -fx-background-color : -primary-10;
+   -fx-text-fill : -primary-100;
+}
+
+.warning-mesage{
+     -fx-background-color : -warning-10;
+     -fx-text-fill : -warning-100;
+}

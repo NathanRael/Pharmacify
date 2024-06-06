@@ -86,12 +86,39 @@ public class NavbarViewController implements Initializable {
         btnNavUser.setVisible(false);
         btnNavMedicine.setVisible(false);
 
-
         btnNavHistory.setDisable(true);
         btnNavSupplier.setDisable(true);
         btnNavUser.setDisable(true);
         btnNavMedicine.setDisable(true);
     }
+
+    private void handleActiveNav() {
+        Singleton.getInstance().getViewFactory().getSelectedMenuItem().addListener(((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                updateActiveNav(btnNavDashboard, newValue);
+                updateActiveNav(btnNavPurchase, newValue);
+                updateActiveNav(btnNavMedicine, newValue);
+                updateActiveNav(btnNavSupplier, newValue);
+                updateActiveNav(btnNavDelivery, newValue);
+                updateActiveNav(btnNavPatient, newValue);
+                updateActiveNav(btnNavPrescription, newValue);
+                updateActiveNav(btnNavHistory, newValue);
+                updateActiveNav(btnNavUser, newValue);
+            }
+        }));
+    }
+
+    private void updateActiveNav(Button btn, String newValue){
+        btn.setStyle(newValue.equalsIgnoreCase(String.valueOf(SubScenesName.DASHBOARD)) ? btnNavDashboard.getStyle() + btnPrimary() : btnNavDashboard.getStyle() + btnDark() );
+    }
+
+    private String btnPrimary(){
+        return "-fx-background-color : #18ad18";
+    }
+    private String btnDark(){
+        return "-fx-background-color : #1f1f1f";
+    }
+
 
     @FXML
     void handleLogout(ActionEvent event) {

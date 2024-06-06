@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+
+
+<Label style="-fx-background-color: -primary-10; -fx-text-fill: -primary-100; -fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 16 32;" styleClass="text-base" stylesheets="@../styles/globals.css" text="Message" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" />

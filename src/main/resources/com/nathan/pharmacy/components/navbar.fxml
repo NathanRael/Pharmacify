@@ -53,6 +53,7 @@
                      <styleClass>
                         <String fx:value="button-md" />
                         <String fx:value="nav-button" />
+                        <String fx:value="nav" />
                      </styleClass>
                   </Button>
                   <Button id="btnMedicine" fx:id="btnNavPurchase" graphicTextGap="8.0" layoutX="10.0" layoutY="59.0" mnemonicParsing="false" onAction="#switchToPurchase" prefHeight="26.0" prefWidth="223.0" style="-fx-text-fill: -white-100;" text="Vente">

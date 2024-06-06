@@ -1,5 +1,7 @@
 package com.nathan.pharmacy.controllers.auth;
 
+import com.nathan.pharmacy.contstants.MessageStyle;
+import com.nathan.pharmacy.utils.MessageField;
 import com.nathan.pharmacy.utils.SceneChanger;
 import com.nathan.pharmacy.utils.Session;
 import com.nathan.pharmacy.controllers.form.ValidName;
@@ -43,12 +45,20 @@ public class LoginController implements Initializable {
     private Label txtName;
 
     @FXML
+    private Label txtMessage;
+
+    @FXML
     private Label txtPassword;
+
+    private  MessageField messageField;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        messageField = new MessageField(txtMessage);
+        txtMessage.setVisible(false);
         EventHandler<KeyEvent> keyEventEventHandler = event -> updateButtonState();
+
         inputName.setOnKeyTyped(keyEventEventHandler);
         inputPassword.setOnKeyTyped(keyEventEventHandler);
     }
@@ -61,7 +71,6 @@ public class LoginController implements Initializable {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
-
 
         UserModelController uc = new UserModelController();
         ResultSet user;
@@ -81,23 +90,20 @@ public class LoginController implements Initializable {
         if (currentUserFound){
             if ((int)userInfo.get("status") == 1){
                 if (password.equals(userInfo.get("password"))){
-                    alert.setContentText("Redirection ...");
+                    messageField.setMessage("Redirection ...", MessageStyle.SUCCESS);
                     Session.getInstance().setUserName(userInfo.get("name").toString());
                     Session.getInstance().setUserRole(String.valueOf(userInfo.get("role")));
-                    alert.showAndWait();
                     switchSceneTo(ScenesName.MAIN);
                 }else{
-                    alert.setAlertType(Alert.AlertType.ERROR);
-                    alert.setContentText("Mot de passe incorrect");
+                    messageField.setMessage("Mot de passe incorrecte", MessageStyle.ERROR);
                     alert.showAndWait();
                 }
             }else {
+                messageField.setMessage("Votre compte n'est pas encore approuvé", MessageStyle.ERROR);
                 System.out.println("Your account is still waiting for approbation");
             }
         }else {
-            alert.setAlertType(Alert.AlertType.ERROR);
-            alert.setContentText("Utilisateur non trouvé");
-            alert.showAndWait();
+            messageField.setMessage("Utilisateur non trouvé", MessageStyle.ERROR);
         }
     }
 
@@ -113,6 +119,11 @@ public class LoginController implements Initializable {
     private void updateButtonState(){
         boolean allFieldValidated = validText(inputName, new ValidName()) && validText(inputPassword, new ValidPassword());
 
+        if (!allFieldValidated) {
+            messageField.setMessage("Vérifier vos champs", MessageStyle.ERROR);
+        }else {
+            messageField.hide();
+        }
         btnLogin.setDisable(!allFieldValidated);
     }
 
