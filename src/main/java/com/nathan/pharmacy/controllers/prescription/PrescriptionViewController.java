@@ -335,7 +335,6 @@ public class PrescriptionViewController implements Initializable {
             setMedUsageInputStyle(afternoonQuantity, "Midi");
             setMedUsageInputStyle(noonQuantity, "Soir");
 
-
             hBox.getChildren().addAll(selectMedName, morningQuantity, noonQuantity, afternoonQuantity);
             medicamentContainer.getChildren().add(hBox);
 

@@ -1,6 +1,7 @@
 package com.nathan.pharmacy.models;
 
 import javafx.scene.control.TextField;
+import org.w3c.dom.Text;
 
 public class MedUsage {
     private TextField morningQuantity;
@@ -8,6 +9,7 @@ public class MedUsage {
     private TextField afternoonQuantity;
 
     private TextField medName;
+    private TextField medTotal;
 
     public MedUsage(TextField morningQuantity, TextField noonQuantity, TextField afternoonQuantity) {
         this.morningQuantity = morningQuantity;
@@ -20,6 +22,8 @@ public class MedUsage {
         this.afternoonQuantity = afternoonQuantity;
         this.medName = medName;
     }
+
+
     
     public void clear(){
         morningQuantity.clear();
