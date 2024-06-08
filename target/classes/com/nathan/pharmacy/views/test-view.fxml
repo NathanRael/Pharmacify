@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1020.0" style="-fx-background-color: -dark-100;" stylesheets="@../styles/purchase.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.test.testViewController">
+   <children>
+      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" spacing="8.0">
+         <children>
+            <FontAwesomeIconView fill="#18ad18" glyphName="CREDIT_CARD" selectionFill="#e2e2e2" size="24" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" styleClass="text-title-1" text="Achat de médicament" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="65.0" prefHeight="36.0" spacing="16.0" styleClass="search-container">
+         <children>
+            <HBox>
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="17.0" style="-fx-background-radius: 8 0 0 8;">
+                     <graphic>
+                        <FontAwesomeIconView fill="#e2e2e2" glyphName="SEARCH" size="16" />
+                     </graphic>
+                     <styleClass>
+                        <String fx:value="button-md" />
+                        <String fx:value="tex-base" />
+                     </styleClass>
+                  </Button>
+                  <TextField prefHeight="36.0" prefWidth="620.0" promptText="Rechercher un medicament" style="-fx-background-radius: 0 8 8 0;" styleClass="input-md" />
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

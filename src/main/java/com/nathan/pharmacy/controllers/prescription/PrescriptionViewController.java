@@ -5,12 +5,10 @@ import com.nathan.pharmacy.controllers.form.ValidNumber;
 import com.nathan.pharmacy.controllers.medicament.MedicamentModelController;
 import com.nathan.pharmacy.controllers.patient.PatientModelController;
 import com.nathan.pharmacy.controllers.purchase.PurchaseModelController;
+import com.nathan.pharmacy.contstants.DatePattern;
 import com.nathan.pharmacy.interfaces.FieldValidator;
 import com.nathan.pharmacy.models.*;
-import com.nathan.pharmacy.utils.HistoryUtil;
-import com.nathan.pharmacy.utils.NotificationManager;
-import com.nathan.pharmacy.utils.Session;
-import com.nathan.pharmacy.utils.ValidationUtil;
+import com.nathan.pharmacy.utils.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -148,6 +146,7 @@ public class PrescriptionViewController implements Initializable {
             medUsage.inputMorningQuantity().setOnKeyTyped(keyTypeHandler);
             medUsage.inputAfternoonQuantity().setOnKeyTyped(keyTypeHandler);
             medUsage.inputNoonQuantity().setOnKeyTyped(keyTypeHandler);
+            medUsage.inputMedPack().setOnKeyTyped(keyTypeHandler);
         }
     }
 
@@ -173,7 +172,7 @@ public class PrescriptionViewController implements Initializable {
 //        String prescDesc = inputPrescDesc.getText();
         int patientId = getPatientId(selectPatientFName.getSelectionModel().getSelectedItem());
         PrescriptionModelController pc = new PrescriptionModelController();
-        Prescription prescription = new Prescription(prescDate, prescDuration, prescDesc, patientId);
+        Prescription prescription = new Prescription(prescDate.toString(), prescDuration, prescDesc, patientId);
 
         try {
             pc.insert(prescription);
@@ -205,7 +204,7 @@ public class PrescriptionViewController implements Initializable {
         for (PrescMedInfo prescMedInfo : currMedUsageList){
             try{
                 int newQuantity = 0;
-                int medQuantity = (prescMedInfo.getAfternoonQuantity() + prescMedInfo.getMorningQuantity() + prescMedInfo.getNoonQuantity()) * prescMedInfo.getDuration();
+                int medQuantity = ((prescMedInfo.getAfternoonQuantity() + prescMedInfo.getMorningQuantity() + prescMedInfo.getNoonQuantity()) * prescMedInfo.getDuration()) / prescMedInfo.getMedPack();
                 String medName = prescMedInfo.getMedName();
                 int medId = getMedId(medName);
                 float totalPrice = 0;
@@ -255,7 +254,7 @@ public class PrescriptionViewController implements Initializable {
             int oldQuantity = rs.getInt("medQuantity");
             int newQuantity = oldQuantity - quantity;
             if (newQuantity >= 0){
-                Purchase purchase = new Purchase( LocalDateTime.now(), quantity, medId, patientId, totalPrice);
+                Purchase purchase = new Purchase( LocalDateTime.now().toString(), quantity, medId, patientId, totalPrice);
                 pc.insert(purchase);
                 mc.updateBy("medQuantity", newQuantity, "medId", medId);
                 System.out.println("Medicament purchased");
@@ -280,7 +279,7 @@ public class PrescriptionViewController implements Initializable {
         try{
             ResultSet rs = pc.selectJoin();
             while (rs.next()){
-                LocalDateTime prescDate = rs.getDate("prescDate").toLocalDate().atTime(LocalTime.now());
+                String prescDate = rs.getDate("prescDate").toLocalDate().atTime(rs.getTime("prescDate").toLocalTime()).format(DatePattern.dateFormatPattern);
                 String prescDuration = rs.getString("prescDuration");
                 String prescDesc = rs.getString("prescDesc");
                 String patientFName = rs.getString("patientFName");
@@ -302,8 +301,9 @@ public class PrescriptionViewController implements Initializable {
             String morningQuantity = medUsageList.get(i).getMorningQuantity();
             String noonQuantity = medUsageList.get(i).getNoonQuantity();
             String afternoonQuantity = medUsageList.get(i).getAfternoonQuantity();
+            String medPack = medUsageList.get(i).getMedPack();
 
-            prescDesc.append(medName).append("=>").append(morningQuantity).append(":").append(afternoonQuantity).append(":").append(noonQuantity).append(";");
+            prescDesc.append(medName).append("=>").append(morningQuantity).append(":").append(afternoonQuantity).append(":").append(noonQuantity).append(":").append(medPack).append(";");
         }
         return  String.valueOf(prescDesc);
     }
@@ -311,7 +311,7 @@ public class PrescriptionViewController implements Initializable {
     private void generateTextField(int fieldCount) {
         inputPrescMedNum.setText(String.valueOf(fieldCount));
         medicamentContainer.setSpacing(16);
-        medicamentContainer.setPrefWidth(460);
+        medicamentContainer.setPrefWidth(580);
         medicamentContainer.getChildren().clear();
 
         selectMedNameList.clear();
@@ -321,11 +321,10 @@ public class PrescriptionViewController implements Initializable {
         for (int i = 0; i < fieldCount; i++) {
             HBox hBox = new HBox(8);
             ChoiceBox<String> selectMedName = new ChoiceBox<>();
-            TextField inputMedQuantity = new TextField();
             TextField morningQuantity = new TextField();
             TextField noonQuantity = new TextField();
             TextField afternoonQuantity = new TextField();
-            inputMedQuantity.setPromptText("Matin");
+            TextField inputMedPack = new TextField();
 
             selectMedName.setPrefWidth(240);
             selectMedName.getStyleClass().add("input-md");
@@ -334,12 +333,13 @@ public class PrescriptionViewController implements Initializable {
             setMedUsageInputStyle(morningQuantity, "Matin");
             setMedUsageInputStyle(afternoonQuantity, "Midi");
             setMedUsageInputStyle(noonQuantity, "Soir");
+            setMedUsageInputStyle(inputMedPack, "Nombre de medicament par paquet" );
 
-            hBox.getChildren().addAll(selectMedName, morningQuantity, noonQuantity, afternoonQuantity);
+            hBox.getChildren().addAll(selectMedName, morningQuantity, noonQuantity, afternoonQuantity, inputMedPack);
             medicamentContainer.getChildren().add(hBox);
 
             selectMedNameList.add(selectMedName);
-            inputMedUsageList.add(new MedUsage(morningQuantity, noonQuantity, afternoonQuantity));
+            inputMedUsageList.add(new MedUsage(morningQuantity, noonQuantity, afternoonQuantity, inputMedPack));
             setSelectMedName(selectMedName);
         }
 
@@ -351,8 +351,6 @@ public class PrescriptionViewController implements Initializable {
         String[] prescriptions = prescDesc.split(";");
         int inputNumber = prescriptions.length;
 
-//        generateTextField(inputNumber);
-
         for (int i = 0; i < inputNumber; i++){
             String item = prescriptions[i];
             String[] parts = item.split("=>");
@@ -362,9 +360,10 @@ public class PrescriptionViewController implements Initializable {
             int morningQuantity = Integer.parseInt(quantities[0]);
             int noonQuantity = Integer.parseInt(quantities[1]);
             int afternoonQuantity = Integer.parseInt(quantities[2]);
+            int medPack = Integer.parseInt(quantities[3]);
             int prescDuration = Integer.parseInt(currSelectedPrescRow.get(0).getDuration());
 
-            currMedUsageList.add(new PrescMedInfo(morningQuantity, noonQuantity, afternoonQuantity, medName, prescDuration));
+            currMedUsageList.add(new PrescMedInfo(morningQuantity, noonQuantity, afternoonQuantity, medName, prescDuration, medPack));
         }
     }
 
@@ -376,7 +375,7 @@ public class PrescriptionViewController implements Initializable {
 
     private void updateCurrSelectedPrescRow(Prescription newSelection) {
         int prescId = newSelection.getId();
-        LocalDateTime prescDate = newSelection.getDate();
+        String prescDate = newSelection.getDate().toString();
         String prescDuration = newSelection.getDuration();
         String prescDesc = newSelection.getDesc();
         int patientId = newSelection.getPatientId();
@@ -395,10 +394,15 @@ public class PrescriptionViewController implements Initializable {
     }
 
     private void setSelectMedName(ChoiceBox<String> selectMedName){
-       for (String medName : medNameInDb){
-           selectMedName.getItems().add(medName);
-       }
-       selectMedName.getSelectionModel().select(0);
+        for (String medName : medNameInDb){
+            selectMedName.getItems().add(medName);
+        }
+//        selectMedName.getSelectionModel().select(0);
+        try {
+            selectMedName.setValue(PurchaseUtil.getMostPurchasedMedicament());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private ResultSet getMedName(){
@@ -470,7 +474,7 @@ public class PrescriptionViewController implements Initializable {
     private void updateButtonState() {
         boolean validMedInputs = true;
         for ( MedUsage medUsage: inputMedUsageList){
-            boolean validMedInput = validText(medUsage.inputAfternoonQuantity(), new ValidNumber()) && validText(medUsage.inputNoonQuantity(), new ValidNumber()) && validText(medUsage.inputMorningQuantity(), new ValidNumber());
+            boolean validMedInput = validText(medUsage.inputAfternoonQuantity(), new ValidNumber()) && validText(medUsage.inputNoonQuantity(), new ValidNumber()) && validText(medUsage.inputMorningQuantity(), new ValidNumber()) && validText(medUsage.inputMedPack(), new ValidNumber());
             if (!validMedInput) {
                 validMedInputs = false;
                 break;

@@ -1,0 +1,18 @@
+@import "colors.css";
+
+.navbar {
+  -fx-border-color: -dark-100 -white-10 -dark-100;
+}
+
+.nav-button{
+    -fx-background-color: transparent;
+    -fx-padding : 12px 16px;
+}
+
+.nav-button:hover {
+  -fx-background-color: -primary-100;
+}
+
+.nav-active {
+  -fx-background-color: -primary-100;
+}

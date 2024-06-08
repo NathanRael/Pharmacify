@@ -1,0 +1,79 @@
+@import "colors.css";
+@import "globals.css";
+
+.dashboard-box{
+    -fx-spacing : 64px;
+    -fx-padding : 16px;
+
+}
+
+.dashboard-card-container{
+    -fx-spacing : 84px;
+    -fx-pref-height : 120px;
+}
+
+
+.dashboard-card{
+    -fx-border-color : -white-10;
+    -fx-border-radius : 8px;
+    -fx-background-radius : 14px;
+}
+
+.dashboard-card .number{
+    -fx-font-size : 24px;
+    -fx-fill : -primary-100;
+}
+
+.dashboard-card .indication{
+    -fx-font-size : 14px;
+    -fx-fill: -white-80;
+}
+
+.dashboard-card:hover{
+    -fx-background-color : -white-100;
+    -fx-cursor : hand;
+}
+
+.dashboard-card:hover .indication{
+    -fx-fill : -dark-100;
+}
+
+.icon_container FontAwesomeIconView{
+    fx-fill : -primary-100;
+}
+
+.stat-product{
+    -fx-fill : -primary-100;
+}
+
+.stat-product-label{
+    -fx-text-fill : -primary-100;
+    -fx-background-color : -primary-10;
+    -fx-border-radius : 8px;
+    -fx-background-radius : 8px 8px 0 0;
+    -fx-padding : 4px 8px;
+}
+
+.stat-pie-chart-container{
+    -fx-pref-width : 300px;
+    -fx-pref-height : 300px;
+    -fx-background-radius : 14px;
+    -fx-border-radius : 14px;
+    -fx-border-color : -primary-10;
+
+}
+
+.stat-line-chart-container{
+    -fx-pref-width : 524px;
+
+    -fx-background-radius : 14px;
+    -fx-background-radius : 14px;
+    -fx-border-radius : 14px;
+    -fx-border-color : -white-10;
+}
+
+.last-purchase{
+    -fx-pref-height : 360px;
+    -fx-background-color : -dark-100;
+
+}

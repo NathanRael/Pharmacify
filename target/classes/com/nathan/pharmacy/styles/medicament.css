@@ -1,0 +1,34 @@
+@import "colors.css";
+@import "globals.css";
+@import "table.css";
+
+
+.table-header {
+  -fx-background-color: -gray-100;
+  -fx-border-color: -white-10;
+  -fx-border-radius: 8px 8px 0 0;
+  -fx-background-radius: 8px 8px 0 0;
+  -fx-padding: 8px 16px;
+  -fx-spacing: 128px;
+}
+
+.table-header Text {
+  -fx-fill: -white-100;
+  -fx-font-size: 14px;
+  -fx-font-weight: 700;
+}
+
+.medicament-cell {
+  -fx-padding: 16px;
+  -fx-spacing: 128px;
+  -fx-border-color: -white-10;
+  -fx-background-color: -primary-10;
+  -fx-alignment: center-left;
+}
+
+.medicament-cell Label {
+  -fx-text-fill: -primary-100;
+  -fx-font-size: 14px;
+  -fx-font-weight: 700;
+}
+

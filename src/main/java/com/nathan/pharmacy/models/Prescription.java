@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 //Prescription (prescId, prescDate, prescDuration, prescDesc, #patientId)
 public class Prescription {
     private int id;
-    private LocalDateTime date;
+    private String date;
     private String duration;
     private String desc;
     private int patientId;
@@ -14,7 +14,7 @@ public class Prescription {
     private String patientFName;
 
 
-    public Prescription(int id, LocalDateTime date, String duration, String desc, int patientId) {
+    public Prescription(int id, String date, String duration, String desc, int patientId) {
         this.id = id;
         this.date = date;
         this.duration = duration;
@@ -22,14 +22,14 @@ public class Prescription {
         this.patientId = patientId;
     }
 
-    public Prescription( LocalDateTime date, String duration, String desc, int patientId) {
+    public Prescription( String date, String duration, String desc, int patientId) {
         this.date = date;
         this.duration = duration;
         this.desc = desc;
         this.patientId = patientId;
     }
 
-    public Prescription(int id, LocalDateTime date, String duration, String desc, int patientId, String patientFName) {
+    public Prescription(int id, String date, String duration, String desc, int patientId, String patientFName) {
         this.id = id;
         this.date = date;
         this.duration = duration;
@@ -37,7 +37,7 @@ public class Prescription {
         this.patientId = patientId;
         this.patientFName = patientFName;
     }
-    public Prescription(LocalDateTime date, String duration, String desc, int patientId, String patientFName) {
+    public Prescription(String date, String duration, String desc, int patientId, String patientFName) {
         this.date = date;
         this.duration = duration;
         this.desc = desc;
@@ -53,11 +53,11 @@ public class Prescription {
         this.id = id;
     }
 
-    public LocalDateTime getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

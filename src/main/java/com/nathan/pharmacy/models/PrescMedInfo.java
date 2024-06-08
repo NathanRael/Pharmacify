@@ -6,13 +6,16 @@ public class PrescMedInfo {
     private int afternoonQuantity;
     private String medName;
     private int duration;
+    private int medPack;
 
-    public PrescMedInfo(int morningQuantity, int noonQuantity, int afternoonQuantity, String medName, int duration) {
+
+    public PrescMedInfo(int morningQuantity, int noonQuantity, int afternoonQuantity, String medName, int duration, int medPack) {
         this.morningQuantity = morningQuantity;
         this.noonQuantity = noonQuantity;
         this.afternoonQuantity = afternoonQuantity;
         this.medName = medName;
         this.duration = duration;
+        this.medPack = medPack;
     }
 
     public int getMorningQuantity() {
@@ -53,5 +56,13 @@ public class PrescMedInfo {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public int getMedPack() {
+        return medPack;
+    }
+
+    public void setMedPack(int medPack) {
+        this.medPack = medPack;
     }
 }

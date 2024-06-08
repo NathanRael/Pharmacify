@@ -55,7 +55,7 @@ public class PurchaseModelController implements ModelInterface<Purchase> {
     }
 
     public ResultSet selectMostPurchasedProduct(int Limit, String date) throws Exception{
-        String query = "SELECT DISTINCT medName, sum(purchaseQuantity) as count FROM purchase p, medicament m WHERE p.medId = m.medId GROUP BY medName  AND p.purchaseDate ='"+  date + "' ORDER BY sum(purchaseQuantity) DESC LIMIT " + Limit;
+        String query = " SELECT medName, purchaseQuantity FROM purchase p, medicament m WHERE p.medId = m.medId AND p.purchaseDate = '"+ date +"' GROUP BY p.purchaseDate, m.medId ORDER BY p.purchaseQuantity DESC LIMIT " + Limit;
 
         return connection.executeQuery(query);
     }

@@ -1,5 +1,6 @@
 package com.nathan.pharmacy.controllers.dashboard;
 
+import com.nathan.pharmacy.contstants.DatePattern;
 import com.nathan.pharmacy.contstants.MessageStyle;
 import com.nathan.pharmacy.contstants.SubScenesName;
 import com.nathan.pharmacy.models.Medicament;
@@ -233,7 +234,7 @@ public class DashboardViewController implements Initializable {
 
             pieChartData.clear();
             while (rs.next()){
-                pieChartData.add(new PieChart.Data(rs.getString("medName"), rs.getInt("count")));
+                pieChartData.add(new PieChart.Data(rs.getString("medName"), rs.getInt("purchaseQuantity")));
             }
         }catch (Exception ex){
             ex.printStackTrace();
@@ -270,7 +271,7 @@ public class DashboardViewController implements Initializable {
             int purchaseId = rs.getInt("purchaseId");
             int medId = rs.getInt("medId");
             int patientId = rs.getInt("patientId");
-            LocalDateTime purchaseDate = rs.getDate("purchaseDate").toLocalDate().atTime(LocalTime.now());
+            String purchaseDate = rs.getDate("purchaseDate").toLocalDate().atTime(rs.getTime("purchaseDate").toLocalTime()).format(DatePattern.dateFormatPattern);
             float totalPrice = rs.getFloat("totalPrice");
             String medName = rs.getString("medName");
             String patientName = rs.getString("patientFName");

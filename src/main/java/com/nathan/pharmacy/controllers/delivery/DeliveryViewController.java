@@ -304,7 +304,8 @@ public class DeliveryViewController implements Initializable {
             ResultSet rs = mc.selectAll();
             while (rs.next())
                 selectMedName.getItems().add(rs.getString("medName"));
-            selectMedName.getSelectionModel().select(0);
+//            selectMedName.getSelectionModel().select(0);
+            selectMedName.setValue(PurchaseUtil.getMostPurchasedMedicament());
         } catch (Exception ex){
             ex.printStackTrace();
         }
@@ -315,13 +316,12 @@ public class DeliveryViewController implements Initializable {
             ResultSet rs = sc.selectAll();
             while (rs.next())
                 selectSupName.getItems().add(rs.getString("supName"));
-            selectSupName.getSelectionModel().select(0);
+//            selectSupName.getSelectionModel().select(0);
+            selectSupName.setValue(SupplierUtil.getFavoriteSupplier());
         } catch (Exception ex){
             ex.printStackTrace();
         }
     }
-
-
 
     public void cancelDelivery(int delId, LocalDate delDate){
         LocalDate currDate = LocalDate.now();

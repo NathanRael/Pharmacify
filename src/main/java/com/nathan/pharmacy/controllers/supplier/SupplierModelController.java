@@ -33,7 +33,7 @@ public class SupplierModelController implements ModelInterface<Supplier> {
     }
 
     public ResultSet selectFavoriteSupplier() throws Exception{
-        String query = "ELECT MAX(delQuantity) , supName, supPhone, d.delQuantity FROM supplier s, delivery d WHERE s.supId = d.supId GROUP BY s.supId HAVING MAX(d.delQuantity) LIMIT 1;";
+        String query = "SELECT MAX(delQuantity) , supName, supPhone, d.delQuantity FROM supplier s, delivery d WHERE s.supId = d.supId GROUP BY s.supId HAVING MAX(d.delQuantity) LIMIT 1;";
         return connection.executeQuery(query);
     }
 

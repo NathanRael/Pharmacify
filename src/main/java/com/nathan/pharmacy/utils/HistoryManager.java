@@ -1,5 +1,6 @@
 package com.nathan.pharmacy.utils;
 
+import com.nathan.pharmacy.contstants.DatePattern;
 import com.nathan.pharmacy.models.History;
 
 import java.io.*;
@@ -29,7 +30,7 @@ public class HistoryManager {
     }
 
     public void push(String userName, String userAction) {
-        String entry = LocalDateTime.now() + " - " + userName + ": " + userAction;
+        String entry = LocalDateTime.now().format(DatePattern.dateFormatPattern) + " - " + userName + ": " + userAction;
         histories.add(entry);
         saveHistory();
     }

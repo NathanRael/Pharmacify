@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 //Purchase( purchaseId, #medId,purchaseDate, #patientId)
 public class Purchase {
     private int id;
-    private LocalDateTime date;
+    private String date;
     private int quantity;
     private int medId;
     private int patientId;
@@ -14,12 +14,12 @@ public class Purchase {
     private String medName;
     private String patName;
 
-    public Purchase(LocalDateTime date, int patientId) {
+    public Purchase(String date, int patientId) {
         this.date = date;
         this.patientId = patientId;
     }
 
-    public Purchase(int id, LocalDateTime date, int quantity, int medId, int patientId, float totalPrice) {
+    public Purchase(int id, String date, int quantity, int medId, int patientId, float totalPrice) {
         this.id = id;
         this.date = date;
         this.quantity = quantity;
@@ -29,14 +29,14 @@ public class Purchase {
     }
 
 
-    public Purchase(LocalDateTime date, int quantity, int medId, int patientId, float totalPrice) {
+    public Purchase(String date, int quantity, int medId, int patientId, float totalPrice) {
         this.date = date;
         this.quantity = quantity;
         this.medId = medId;
         this.patientId = patientId;
         this.totalPrice = totalPrice;
     }
-    public Purchase(int id, LocalDateTime date, int quantity, int medId, int patientId, float totalPrice, String medName, String patName) {
+    public Purchase(int id, String date, int quantity, int medId, int patientId, float totalPrice, String medName, String patName) {
         this.id = id;
         this.date = date;
         this.quantity = quantity;
@@ -55,11 +55,11 @@ public class Purchase {
         this.id = id;
     }
 
-    public LocalDateTime getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

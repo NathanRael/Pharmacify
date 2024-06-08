@@ -68,11 +68,11 @@ public class NavbarViewController implements Initializable {
 
     private void handleUserSession() {
         if (Session.getInstance().sessionExist()) {
-            String userRole = Integer.parseInt(Session.getInstance().getUserRole()) == 1 ? "Utilisateur" : "SuperUtilisateur";
+            String userRole = Integer.parseInt(Session.getInstance().getUserRole()) == 0 ? "Utilisateur" : "SuperUtilisateur";
             txtUserName.setText(Session.getInstance().getUserName());
             txtUserRole.setText(userRole);
 
-            if (Integer.parseInt(Session.getInstance().getUserRole()) == 1) {
+            if (Integer.parseInt(Session.getInstance().getUserRole()) == 0) {
                 hideAdminPart();
             }
         } else {

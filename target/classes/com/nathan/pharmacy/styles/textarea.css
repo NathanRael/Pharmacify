@@ -1,0 +1,20 @@
+@import "colors.css";
+
+/*Textarea*/
+
+.text-area {
+  -fx-font-size: 14px;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
+  -fx-background-color : -gray-100;
+  -fx-text-fill : -white-100;
+  -fx-padding : 2px;
+}
+
+.text-area .content{
+     -fx-background-color : -gray-100;
+    -fx-background-insets : 0;
+    -fx-padding : 6px 14px;
+    -fx-background-radius : 0;
+
+}

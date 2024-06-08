@@ -1,0 +1,13 @@
+@import "colors.css";
+
+.chart{
+
+}
+
+.chart-legend{
+}
+
+.chart-legend-item{
+    -fx-text-fill : -white-100;
+
+}

@@ -111,7 +111,7 @@ public class PurchaseViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         btnPurchase.setOnAction(event -> purchaseMedicament());
-        btnInvoice.setOnAction(event -> generateInvoice(currSelectedPurchaseRow.get(0).getPatientId(), currSelectedPurchaseRow.get(0).getDate().toLocalDate()));
+        btnInvoice.setOnAction(event -> generateInvoice(currSelectedPurchaseRow.get(0).getPatientId(), LocalDate.parse(currSelectedPurchaseRow.get(0).getDate())));
 
 
         initTableView();
@@ -134,7 +134,7 @@ public class PurchaseViewController implements Initializable {
             tablePurchase.getSelectionModel().selectedItemProperty().addListener((observableValue, oldSelection, newSelection) -> {
                 if (newSelection != null){
                     currSelectedPurchaseRow.clear();
-                    currSelectedPurchaseRow.add(new Purchase(newSelection.getDate(), newSelection.getPatientId()));
+                    currSelectedPurchaseRow.add(new Purchase(newSelection.getDate().toString(), newSelection.getPatientId()));
                    updateButtonState();
                 }
             });
@@ -237,7 +237,7 @@ public class PurchaseViewController implements Initializable {
             String medName = rs.getString("medName");
             String patientName = rs.getString("patientFName");
             int purchaseQuantity = rs.getInt("purchaseQuantity");
-            purchase.add(new Purchase(purchaseId, purchaseDate,purchaseQuantity,medId, patientId, totalPrice, medName, patientName ));
+            purchase.add(new Purchase(purchaseId, purchaseDate.toString(),purchaseQuantity,medId, patientId, totalPrice, medName, patientName ));
         }
 
         tablePurchase.setItems(purchase);
@@ -261,7 +261,7 @@ public class PurchaseViewController implements Initializable {
             int oldQuantity = rs.getInt("medQuantity");
             int newQuantity = oldQuantity - quantity;
             if (newQuantity >= 0){
-                Purchase purchase = new Purchase( purchaseDate, quantity, medId, patientId, totalPrice);
+                Purchase purchase = new Purchase( purchaseDate.toString(), quantity, medId, patientId, totalPrice);
                 pc.insert(purchase);
                 mc.updateBy("medQuantity", newQuantity, "medId", medId);
                 System.out.println("Medicament purchased");

@@ -15,6 +15,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -56,11 +57,25 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         messageField = new MessageField(txtMessage);
+
         txtMessage.setVisible(false);
         EventHandler<KeyEvent> keyEventEventHandler = event -> updateButtonState();
 
         inputName.setOnKeyTyped(keyEventEventHandler);
         inputPassword.setOnKeyTyped(keyEventEventHandler);
+
+
+    }
+
+    @FXML
+    void handleKeyPressed(KeyEvent keyEvent){
+        if (keyEvent.getCode() == KeyCode.ENTER){
+            try {
+                login(new ActionEvent());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
     @FXML
     void login(ActionEvent event) throws Exception {

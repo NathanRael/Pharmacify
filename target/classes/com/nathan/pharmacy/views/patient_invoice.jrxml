@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="629f4150-5f14-4dbc-a7d7-af4c411d7de0">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (4)"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM purchase p, medicament m, patient pa WHERE p.medId = m.medId AND p.patientId = pa.patientId]]>
+	</queryString>
+	<field name="purchaseId" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="purchaseId"/>
+		<property name="com.jaspersoft.studio.field.label" value="purchaseId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase"/>
+	</field>
+	<field name="purchaseDate" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="purchaseDate"/>
+		<property name="com.jaspersoft.studio.field.label" value="purchaseDate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase"/>
+	</field>
+	<field name="medId" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="medId"/>
+		<property name="com.jaspersoft.studio.field.label" value="medId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase"/>
+	</field>
+	<field name="patientId" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="patientId"/>
+		<property name="com.jaspersoft.studio.field.label" value="patientId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase"/>
+	</field>
+	<field name="totalPrice" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="totalPrice"/>
+		<property name="com.jaspersoft.studio.field.label" value="totalPrice"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase"/>
+	</field>
+	<field name="purchaseQuantity" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="purchaseQuantity"/>
+		<property name="com.jaspersoft.studio.field.label" value="purchaseQuantity"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase"/>
+	</field>
+	<field name="COLUMN_7" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="medId"/>
+		<property name="com.jaspersoft.studio.field.label" value="medId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="medicament"/>
+	</field>
+	<field name="medName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="medName"/>
+		<property name="com.jaspersoft.studio.field.label" value="medName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="medicament"/>
+	</field>
+	<field name="medDesc" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="medDesc"/>
+		<property name="com.jaspersoft.studio.field.label" value="medDesc"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="medicament"/>
+	</field>
+	<field name="medPrice" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="medPrice"/>
+		<property name="com.jaspersoft.studio.field.label" value="medPrice"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="medicament"/>
+	</field>
+	<field name="medQuantity" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="medQuantity"/>
+		<property name="com.jaspersoft.studio.field.label" value="medQuantity"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="medicament"/>
+	</field>
+	<field name="stockId" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="stockId"/>
+		<property name="com.jaspersoft.studio.field.label" value="stockId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="medicament"/>
+	</field>
+	<field name="medExpDate" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="medExpDate"/>
+		<property name="com.jaspersoft.studio.field.label" value="medExpDate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="medicament"/>
+	</field>
+	<field name="COLUMN_14" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="patientId"/>
+		<property name="com.jaspersoft.studio.field.label" value="patientId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="patient"/>
+	</field>
+	<field name="patientFName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="patientFName"/>
+		<property name="com.jaspersoft.studio.field.label" value="patientFName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="patient"/>
+	</field>
+	<field name="patientLName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="patientLName"/>
+		<property name="com.jaspersoft.studio.field.label" value="patientLName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="patient"/>
+	</field>
+	<field name="patientPhone" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="patientPhone"/>
+		<property name="com.jaspersoft.studio.field.label" value="patientPhone"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="patient"/>
+	</field>
+	<field name="patientAddress" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="patientAddress"/>
+		<property name="com.jaspersoft.studio.field.label" value="patientAddress"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="patient"/>
+	</field>
+	<field name="patientEmail" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="patientEmail"/>
+		<property name="com.jaspersoft.studio.field.label" value="patientEmail"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="patient"/>
+	</field>
+	<variable name="COLUMN_141" class="java.lang.Integer" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{COLUMN_14}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="92" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="123" height="30" uuid="c8c2cf8a-9c72-4397-a0a1-547124d61c6c"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Pharmacify]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="34" width="100" height="14" uuid="0fc091f1-b18d-44ff-93a8-32a4b305ca39"/>
+				<text><![CDATA[038 87 329 17]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="50" width="100" height="18" uuid="c140c227-3e46-4ada-a4e7-ddd5555559b6"/>
+				<text><![CDATA[Madagascar]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="55" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="200" height="30" uuid="3fc58c83-1908-487b-8700-3df0c4a824cb"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Facture patient]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="8" width="34" height="15" uuid="faa666d9-82ef-488a-8ec9-29dc673132b8"/>
+				<text><![CDATA[Du : ]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="380" y="8" width="100" height="14" uuid="e2016dab-e4c0-4f9f-8bf5-f667aa0fcf66"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="145" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="79" height="20" uuid="d4577f34-888d-4a6c-b2c8-4a8d13417c82">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a571e54e-cbfb-4118-ab11-5e389e8b09ef"/>
+				</reportElement>
+				<text><![CDATA[Nom et prénom :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="60" y="20" width="140" height="20" uuid="3140cd23-7dd1-40aa-a010-40f4dcfad776">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a571e54e-cbfb-4118-ab11-5e389e8b09ef"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{patientPhone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="60" height="20" uuid="2b810a5e-6aa2-4bf0-8c26-0264536cef24">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a571e54e-cbfb-4118-ab11-5e389e8b09ef"/>
+				</reportElement>
+				<text><![CDATA[Telephone :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="40" height="20" uuid="f4a1aa89-ed26-491a-846e-539791de2f51">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a571e54e-cbfb-4118-ab11-5e389e8b09ef"/>
+				</reportElement>
+				<text><![CDATA[Email :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="40" width="140" height="20" uuid="ddab1b3a-6b55-4739-a372-e25ef3b68fe1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a571e54e-cbfb-4118-ab11-5e389e8b09ef"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{patientEmail}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="60" width="140" height="20" uuid="6b8782ba-eea1-4523-acee-779f34ac410c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a571e54e-cbfb-4118-ab11-5e389e8b09ef"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{patientAddress}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="60" width="40" height="20" uuid="baa3b69a-a8c9-4a40-965b-02c80e98ccee">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a571e54e-cbfb-4118-ab11-5e389e8b09ef"/>
+				</reportElement>
+				<text><![CDATA[Adresse :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="121" width="90" height="19" uuid="dd775b24-dae9-4251-969a-9b4534ff446d"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nom medicament]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="121" width="90" height="19" uuid="0b55e903-043a-4126-90ab-ffae8890bbc0"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantité acheté]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="120" width="70" height="19" uuid="5faedeba-5603-4102-851a-c82e2927eb08"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prix unitaire]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="120" width="90" height="19" uuid="b15e773b-0c35-41e4-8a6c-d741d9e2a37e"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prix totale]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="0" width="90" height="20" uuid="af89c503-84d6-46ff-9599-08ce42df7216">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a571e54e-cbfb-4118-ab11-5e389e8b09ef"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{patientFName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="0" width="140" height="20" uuid="4235fe8e-1e4c-46a6-ac88-63d06d413411">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a571e54e-cbfb-4118-ab11-5e389e8b09ef"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{patientLName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="490" y="121" width="90" height="19" uuid="8dda62e2-0e29-4fa4-8dd5-7d1929a9c238"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date d'achat]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="5" width="100" height="20" uuid="1a47d43f-d6fc-466a-a239-a716fd1b2d72">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a571e54e-cbfb-4118-ab11-5e389e8b09ef"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{medName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="0" width="100" height="20" uuid="8ad6dc46-7a9d-4044-bc66-fc3142f7576c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a571e54e-cbfb-4118-ab11-5e389e8b09ef"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{purchaseQuantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="0" width="100" height="20" uuid="5edaa9ee-a55c-4cad-848d-64e8a6ae33b1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a571e54e-cbfb-4118-ab11-5e389e8b09ef"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{medPrice} ]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="349" y="0" width="100" height="20" uuid="61ecb00c-1b78-4f8c-b89e-ca1414affa0d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a571e54e-cbfb-4118-ab11-5e389e8b09ef"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{totalPrice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="489" y="1" width="100" height="20" uuid="e9c748f9-017b-4de7-b81e-661d8489d295">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a571e54e-cbfb-4118-ab11-5e389e8b09ef"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{purchaseDate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="5" y="10" width="90" height="19" uuid="aebfb81c-88e8-4b93-9b9c-3aebc9703c7e"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Montant total :]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

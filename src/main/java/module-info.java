@@ -5,7 +5,11 @@ module com.nathan.pharmacy {
     requires de.jensd.fx.glyphs.fontawesome;
     requires de.jensd.fx.glyphs.commons;
     requires jasperreports;
+//    requires core;
+//    requires javase;
     requires java.mail;
+    requires java.desktop;
+    requires core;
 
     opens com.nathan.pharmacy to javafx.fxml;
     opens com.nathan.pharmacy.models to javafx.base;
