@@ -8,12 +8,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="signupAnchorPane" prefHeight="700.0" prefWidth="720.0" style="-fx-background-color: -dark-100;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.auth.SignupController">
    <stylesheets>
@@ -22,7 +20,7 @@
       <URL value="@../styles/globals.css" />
    </stylesheets>
    <children>
-      <VBox alignment="CENTER" layoutX="190.0" layoutY="59.0" spacing="64.0" style="-fx-alignment: center;">
+      <VBox alignment="CENTER" layoutX="188.0" layoutY="30.0" spacing="32.0" style="-fx-alignment: center;">
          <children>
             <VBox spacing="16.0">
                <children>
@@ -65,7 +63,7 @@
                      <children>
                         <VBox prefHeight="235.0" prefWidth="340.0" spacing="8.0">
                            <children>
-                              <Label fx:id="txtName" style="-fx-text-fill: -white-100;" text="Nom :" textFill="#e0e0e0">
+                              <Label style="-fx-text-fill: -white-100;" text="Nom :" textFill="#e0e0e0">
                                  <styleClass>
                                     <String fx:value="default-font" />
                                     <String fx:value="font-bold" />
@@ -87,7 +85,7 @@
                         </VBox>
                         <VBox layoutX="10.0" layoutY="10.0" prefHeight="235.0" prefWidth="340.0" spacing="8.0">
                            <children>
-                              <Label fx:id="txtPhone" style="-fx-text-fill: -white-100;" text="Téléphone :" textFill="#e0e0e0">
+                              <Label style="-fx-text-fill: -white-100;" text="Téléphone :" textFill="#e0e0e0">
                                  <styleClass>
                                     <String fx:value="default-font" />
                                     <String fx:value="font-bold" />
@@ -109,7 +107,7 @@
                         </VBox>
                         <VBox layoutX="10.0" layoutY="106.0" prefHeight="235.0" prefWidth="340.0" spacing="8.0">
                            <children>
-                              <Label fx:id="txtPassword" style="-fx-text-fill: -white-100;" text="Mot de passe :" textFill="#e0e0e0">
+                              <Label style="-fx-text-fill: -white-100;" text="Email :" textFill="#e0e0e0">
                                  <styleClass>
                                     <String fx:value="default-font" />
                                     <String fx:value="font-bold" />
@@ -118,7 +116,29 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <PasswordField fx:id="inputPassword" promptText="Entrer votre mot de passe">
+                              <TextField fx:id="inputEmail" promptText="Entrer votre adresse email">
+                                 <styleClass>
+                                    <String fx:value="bg-white-10" />
+                                    <String fx:value="input" />
+                                 </styleClass>
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0" prefHeight="235.0" prefWidth="340.0" spacing="8.0">
+                           <children>
+                              <Label style="-fx-text-fill: -white-100;" text="Mot de passe :" textFill="#e0e0e0">
+                                 <styleClass>
+                                    <String fx:value="default-font" />
+                                    <String fx:value="font-bold" />
+                                 </styleClass>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <PasswordField fx:id="inputPassword" promptText="Confirmer votre mot de passe">
                                  <styleClass>
                                     <String fx:value="input" />
                                     <String fx:value="bg-white-10" />
@@ -181,12 +201,5 @@
             </VBox>
          </children>
       </VBox>
-      <AnchorPane fx:id="qrCodeContainer" layoutX="60.0" layoutY="124.0" prefHeight="525.0" prefWidth="608.0" style="-fx-background-color: -dark-100; -fx-background-radius: 8; -fx-border-color: -white-10; -fx-border-radius: 8;">
-         <children>
-            <Text layoutX="216.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" styleClass="text-subtitle-1" text="Voici votre Qr code" AnchorPane.topAnchor="24.0" />
-            <Button fx:id="btnContinue" layoutX="240.0" layoutY="467.0" mnemonicParsing="false" styleClass="button-lg" text="Continuer" AnchorPane.bottomAnchor="24.0" />
-            <ImageView fx:id="qrCodeImageView" fitHeight="320.0" fitWidth="380.0" layoutX="106.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true" />
-         </children>
-      </AnchorPane>
    </children>
 </AnchorPane>

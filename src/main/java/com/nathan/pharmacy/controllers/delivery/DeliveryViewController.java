@@ -88,6 +88,10 @@ public class DeliveryViewController implements Initializable {
     private TableView<Delivery> tableDelivery;
 
     private List<Delivery> currSelectedDeliveryRow = new ArrayList<>();
+    @FXML
+    private Label txtBestSupplierName;
+    @FXML
+    private Label txtBestSupplierQuantity;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -100,6 +104,7 @@ public class DeliveryViewController implements Initializable {
         initTableView();
         initSelectMedName();
         initSelectSupName();
+        initBestSupplier();
 
         selectMedFilter.getItems().addAll("Id", "Prix", "Quantité");
         selectMedFilter.getSelectionModel().select(0);
@@ -116,6 +121,19 @@ public class DeliveryViewController implements Initializable {
         }
     }
 
+    private void initBestSupplier() {
+        try {
+            SupplierModelController sc = new SupplierModelController();
+            ResultSet rs = sc.selectFavoriteSupplier();
+            if (rs.next()){
+                txtBestSupplierName.setText(rs.getString("supName"));
+                txtBestSupplierQuantity.setText(String.valueOf(rs.getInt("delQuantity") + " Livraisons"));
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
     @FXML
@@ -198,6 +216,7 @@ public class DeliveryViewController implements Initializable {
             delivery.add(new Delivery(delId, delDate, delPrice, supId, medId,delQuantity, medName, supName, medExpDate));
         }
         tableDelivery.setItems(delivery);
+        initBestSupplier();
     }
     public void deliver(){
         int supId = 0;

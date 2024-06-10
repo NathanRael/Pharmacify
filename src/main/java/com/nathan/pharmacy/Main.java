@@ -21,14 +21,14 @@ import java.util.TimerTask;
         - Adding message label for error or success => Done
         - Adding the total amount to the patient invoice => Pending
         - Changing forgotten password via email code
-        - Make the most selected item as the default selection for the choiceBox
-        - Show the most purchased medicament according the selected date
-        - Adding qr code for login and user info
+        - Make the most selected item as the default selection for the choiceBox => Done
+        - Show the most purchased medicament according the selected date => Done
+        - Adding qr code for login and user info => error
 */
 public class Main extends Application {
     @Override
     public void start(Stage stage) {
-        SceneChanger.changeSceneTo(ScenesName.MAIN, stage);
+        SceneChanger.changeSceneTo(ScenesName.LOGIN, stage);
     }
     public static void main(String[] args) {
         Timer timer = new Timer();

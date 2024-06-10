@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="720.0" prefWidth="1220.0" style="-fx-background-color: -dark-100;" stylesheets="@../styles/purchase.css"  xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.prescription.PrescriptionViewController">
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="720.0" prefWidth="1220.0" style="-fx-background-color: -dark-100;" stylesheets="@../styles/purchase.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nathan.pharmacy.controllers.prescription.PrescriptionViewController">
     <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" onKeyPressed="#handleKeyPressed" prefHeight="1400.0" style="-fx-background-color: -dark-100;" stylesheets="@../styles/purchase.css">
             <children>
@@ -23,7 +23,7 @@
                     <children>
                         <HBox alignment="CENTER_LEFT" prefWidth="1031.0" spacing="8.0">
                             <children>
-                                <FontAwesomeIconView fill="#18ad18" glyphName="CREDIT_CARD" selectionFill="#e2e2e2" size="24" />
+                                <FontAwesomeIconView fill="#18ad18" glyphName="LIST_ALT" selectionFill="#e2e2e2" size="24" wrappingWidth="24.0" />
                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" styleClass="text-title-1" text="Generateur de prescription" />
                             </children>
                         </HBox>

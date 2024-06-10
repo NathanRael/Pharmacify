@@ -8,8 +8,27 @@ public class User {
     private String role;
     private String phone;
     private int stockId;
+    private String email;
 
     private String stockName;
+
+
+    public User(int id, String name, String status, String role, String phone, int stockId, String stockName, String email) {
+        this.id = id;
+        this.name = name;
+        this.status = status;
+        this.role = role;
+        this.phone = phone;
+        this.stockId = stockId;
+        this.stockName = stockName;
+        this.email = email;
+    }
+    public User(String name,  String phone, String pwd, String email) {
+        this.name = name;
+        this.pwd = pwd;
+        this.phone = phone;
+        this.email = email;
+    }
 
     public User(int id, String name, String pwd, String status, String phone, int stockId) {
         this.id = id;
@@ -19,7 +38,8 @@ public class User {
         this.phone = phone;
         this.stockId = stockId;
     }
-    public User(String name, String pwd,  String phone, int stockId, String status) {
+
+/*    public User(String name, String pwd,  String phone, int stockId, String status) {
         this.name = name;
         this.pwd = pwd;
         this.status = status;
@@ -34,22 +54,7 @@ public class User {
         this.stockId = stockId;
         this.stockName = stockName;
         this.role = role;
-    }
-
-    public User(int id, String name, String status, String role, String phone, int stockId, String stockName) {
-        this.id = id;
-        this.name = name;
-        this.status = status;
-        this.role = role;
-        this.phone = phone;
-        this.stockId = stockId;
-        this.stockName = stockName;
-    }
-    public User(String name,  String phone, String pwd) {
-        this.name = name;
-        this.pwd = pwd;
-        this.phone = phone;
-    }
+    }*/
 
     public int getId() {
         return id;
@@ -113,5 +118,13 @@ public class User {
 
     public void setStockName(String stockName) {
         this.stockName = stockName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

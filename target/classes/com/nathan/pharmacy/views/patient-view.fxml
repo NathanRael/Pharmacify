@@ -22,7 +22,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefWidth="1031.0" spacing="8.0">
                      <children>
-                        <FontAwesomeIconView fill="#18ad18" glyphName="CREDIT_CARD" selectionFill="#e2e2e2" size="24" />
+                        <FontAwesomeIconView fill="#18ad18" glyphName="USER" selectionFill="#e2e2e2" size="24" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: -white-100;" styleClass="text-title-1" text="Patients" />
                      </children>
                   </HBox>

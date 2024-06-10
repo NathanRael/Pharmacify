@@ -1,14 +1,13 @@
 package com.nathan.pharmacy.controllers.auth;
 
+import com.nathan.pharmacy.controllers.form.*;
+import com.nathan.pharmacy.contstants.AlertType;
 import com.nathan.pharmacy.contstants.MessageStyle;
+import com.nathan.pharmacy.utils.AlertUtils;
 import com.nathan.pharmacy.utils.MessageField;
 //import com.nathan.pharmacy.utils.QrCodeUtil;
 import com.nathan.pharmacy.utils.SceneChanger;
-import com.nathan.pharmacy.controllers.form.ValidName;
 import com.nathan.pharmacy.controllers.user.UserModelController;
-import com.nathan.pharmacy.controllers.form.ValidPassword;
-import com.nathan.pharmacy.controllers.form.ValidPhone;
-import com.nathan.pharmacy.controllers.form.ValidText;
 import com.nathan.pharmacy.contstants.ScenesName;
 import com.nathan.pharmacy.interfaces.FieldValidator;
 import com.nathan.pharmacy.models.User;
@@ -35,6 +34,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SignupController  implements Initializable {
+
     @FXML
     private Button btnLogin;
 
@@ -42,16 +42,10 @@ public class SignupController  implements Initializable {
     private Button btnSignup;
 
     @FXML
-    private ImageView qrCodeImageView;
-
-    @FXML
-    private Button btnContinue;
-
-    @FXML
-    private AnchorPane qrCodeContainer;
-
-    @FXML
     private PasswordField inputConfirm;
+
+    @FXML
+    private TextField inputEmail;
 
     @FXML
     private TextField inputName;
@@ -69,24 +63,14 @@ public class SignupController  implements Initializable {
     private Label txtConfirm;
 
     @FXML
-    private Label txtName;
-
-    @FXML
-    private Label txtPassword;
-
-    @FXML
-    private Label txtPhone;
-
-    @FXML
     private Label txtMessage;
+
     private MessageField messageField;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         messageField = new MessageField(txtMessage);
         txtMessage.setVisible(false);
-        qrCodeContainer.setVisible(false);
-        btnContinue.setOnAction(event -> switchToLogin(null));
 
         EventHandler<KeyEvent> keyEventEventHandler = event -> updateButtonState();
 
@@ -94,6 +78,7 @@ public class SignupController  implements Initializable {
         inputPhone.setOnKeyTyped(keyEventEventHandler);
         inputConfirm.setOnKeyTyped(keyEventEventHandler);
         inputPassword.setOnKeyTyped(keyEventEventHandler);
+        inputEmail.setOnKeyTyped(keyEventEventHandler);
     }
 
     @FXML
@@ -102,8 +87,9 @@ public class SignupController  implements Initializable {
         String phone = inputPhone.getText().trim();
         String password = inputPassword.getText();
         String confirm = inputConfirm.getText();
+        String email = inputEmail.getText();
 
-        boolean allFieldValidated = validText(inputName, new ValidText()) && validText(inputPhone, new ValidPhone()) && validText(inputPassword, new ValidPassword());
+        boolean allFieldValidated = validText(inputName, new ValidText()) && validText(inputPhone, new ValidPhone()) && validText(inputPassword, new ValidPassword()) && validText(inputEmail, new ValidEmail());
 
         var alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
@@ -111,17 +97,13 @@ public class SignupController  implements Initializable {
         if (allFieldValidated){
             if (isPasswordConfirmed(password, confirm)){
                 try{
-                    User user = new User(name,phone, password);
+                    User user = new User(name,phone, password, email);
                     UserModelController uc = new UserModelController();
-
                     uc.insert(user);
                     messageField.setMessage("Inscription réussie", MessageStyle.SUCCESS);
-                    alert.setContentText("Inscription réussie");
-                    alert.showAndWait();
-//                    showPopupAndGenerateQrCode(user.getName() + ";" + user.getPwd(),200, 200, user.getName() + "QrCode" );
+                    AlertUtils.showAlert("Inscription reussite", AlertType.SUCCESS);
                     switchSceneTo(ScenesName.LOGIN);
                 }catch (Exception ex){
-
                     System.err.println(ex);
                 }
 
@@ -132,17 +114,6 @@ public class SignupController  implements Initializable {
             messageField.setMessage("Vérifier les champs", MessageStyle.SUCCESS);
         }
 
-    }
-
-    private void showPopupAndGenerateQrCode(String value, int width, int height, String fileName){
-        String filePath = "QrCodeUtil.qrCodePath" + fileName;
-        try {
-//            QrCodeUtil.writeQRCodeImageToFile(value, width, height , filePath);
-            qrCodeImageView.setImage(new Image(filePath));
-            qrCodeContainer.setVisible(true);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @FXML
@@ -164,7 +135,7 @@ public class SignupController  implements Initializable {
     }
 
     private void updateButtonState(){
-        boolean allFieldValidated = validText(inputName, new ValidName()) && validText(inputPhone, new ValidPhone()) && validText(inputPassword, new ValidPassword()) && inputPassword.getText().equals(inputConfirm.getText());
+        boolean allFieldValidated = validText(inputName, new ValidName()) && validText(inputPhone, new ValidPhone()) && validText(inputPassword, new ValidPassword()) && inputPassword.getText().equals(inputConfirm.getText()) && validText(inputEmail, new ValidEmail());
         if (!allFieldValidated) {
             messageField.setMessage("Vérifier vos champs", MessageStyle.ERROR);
         }else {

@@ -175,7 +175,7 @@ public class UserViewController implements Initializable {
                 String userStatus = rs.getInt("userStatus") == 1 ? "Approuvé" : "En attente" ;
                 String userRole = rs.getInt("userRole") == 0 ? "Admin" : "SuperAdmin";
                 String stockName = rs.getString("stockName");
-                users.add(new User(userId, userName, userStatus, userRole ,userPhone, stockId, stockName));
+                users.add(new User(userId, userName, userStatus, userRole ,userPhone, stockId, stockName, null));
             }
             tableUser.setItems(users);
         } catch (Exception ex) {
@@ -244,7 +244,7 @@ public class UserViewController implements Initializable {
             String userStatus = rs.getInt("userStatus") == 1 ? "Approuvé" : "En attente" ;
             String userRole = rs.getInt("userRole") == 0 ? "Admin" : "SuperAdmin";
             String stockName = rs.getString("stockName");
-            users.add(new User(userId, userName, userStatus, userRole ,userPhone, stockId, stockName));
+            users.add(new User(userId, userName, userStatus, userRole ,userPhone, stockId, stockName, null ));
         }
 
         tableUser.setItems(users);
@@ -258,7 +258,7 @@ public class UserViewController implements Initializable {
 
     private void updateCurrSelectedUserRow(User newSelection){
         currSelectedUserRow.clear();
-        currSelectedUserRow.add(new User(newSelection.getId(), newSelection.getName(), newSelection.getStatus(), newSelection.getRole(), newSelection.getPhone(), newSelection.getStockId(), newSelection.getStockName()));
+        currSelectedUserRow.add(new User(newSelection.getId(), newSelection.getName(), newSelection.getStatus(), newSelection.getRole(), newSelection.getPhone(), newSelection.getStockId(), newSelection.getStockName(), null));
     }
     private void setFieldsValue(User currentSelection){
         selectUserRole.setValue(currentSelection.getRole());

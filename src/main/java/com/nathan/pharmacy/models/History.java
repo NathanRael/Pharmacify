@@ -3,21 +3,21 @@ package com.nathan.pharmacy.models;
 import java.time.LocalDateTime;
 
 public class History {
-    private LocalDateTime date;
+    private String date;
     private String userName;
     private String action;
 
-    public History(LocalDateTime date, String userName, String action) {
+    public History(String date, String userName, String action) {
         this.date = date;
         this.userName = userName;
         this.action = action;
     }
 
-    public LocalDateTime getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

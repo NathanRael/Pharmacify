@@ -1,9 +1,9 @@
-2024-06-07T00:48:45.957887600 - null: Vente de medicament (Amoxicilline) à Raels
-2024-06-07T00:52:15.477481500 - null: Ajout d'un medicament ( Paracétamole )
-2024-06-07T00:52:46.521854200 - null: Ajout d'un medicament ( Ibuprofène )
-2024-06-07T00:53:20.184160900 - null: Ajout d'un medicament ( Oméprazole )
-2024-06-07T00:53:58.074772200 - null: Ajout d'un medicament ( Loratadine )
-2024-06-07T00:54:26.588950600 - null: Ajout d'un medicament ( Metrofomine )
+2024-06-07T00:48:45.957887600 - nathanBlast: Vente de medicament (Amoxicilline) à Raels
+2024-06-07T00:52:15.477481500 - nathan: Ajout d'un medicament ( Paracétamole )
+2024-06-07T00:52:46.521854200 - Mihaja: Ajout d'un medicament ( Ibuprofène )
+2024-06-07T00:53:20.184160900 - Mihaja: Ajout d'un medicament ( Oméprazole )
+2024-06-07T00:53:58.074772200 - Mihaja: Ajout d'un medicament ( Loratadine )
+2024-06-07T00:54:26.588950600 - Mihaja: Ajout d'un medicament ( Metrofomine )
 2024-06-07T18:57:39.135003300 - null: Suppression d'une prescription ( 19 )
 2024-06-07T19:29:54.398067200 - Nathan: Suppression d'une prescription ( 20 )
 2024-06-07T19:29:57.041655500 - Nathan: Vente de medicament (Paracétamole) à Raels

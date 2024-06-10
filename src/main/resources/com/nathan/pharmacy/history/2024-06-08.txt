@@ -1,0 +1,12 @@
+2024-06-08 10:17 - Nathan: Vente de medicament (Ibuprofène) à Raels
+2024-06-08 10:27 - Nathan: Vente de medicament (Ibuprofène) à Zuckerberg
+2024-06-08 10:30 - Nathan: Generation d'une facture du patient : null
+2024-06-08 10:36 - Nathan: Vente de medicament (Ibuprofène) à Raels
+2024-06-08 10:40 - Nathan: Vente de medicament (Ibuprofène) à Raels
+2024-06-08 10:44 - Nathan: Generation d'une facture du patient : null
+2024-06-08 10:51 - Nathan: Vente de medicament (Ibuprofène) à Raels
+2024-06-08 10:56 - Nathan: Vente de medicament (Amoxicilline) à Audric
+2024-06-08 12:01 - Mihaja: Vente de medicament (Amoxicilline) à Raels
+2024-06-08 12:08 - Nathan: Vente de medicament (Ibuprofène) à Audric
+2024-06-08 12:08 - Nathan: Generation d'une facture du patient : null
+2024-06-08 12:10 - Nathan: Vente de medicament (Ibuprofène) à Raels

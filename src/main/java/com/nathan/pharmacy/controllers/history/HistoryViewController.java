@@ -91,7 +91,7 @@ public class HistoryViewController implements Initializable {
         List<History> histories = HistoryManager.getInstance().getHistory(date);
 
         for (History history : histories){
-            tableHistory.getItems().add(new History(history.getDate(), history.getUserName(), history.getAction()));
+            tableHistory.getItems().add(new History(history.getDate().toString(), history.getUserName(), history.getAction()));
         }
     }
 
@@ -101,7 +101,7 @@ public class HistoryViewController implements Initializable {
 
         for (History history : histories){
             if (history.getUserName().toLowerCase().contains(inputHistorySearch.getText().toLowerCase())){
-                tableHistory.getItems().add(new History(history.getDate(), history.getUserName(), history.getAction()));
+                tableHistory.getItems().add(new History(history.getDate().toString(), history.getUserName(), history.getAction()));
             }
         }
     }

@@ -5,6 +5,7 @@ import com.nathan.pharmacy.controllers.form.ValidNumber;
 import com.nathan.pharmacy.controllers.medicament.MedicamentModelController;
 import com.nathan.pharmacy.controllers.patient.PatientModelController;
 import com.nathan.pharmacy.controllers.purchase.PurchaseModelController;
+import com.nathan.pharmacy.contstants.AlertType;
 import com.nathan.pharmacy.contstants.DatePattern;
 import com.nathan.pharmacy.interfaces.FieldValidator;
 import com.nathan.pharmacy.models.*;
@@ -177,6 +178,7 @@ public class PrescriptionViewController implements Initializable {
         try {
             pc.insert(prescription);
             System.out.println("Prescription added");
+            AlertUtils.showAlert("Prescription ajouté", AlertType.SUCCESS);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -190,6 +192,7 @@ public class PrescriptionViewController implements Initializable {
         try {
             pc.delete(id);
             System.out.println("presc deleted");
+            AlertUtils.showAlert("Prescription supprimée", AlertType.SUCCESS);
             HistoryUtil.pushHistory(Session.getInstance().getUserName(),  String.format("Suppression d'une prescription ( %s )", id));
         } catch (Exception e) {
             e.printStackTrace();
@@ -237,7 +240,7 @@ public class PrescriptionViewController implements Initializable {
             PatientModelController pc = new PatientModelController();
             ResultSet rs = pc.selectBy("patientId", String.valueOf(patientId));
             rs.next();
-            //        NotificationManager.sendPatientPrescription(patientFName,"ralaivoavy.natanael@gmail.com", currMedUsageList);
+//            NotificationManager.sendPatientPrescription(patientFName,"ralaivoavy.natanael@gmail.com", currMedUsageList);
             NotificationManager.sendPatientPrescription(patientFName,rs.getString("patientEmail"), currMedUsageList);
         }catch (Exception ex){
             ex.printStackTrace();

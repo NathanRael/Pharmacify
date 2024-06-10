@@ -50,12 +50,12 @@ public class PurchaseModelController implements ModelInterface<Purchase> {
     }
 
     public ResultSet selectJoin() throws Exception {
-        String query = "SELECT * FROM purchase p, medicament m, patient pa WHERE p.medId = m.medId AND pa.patientId = p.patientId";
+        String query = "SELECT * FROM purchase p, medicament m, patient pa WHERE p.medId = m.medId AND pa.patientId = p.patientId ORDER BY p.purchaseDate DESC";
         return connection.executeQuery(query);
     }
 
     public ResultSet selectMostPurchasedProduct(int Limit, String date) throws Exception{
-        String query = " SELECT medName, purchaseQuantity FROM purchase p, medicament m WHERE p.medId = m.medId AND p.purchaseDate = '"+ date +"' GROUP BY p.purchaseDate, m.medId ORDER BY p.purchaseQuantity DESC LIMIT " + Limit;
+        String query = " SELECT medName, purchaseQuantity, m.medPrice, m.medQuantity FROM purchase p, medicament m WHERE p.medId = m.medId AND p.purchaseDate = '"+ date +"' GROUP BY p.purchaseDate, m.medId ORDER BY p.purchaseQuantity DESC LIMIT " + Limit;
 
         return connection.executeQuery(query);
     }

@@ -11,10 +11,11 @@ import net.sf.jasperreports.view.JasperViewer;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class PdfManager {
-    public void print(int patientId, LocalDate purchaseDate){
+    public void print(int patientId, LocalDateTime purchaseDate){
         try {
             ConnectionDb connectionDb = ConnectionDb.getInstance();
             String outputPath = "src/main/resources/com/nathan/pharmacy/pdf/invoice.pdf";

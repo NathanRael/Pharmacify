@@ -17,9 +17,8 @@ public class UserModelController implements ModelInterface<User> {
 
     @Override
     public void insert(User user) throws Exception{
-        String query = String.format("INSERT INTO user(userName, userPhone, userPwd ) VALUES ('%s', '%s', '%s' )"
-                , user.getName(), user.getPhone(), user.getPwd());
-
+        String query = String.format("INSERT INTO user(userName, userPhone, userPwd, userEmail) VALUES ('%s', '%s', '%s', '%s' )"
+                , user.getName(), user.getPhone(), user.getPwd(), user.getEmail());
         connection.executeUpdateQuery(query);
     }
 

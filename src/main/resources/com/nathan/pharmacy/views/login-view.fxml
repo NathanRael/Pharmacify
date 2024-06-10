@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
@@ -100,6 +101,11 @@
                                     <Cursor fx:constant="TEXT" />
                                  </cursor>
                               </PasswordField>
+                              <Label fx:id="textForgottenPassword" style="-fx-text-fill: -primary-100;" styleClass="text-base" text="Mot de passe oublié ?">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Label>
                            </children>
                         </VBox>
                      </children>
@@ -132,5 +138,89 @@
             </VBox>
          </children>
       </VBox>
+      <AnchorPane fx:id="forgottenPasswordPopup" layoutX="32.0" layoutY="84.0" prefHeight="593.0" prefWidth="628.0" style="-fx-background-color: -dark-100; -fx-border-color: -white-10; -fx-border-radius: 8;">
+         <children>
+            <FontAwesomeIconView fill="#18ad18" glyphName="KEY" layoutX="101.0" layoutY="56.0" selectionEnd="1" selectionStart="1" size="32" />
+            <Label layoutX="155.0" layoutY="32.0" style="-fx-text-fill: -white-100;" styleClass="text-subtitle-1" text="Modification de mot de passe " />
+            <FontAwesomeIconView fx:id="btnClose" fill="#e1e1e1" glyphName="CLOSE" layoutX="587.0" layoutY="37.0" selectionStart="1" size="24">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </FontAwesomeIconView>
+            <VBox layoutX="101.0" layoutY="114.0" spacing="24.0">
+               <children>
+                  <VBox prefHeight="77.0" prefWidth="340.0" spacing="8.0">
+                     <children>
+                        <Label style="-fx-text-fill: -white-100;" text="Email :" textFill="#e0e0e0">
+                           <styleClass>
+                              <String fx:value="default-font" />
+                              <String fx:value="font-bold" />
+                           </styleClass>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="inputEmail" promptText="Entrer votre email">
+                           <styleClass>
+                              <String fx:value="bg-white-10" />
+                              <String fx:value="input" />
+                           </styleClass>
+                           <cursor>
+                              <Cursor fx:constant="TEXT" />
+                           </cursor>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="77.0" prefWidth="340.0" spacing="8.0">
+                     <children>
+                        <Label style="-fx-text-fill: -white-100;" text="Code de validation :" textFill="#e0e0e0">
+                           <styleClass>
+                              <String fx:value="default-font" />
+                              <String fx:value="font-bold" />
+                           </styleClass>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="inputValidationCode" promptText="Entrer le code de validation">
+                           <styleClass>
+                              <String fx:value="bg-white-10" />
+                              <String fx:value="input" />
+                           </styleClass>
+                           <cursor>
+                              <Cursor fx:constant="TEXT" />
+                           </cursor>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="10.0" layoutY="111.0" prefHeight="77.0" prefWidth="340.0" spacing="8.0">
+                     <children>
+                        <Label style="-fx-text-fill: -white-100;" text="Nouveau mot de passe :" textFill="#e0e0e0">
+                           <styleClass>
+                              <String fx:value="default-font" />
+                              <String fx:value="font-bold" />
+                           </styleClass>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="inputNewPassword" promptText="Entrer un nouvueau mot de passe">
+                           <styleClass>
+                              <String fx:value="bg-white-10" />
+                              <String fx:value="input" />
+                           </styleClass>
+                           <cursor>
+                              <Cursor fx:constant="TEXT" />
+                           </cursor>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  <Button fx:id="btnValidate" disable="true" mnemonicParsing="false" prefHeight="44.0" prefWidth="341.0" style="-fx-background-color: -primary-100; -fx-text-fill: -white-100;" styleClass="button-lg" text="Modifer le mot de passe" />
+               </children>
+            </VBox>
+            <Button fx:id="btnSendValidationCode" disable="true" layoutX="449.0" layoutY="139.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="107.0" style="-fx-background-color: -primary-100; -fx-text-fill: -white-100;" styleClass="button-lg" text="Envoyer" />
+            <Button fx:id="btnVerifyCode" disable="true" layoutX="449.0" layoutY="244.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="107.0" style="-fx-background-color: -primary-100; -fx-text-fill: -white-100;" styleClass="button-lg" text="Verifier" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

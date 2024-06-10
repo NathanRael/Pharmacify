@@ -60,7 +60,7 @@ public class HistoryManager {
                     if (parts.length == 2) {
                         String[] nameAction = parts[1].split(": ");
                         if (nameAction.length == 2) {
-                            LocalDateTime date = LocalDateTime.parse(parts[0]);
+                            String date = parts[0];
                             String name = nameAction[0];
                             String action = nameAction[1];
                             historyEntries.add(new History(date, name, action));

@@ -264,7 +264,6 @@ public class DashboardViewController implements Initializable {
     public void loadTableContent() throws Exception {
         ObservableList<Purchase> purchase = FXCollections.observableArrayList();
         PurchaseModelController pc = new PurchaseModelController();
-
         ResultSet rs = pc.selectJoin();
 
         while (rs.next()){
